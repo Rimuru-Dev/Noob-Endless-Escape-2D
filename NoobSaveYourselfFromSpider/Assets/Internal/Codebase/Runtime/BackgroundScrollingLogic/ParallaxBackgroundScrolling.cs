@@ -27,6 +27,7 @@ namespace Internal.Codebase.Runtime.BackgroundScrollingLogic
     [RequireComponent(typeof(BoxCollider2D))]
     public sealed class ParallaxBackgroundScrolling : MonoBehaviour
     {
+        // If you need more backgrounds in length than two pieces, increase this value so that the queue works correctly!
         private const float RepositionOffsetX = 2f;
 
         [SerializeField] private LoopMode loopMode = LoopMode.Update;
