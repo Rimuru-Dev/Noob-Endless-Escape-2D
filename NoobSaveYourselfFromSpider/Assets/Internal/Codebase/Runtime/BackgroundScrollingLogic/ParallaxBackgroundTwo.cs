@@ -35,7 +35,7 @@ namespace Internal.Codebase.Runtime.BackgroundScrollingLogic
             for (int i = 0; i < backgrounds.Length; i++)
             {
                 float backgroundTargetPositionX =
-                    backgrounds[i].position.x - parallaxSpeed * (parallaxScale + 1) * Time.deltaTime;
+                    backgrounds[i].position.x - parallaxSpeed * (parallaxScale/* + 1*/) * Time.deltaTime;
 
                 if (backgroundTargetPositionX < backgroundOffset - backgroundWidths[i])
                 {
