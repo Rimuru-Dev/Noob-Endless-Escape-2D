@@ -8,7 +8,7 @@
 
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.BackgroundScrollingLogic
+namespace Internal.Codebase.Runtime.BackgroundScrollingLogic.Parallax
 {
     /// <summary>
     /// Add a background to the scene. You add components such as:

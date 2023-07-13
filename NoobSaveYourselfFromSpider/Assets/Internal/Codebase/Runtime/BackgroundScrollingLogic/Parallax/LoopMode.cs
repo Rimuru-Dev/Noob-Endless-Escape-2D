@@ -8,7 +8,7 @@
 
 using System;
 
-namespace Internal.Codebase.Runtime.BackgroundScrollingLogic
+namespace Internal.Codebase.Runtime.BackgroundScrollingLogic.Parallax
 {
     [Serializable]
     public enum LoopMode
