@@ -369,7 +369,8 @@ MonoBehaviour:
   - {fileID: 1357154680}
   - {fileID: 1750708907}
   parallaxScale: 0
-  parallaxSpeed: 0
+  parallaxSpeed: 1
+  mainCamera: {fileID: 953921048}
 --- !u!4 &1214642457
 Transform:
   m_ObjectHideFlags: 0
