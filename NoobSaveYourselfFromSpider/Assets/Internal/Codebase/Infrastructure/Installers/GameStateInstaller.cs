@@ -25,6 +25,7 @@ namespace AbyssMoth.Internal.Codebase.Infrastructure.Installers
             Container.Bind<BootstrapState>().AsSingle();
             Container.Bind<LoadMaiMenuState>().AsSingle();
             Container.Bind<GameplaySceneState>().AsSingle();
+            Container.Bind<GameOverState>().AsSingle();
 
             Container.Bind<GameStateMachine>().AsSingle();
         }

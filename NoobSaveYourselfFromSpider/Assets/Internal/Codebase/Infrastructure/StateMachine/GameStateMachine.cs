@@ -26,13 +26,15 @@ namespace AbyssMoth.Internal.Codebase.Infrastructure.StateMachine
         public GameStateMachine(
             BootstrapState bootstrapState,
             LoadMaiMenuState loadMaiMenuState,
-            GameplaySceneState gameplaySceneState)
+            GameplaySceneState gameplaySceneState,
+            GameOverState gameOverState)
         {
             states = new Dictionary<Type, IExitableState>
             {
                 [typeof(BootstrapState)] = bootstrapState,
                 [typeof(LoadMaiMenuState)] = loadMaiMenuState,
                 [typeof(GameplaySceneState)] = gameplaySceneState,
+                [typeof(GameOverState)] = gameOverState,
             };
         }
 

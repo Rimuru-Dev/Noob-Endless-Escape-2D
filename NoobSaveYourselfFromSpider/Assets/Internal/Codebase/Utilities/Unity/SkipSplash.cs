@@ -1,3 +1,10 @@
+// **************************************************************** //
+//
+//   Copyright (c) RimuruDev. All rights reserved.
+//   Contact me: rimuru.dev@gmail.com
+//
+// **************************************************************** //
+
 #if !UNITY_EDITOR
 using UnityEngine;
 using UnityEngine.Rendering;
