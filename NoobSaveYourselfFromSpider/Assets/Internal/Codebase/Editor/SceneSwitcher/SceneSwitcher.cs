@@ -12,7 +12,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace AbyssMoth.Internal.Codebase.Editor.SceneSwitcher
+namespace Internal.Codebase.Editor.SceneSwitcher
 {
     public sealed class SceneSwitcher : EditorWindow
     {

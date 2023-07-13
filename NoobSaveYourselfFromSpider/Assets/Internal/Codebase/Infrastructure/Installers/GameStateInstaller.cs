@@ -6,11 +6,11 @@
 // **************************************************************** //
 
 using System.Diagnostics.CodeAnalysis;
-using AbyssMoth.Internal.Codebase.Infrastructure.StateMachine;
-using AbyssMoth.Internal.Codebase.Infrastructure.StateMachine.States;
+using Internal.Codebase.Infrastructure.StateMachine;
+using Internal.Codebase.Infrastructure.StateMachine.States;
 using Zenject;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Installers
+namespace Internal.Codebase.Infrastructure.Installers
 {
     [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeInvocation")]
     public class GameStateInstaller : MonoInstaller

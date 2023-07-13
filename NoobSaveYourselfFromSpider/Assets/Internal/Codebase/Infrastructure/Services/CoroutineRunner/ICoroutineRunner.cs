@@ -8,7 +8,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Services.CoroutineRunner
+namespace Internal.Codebase.Infrastructure.Services.CoroutineRunner
 {
     public interface ICoroutineRunner
     {

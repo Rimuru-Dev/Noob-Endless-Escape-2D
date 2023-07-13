@@ -5,9 +5,9 @@
 //
 // **************************************************************** //
 
-using AbyssMoth.Internal.Codebase.Infrastructure.StateMachine.Interfaces;
+using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.StateMachine.States
+namespace Internal.Codebase.Infrastructure.StateMachine.States
 {
     public sealed class GameOverState : IStateNext
     {

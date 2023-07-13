@@ -5,9 +5,9 @@
 //
 // **************************************************************** //
 
-using AbyssMoth.Internal.Codebase.Runtime.Curtain;
+using Internal.Codebase.Runtime.Curtain;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Services.StaticData
+namespace Internal.Codebase.Infrastructure.Services.StaticData
 {
     public interface IStaticDataService
     {

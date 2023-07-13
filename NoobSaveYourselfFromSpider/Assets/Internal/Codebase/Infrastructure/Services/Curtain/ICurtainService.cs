@@ -7,7 +7,7 @@
 
 using System;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Services.Curtain
+namespace Internal.Codebase.Infrastructure.Services.Curtain
 {
     public interface ICurtainService
     {

@@ -7,12 +7,12 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.Resource;
+using Internal.Codebase.Infrastructure.Services.Resource;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.AssetManagement
+namespace Internal.Codebase.Infrastructure.AssetManagement
 {
     [SuppressMessage("ReSharper", "MethodOverloadWithOptionalParameter")]
     public sealed class AssetProvider : IAssetProvider

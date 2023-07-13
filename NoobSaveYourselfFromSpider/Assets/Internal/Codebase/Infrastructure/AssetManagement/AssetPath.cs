@@ -5,7 +5,7 @@
 //
 // **************************************************************** //
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.AssetManagement
+namespace Internal.Codebase.Infrastructure.AssetManagement
 {
     public readonly struct AssetPath
     {

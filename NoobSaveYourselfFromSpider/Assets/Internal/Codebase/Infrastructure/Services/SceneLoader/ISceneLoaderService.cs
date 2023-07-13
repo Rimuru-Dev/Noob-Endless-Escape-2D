@@ -7,7 +7,7 @@
 
 using System;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Services.SceneLoader
+namespace Internal.Codebase.Infrastructure.Services.SceneLoader
 {
     public interface ISceneLoaderService
     {

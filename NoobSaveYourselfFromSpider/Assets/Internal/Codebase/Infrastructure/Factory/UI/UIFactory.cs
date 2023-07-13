@@ -6,14 +6,14 @@
 // **************************************************************** //
 
 using System;
-using AbyssMoth.Internal.Codebase.Infrastructure.AssetManagement;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.StaticData;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.Storage;
-using AbyssMoth.Internal.Codebase.Runtime.Curtain;
+using Internal.Codebase.Infrastructure.AssetManagement;
+using Internal.Codebase.Infrastructure.Services.StaticData;
+using Internal.Codebase.Infrastructure.Services.Storage;
+using Internal.Codebase.Runtime.Curtain;
 using UnityEngine;
 using Zenject;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Factory.UI
+namespace Internal.Codebase.Infrastructure.Factory.UI
 {
     public sealed class UIFactory : IUIFactory
     {

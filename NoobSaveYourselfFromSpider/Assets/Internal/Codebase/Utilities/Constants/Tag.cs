@@ -5,7 +5,7 @@
 //
 // **************************************************************** //
 
-namespace AbyssMoth.Internal.Codebase.Utilities.Constants
+namespace Internal.Codebase.Utilities.Constants
 {
     public readonly struct Tag
     {

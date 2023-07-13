@@ -7,7 +7,7 @@
 
 using System;
 
-namespace AbyssMoth.Internal.Codebase.Utilities.Exceptions
+namespace Internal.Codebase.Utilities.Exceptions
 {
     public sealed class AssetLoadException : Exception
     {

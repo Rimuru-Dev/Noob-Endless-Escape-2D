@@ -9,7 +9,7 @@
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.AssetManagement
+namespace Internal.Codebase.Infrastructure.AssetManagement
 {
     [SuppressMessage("ReSharper", "MethodOverloadWithOptionalParameter")]
     public interface IAssetProvider

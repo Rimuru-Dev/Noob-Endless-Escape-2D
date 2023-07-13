@@ -5,16 +5,16 @@
 //
 // **************************************************************** //
 
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.Curtain;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.SceneLoader;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.StaticData;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.Storage;
-using AbyssMoth.Internal.Codebase.Infrastructure.StateMachine.Interfaces;
-using AbyssMoth.Internal.Codebase.Utilities.Constants;
 using DG.Tweening;
+using Internal.Codebase.Infrastructure.Services.Curtain;
+using Internal.Codebase.Infrastructure.Services.SceneLoader;
+using Internal.Codebase.Infrastructure.Services.StaticData;
+using Internal.Codebase.Infrastructure.Services.Storage;
+using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
+using Internal.Codebase.Utilities.Constants;
 using Zenject;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.StateMachine.States
+namespace Internal.Codebase.Infrastructure.StateMachine.States
 {
     public sealed class BootstrapState : IStateNext
     {

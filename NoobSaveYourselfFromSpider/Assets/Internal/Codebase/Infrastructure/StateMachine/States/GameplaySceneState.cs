@@ -5,14 +5,14 @@
 //
 // **************************************************************** //
 
-using AbyssMoth.Internal.Codebase.Infrastructure.Factory.UI;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.Curtain;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.SceneLoader;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.StaticData;
-using AbyssMoth.Internal.Codebase.Infrastructure.StateMachine.Interfaces;
+using Internal.Codebase.Infrastructure.Factory.UI;
+using Internal.Codebase.Infrastructure.Services.Curtain;
+using Internal.Codebase.Infrastructure.Services.SceneLoader;
+using Internal.Codebase.Infrastructure.Services.StaticData;
+using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
 using Zenject;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.StateMachine.States
+namespace Internal.Codebase.Infrastructure.StateMachine.States
 {
     public sealed class GameplaySceneState : IStateNext
     {

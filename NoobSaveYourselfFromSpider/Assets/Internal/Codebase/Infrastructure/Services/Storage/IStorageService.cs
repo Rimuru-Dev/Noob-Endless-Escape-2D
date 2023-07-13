@@ -7,7 +7,7 @@
 
 using System;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Services.Storage
+namespace Internal.Codebase.Infrastructure.Services.Storage
 {
     public interface IStorageService
     {

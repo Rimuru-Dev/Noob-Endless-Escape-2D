@@ -5,17 +5,17 @@
 //
 // **************************************************************** //
 
-using AbyssMoth.Internal.Codebase.Infrastructure.Factory.UI;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.Curtain;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.SceneLoader;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.StaticData;
-using AbyssMoth.Internal.Codebase.Infrastructure.StateMachine.Interfaces;
-using AbyssMoth.Internal.Codebase.Utilities.Constants;
+using Internal.Codebase.Infrastructure.Factory.UI;
+using Internal.Codebase.Infrastructure.Services.Curtain;
+using Internal.Codebase.Infrastructure.Services.SceneLoader;
+using Internal.Codebase.Infrastructure.Services.StaticData;
+using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
+using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.StateMachine.States
+namespace Internal.Codebase.Infrastructure.StateMachine.States
 {
     public sealed class LoadMaiMenuState : IStateNext
     {

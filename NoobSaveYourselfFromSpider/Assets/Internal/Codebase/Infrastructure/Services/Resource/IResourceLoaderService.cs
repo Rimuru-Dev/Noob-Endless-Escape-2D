@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Services.Resource
+namespace Internal.Codebase.Infrastructure.Services.Resource
 {
     public interface IResourceLoaderService
     {

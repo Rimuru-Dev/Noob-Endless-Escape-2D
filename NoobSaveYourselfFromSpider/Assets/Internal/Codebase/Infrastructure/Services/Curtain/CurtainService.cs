@@ -6,11 +6,11 @@
 // **************************************************************** //
 
 using System;
-using AbyssMoth.Internal.Codebase.Infrastructure.Factory.UI;
-using AbyssMoth.Internal.Codebase.Runtime.Curtain;
+using Internal.Codebase.Infrastructure.Factory.UI;
+using Internal.Codebase.Runtime.Curtain;
 using Zenject;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Services.Curtain
+namespace Internal.Codebase.Infrastructure.Services.Curtain
 {
     public sealed class CurtainService : ICurtainService
     {

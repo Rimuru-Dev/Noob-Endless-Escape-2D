@@ -7,12 +7,12 @@
 
 using System;
 using System.Collections;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.CoroutineRunner;
+using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Services.SceneLoader
+namespace Internal.Codebase.Infrastructure.Services.SceneLoader
 {
     public sealed class SceneLoaderService : ISceneLoaderService
     {

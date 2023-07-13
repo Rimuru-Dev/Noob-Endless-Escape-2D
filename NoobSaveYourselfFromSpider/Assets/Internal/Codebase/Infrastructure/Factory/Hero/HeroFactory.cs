@@ -6,13 +6,13 @@
 // **************************************************************** //
 
 using System;
-using AbyssMoth.Internal.Codebase.Infrastructure.AssetManagement;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.StaticData;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.Storage;
+using Internal.Codebase.Infrastructure.AssetManagement;
+using Internal.Codebase.Infrastructure.Services.StaticData;
+using Internal.Codebase.Infrastructure.Services.Storage;
 using UnityEngine;
 using Zenject;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Factory.Hero
+namespace Internal.Codebase.Infrastructure.Factory.Hero
 {
     public sealed class HeroFactory : IHeroFactory
     {

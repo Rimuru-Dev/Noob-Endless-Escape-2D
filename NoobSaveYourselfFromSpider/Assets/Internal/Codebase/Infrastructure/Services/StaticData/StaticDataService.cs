@@ -5,12 +5,12 @@
 //
 // **************************************************************** //
 
-using AbyssMoth.Internal.Codebase.Infrastructure.AssetManagement;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.Resource;
-using AbyssMoth.Internal.Codebase.Runtime.Curtain;
+using Internal.Codebase.Infrastructure.AssetManagement;
+using Internal.Codebase.Infrastructure.Services.Resource;
+using Internal.Codebase.Runtime.Curtain;
 using Zenject;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Services.StaticData
+namespace Internal.Codebase.Infrastructure.Services.StaticData
 {
     public sealed class StaticDataService : IStaticDataService
     {

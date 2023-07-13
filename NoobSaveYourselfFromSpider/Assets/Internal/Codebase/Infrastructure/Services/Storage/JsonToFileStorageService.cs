@@ -10,7 +10,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using UnityEngine;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Services.Storage
+namespace Internal.Codebase.Infrastructure.Services.Storage
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     public sealed class JsonToFileStorageService : IStorageService

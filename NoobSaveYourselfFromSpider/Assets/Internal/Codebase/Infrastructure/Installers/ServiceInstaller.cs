@@ -6,18 +6,18 @@
 // **************************************************************** //
 
 using System.Diagnostics.CodeAnalysis;
-using AbyssMoth.Internal.Codebase.Infrastructure.AssetManagement;
-using AbyssMoth.Internal.Codebase.Infrastructure.Factory.Hero;
-using AbyssMoth.Internal.Codebase.Infrastructure.Factory.UI;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.CoroutineRunner;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.Curtain;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.Resource;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.SceneLoader;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.StaticData;
-using AbyssMoth.Internal.Codebase.Infrastructure.Services.Storage;
+using Internal.Codebase.Infrastructure.AssetManagement;
+using Internal.Codebase.Infrastructure.Factory.Hero;
+using Internal.Codebase.Infrastructure.Factory.UI;
+using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
+using Internal.Codebase.Infrastructure.Services.Curtain;
+using Internal.Codebase.Infrastructure.Services.Resource;
+using Internal.Codebase.Infrastructure.Services.SceneLoader;
+using Internal.Codebase.Infrastructure.Services.StaticData;
+using Internal.Codebase.Infrastructure.Services.Storage;
 using Zenject;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Installers
+namespace Internal.Codebase.Infrastructure.Installers
 {
     [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeInvocation")]
     public sealed class ServiceInstaller : MonoInstaller, ICoroutineRunner

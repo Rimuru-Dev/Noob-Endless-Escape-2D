@@ -5,7 +5,7 @@
 //
 // **************************************************************** //
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.StateMachine.Interfaces
+namespace Internal.Codebase.Infrastructure.StateMachine.Interfaces
 {
     public interface IExitableState : IInitGameStateMachine
     {

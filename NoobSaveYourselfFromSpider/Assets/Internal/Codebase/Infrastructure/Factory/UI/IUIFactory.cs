@@ -5,10 +5,10 @@
 //
 // **************************************************************** //
 
-using AbyssMoth.Internal.Codebase.Runtime.Curtain;
+using Internal.Codebase.Runtime.Curtain;
 using UnityEngine;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Factory.UI
+namespace Internal.Codebase.Infrastructure.Factory.UI
 {
     public interface IUIFactory
     {

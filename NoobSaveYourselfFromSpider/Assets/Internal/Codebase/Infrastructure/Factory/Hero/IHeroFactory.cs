@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Factory.Hero
+namespace Internal.Codebase.Infrastructure.Factory.Hero
 {
     public interface IHeroFactory
     {

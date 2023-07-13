@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace AbyssMoth.Internal.Codebase.Runtime.Curtain
+namespace Internal.Codebase.Runtime.Curtain
 {
     [CreateAssetMenu(menuName = "StaticData/Create CurtainConfig", fileName = "CurtainConfig", order = 0)]
     public sealed class CurtainConfig : ScriptableObject

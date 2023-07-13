@@ -5,9 +5,7 @@
 //
 // **************************************************************** //
 
-using System.Diagnostics.CodeAnalysis;
-
-namespace AbyssMoth.Internal.Codebase.Infrastructure.StateMachine.Interfaces
+namespace Internal.Codebase.Infrastructure.StateMachine.Interfaces
 {
     public interface IStateWithArgument<T>
     {

@@ -8,11 +8,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using AbyssMoth.Internal.Codebase.Infrastructure.StateMachine.Interfaces;
-using AbyssMoth.Internal.Codebase.Infrastructure.StateMachine.States;
+using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
+using Internal.Codebase.Infrastructure.StateMachine.States;
 using Zenject;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.StateMachine
+namespace Internal.Codebase.Infrastructure.StateMachine
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     [SuppressMessage("ReSharper", "SuspiciousTypeConversion.Global")]

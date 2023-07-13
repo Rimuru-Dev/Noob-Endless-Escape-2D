@@ -6,12 +6,12 @@
 // **************************************************************** //
 
 using System.Diagnostics.CodeAnalysis;
-using AbyssMoth.Internal.Codebase.Infrastructure.StateMachine;
-using AbyssMoth.Internal.Codebase.Infrastructure.StateMachine.States;
+using Internal.Codebase.Infrastructure.StateMachine;
+using Internal.Codebase.Infrastructure.StateMachine.States;
 using UnityEngine;
 using Zenject;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Boot
+namespace Internal.Codebase.Infrastructure.Boot
 {
     [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeInvocation")]
     public sealed class GameBootstrapper : MonoBehaviour

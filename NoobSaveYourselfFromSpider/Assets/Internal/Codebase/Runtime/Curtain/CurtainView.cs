@@ -9,7 +9,7 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-namespace AbyssMoth.Internal.Codebase.Runtime.Curtain
+namespace Internal.Codebase.Runtime.Curtain
 {
     public sealed class CurtainView : MonoBehaviour
     {

@@ -8,11 +8,11 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using AbyssMoth.Internal.Codebase.Utilities.Exceptions;
+using Internal.Codebase.Utilities.Exceptions;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace AbyssMoth.Internal.Codebase.Infrastructure.Services.Resource
+namespace Internal.Codebase.Infrastructure.Services.Resource
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     public sealed class ResourceLoaderServiceService : IResourceLoaderService
