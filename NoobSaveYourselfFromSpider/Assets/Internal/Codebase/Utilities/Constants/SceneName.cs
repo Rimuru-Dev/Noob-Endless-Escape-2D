@@ -11,5 +11,6 @@ namespace AbyssMoth.Internal.Codebase.Utilities.Constants
     {
         public const string Boot = nameof(Boot);
         public const string Menu = nameof(Menu);
+        public static string Gameplay = nameof(Gameplay);
     }
 }
