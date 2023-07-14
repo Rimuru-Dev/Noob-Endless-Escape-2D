@@ -16,42 +16,71 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
         public Transform root;
         public Transform spawnPoint;
         public GameObject[] prefabs;
-        public float tileWidth;
         public float speed = -5;
+        public int spawnThreshold = 2; // Количество платформ, прошедших за экран, для спавна новых
 
-        private List<GameObject> pool = new();
+        private List<GameObject> pool = new List<GameObject>();
+        private float gapThreshold = 40f;
 
         private void Start()
         {
-            Vector2 pos = spawnPoint.position;
-            for (var i = 0; i < prefabs.Length; i++)
+            float xPos = spawnPoint.position.x;
+
+            foreach (var prefab in prefabs)
             {
-                if (i == 0)
-                {
-                    var instance = Instantiate(prefabs[i], pos, Quaternion.identity, root);
-                    pool.Add(instance);
-                }
-                else
-                {
-                    var instance = Instantiate(prefabs[i], root);
-                    var position = new Vector2((i * instance.GetComponent<BoxCollider2D>().size.x) - pos.x, pos.y);
+                var instance = Instantiate(prefab, root);
+                var position = new Vector2(xPos, spawnPoint.position.y);
 
-                    instance.transform.position = position;
+                instance.transform.position = position;
+                pool.Add(instance);
 
-                    pool.Add(instance);
-                }
+                var collider = instance.GetComponent<BoxCollider2D>();
+                xPos += collider.size.x;
             }
         }
 
         private void Update()
         {
-            for (var i = 0; i < pool.Count; i++)
+            for (int i = pool.Count - 1; i >= 0; i--)
             {
-                if (pool[i] == null)
-                    pool.TrimExcess();
-                else
+                if (pool[i] != null)
+                {
                     pool[i].transform.position = new Vector2(pool[i].transform.position.x + speed * Time.deltaTime,
                         pool[i].transform.position.y);
+
+                    if (pool[i].transform.position.x < spawnPoint.position.x - gapThreshold)
+                    {
+                        // Удаление частей уровня, которые вышли за границу экрана
+                        Destroy(pool[i]);
+                        pool.RemoveAt(i);
+                    }
+                }
+            }
+
+            // Генерация новых частей уровня, если количество платформ, прошедших за экран, достигает порога
+            int platformsPassed = 0;
+            foreach (var platform in pool)
+            {
+                if (platform.transform.position.x <= spawnPoint.position.x)
+                {
+                    platformsPassed++;
+                }
+            }
+
+            if (platformsPassed <= spawnThreshold)
+            {
+                float xPos = pool[pool.Count - 1].transform.position.x;
+                foreach (var prefab in prefabs)
+                {
+                    var instance = Instantiate(prefab, root);
+                    var position = new Vector2(xPos, spawnPoint.position.y);
+
+                    instance.transform.position = position;
+                    pool.Add(instance);
+
+                    var collider = instance.GetComponent<BoxCollider2D>();
+                    xPos += collider.size.x;
+                }
             }
         }
 
