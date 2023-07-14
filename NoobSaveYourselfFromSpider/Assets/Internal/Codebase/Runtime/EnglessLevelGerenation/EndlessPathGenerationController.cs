@@ -37,8 +37,8 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
                 instance.transform.position = position;
                 pool.Add(instance.gameObject);
 
-                var boxCollider2D = instance.GetComponent<BoxCollider2D>();
-                xPos += boxCollider2D.size.x;
+                var boxCollider2D = instance.GetComponent<PrefabHelper>();
+                xPos += boxCollider2D.PrefabSize.x;
             }
 
             foreach (var prefab in prefabs)
@@ -49,8 +49,8 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
                 instance.transform.position = position;
                 pool.Add(instance);
 
-                var boxCollider2D = instance.GetComponent<BoxCollider2D>();
-                xPos += boxCollider2D.size.x;
+                var boxCollider2D = instance.GetComponent<PrefabHelper>();
+                xPos += boxCollider2D.PrefabSize.x;
             }
 
             spawnDistance = pool[^1].transform.position.x - spawnPoint.position.x + spawnOffset;
@@ -86,8 +86,8 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
             var prefab = prefabs[randomIndex];
 
             var lastBlock = pool[^1];
-            var boxCollider2D = lastBlock.GetComponent<BoxCollider2D>();
-            var position = new Vector2(lastBlock.transform.position.x + boxCollider2D.size.x, spawnPoint.position.y);
+            var boxCollider2D = lastBlock.GetComponent<PrefabHelper>();
+            var position = new Vector2(lastBlock.transform.position.x + boxCollider2D.PrefabSize.x, spawnPoint.position.y);
 
             var instance = Instantiate(prefab, position, Quaternion.identity, root);
             pool.Add(instance);
