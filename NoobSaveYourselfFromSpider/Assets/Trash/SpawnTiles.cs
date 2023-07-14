@@ -7,9 +7,8 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
-namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
+namespace Trash
 {
     public sealed class SpawnTiles : MonoBehaviour
     {

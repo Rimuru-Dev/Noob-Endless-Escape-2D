@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
+namespace Internal.Codebase.Runtime.EnglessLevelGerenation
 {
     public sealed class EndlessPathGenerationController : MonoBehaviour
     {

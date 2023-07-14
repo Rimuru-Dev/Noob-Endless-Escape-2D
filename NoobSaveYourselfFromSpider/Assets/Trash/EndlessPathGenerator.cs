@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
+namespace Trash
 {
     public sealed class EndlessPathGenerator : MonoBehaviour
     {

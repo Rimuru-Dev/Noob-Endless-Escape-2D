@@ -8,7 +8,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
+namespace Trash
 {
     public sealed class TilemapSpawner : MonoBehaviour
     {

@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
+namespace Trash
 {
     public sealed class PathGenerator : MonoBehaviour
     {
