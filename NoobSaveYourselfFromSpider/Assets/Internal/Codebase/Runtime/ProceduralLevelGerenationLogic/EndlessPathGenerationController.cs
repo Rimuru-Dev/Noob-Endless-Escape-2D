@@ -14,6 +14,7 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
     public sealed class EndlessPathGenerationController : MonoBehaviour
     {
         public Transform root;
+        public Transform initialPrefab;
         public Transform spawnPoint;
         public GameObject[] prefabs;
         public float speed = -5;
@@ -28,6 +29,18 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
         private void Start()
         {
             var xPos = spawnPoint.position.x;
+
+            {
+                var instance = Instantiate(initialPrefab, root);
+                var position = new Vector2(xPos, spawnPoint.position.y);
+
+                instance.transform.position = position;
+                pool.Add(instance.gameObject);
+
+                var boxCollider2D = instance.GetComponent<BoxCollider2D>();
+                xPos += boxCollider2D.size.x;
+            }
+
             foreach (var prefab in prefabs)
             {
                 var instance = Instantiate(prefab, root);
