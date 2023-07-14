@@ -6,6 +6,7 @@
 // **************************************************************** //
 
 using System.Linq;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Internal.Codebase.Runtime.EnglessLevelGerenation
@@ -17,7 +18,11 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
     {
         #region Fields
 
-        [SerializeField] private int spriteRendererSortingOrder;
+        [SerializeField] private bool canSetLayerForAll;
+
+        [SerializeField, ShowIf("canSetLayerForAll")]
+        private int spriteRendererSortingOrder;
+
         [SerializeField] private BoxCollider2D prefabHeight;
 
         #endregion
@@ -43,6 +48,9 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
         [System.Diagnostics.Conditional("DEBUG")]
         private void SetNewSpriteRendererSortingOrder()
         {
+            if (!canSetLayerForAll)
+                return;
+
             GetComponentsInChildren<SpriteRenderer>(true)
                 .Where(sr => sr != null)
                 .ToList()
