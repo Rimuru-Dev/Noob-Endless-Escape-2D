@@ -65,6 +65,10 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
                 if (prefabHeight.isTrigger == false)
                     prefabHeight.isTrigger = true;
 
+                var thirdLayer = LayerMask.NameToLayer("Ignore");
+                if (prefabHeight.gameObject.layer != thirdLayer)
+                    prefabHeight.gameObject.layer = thirdLayer;
+
                 return;
             }
 
