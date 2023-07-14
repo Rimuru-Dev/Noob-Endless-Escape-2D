@@ -580,6 +580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6558e997fc80400189db599180422577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSetLayerForAll: 1
   spriteRendererSortingOrder: 11
   prefabHeight: {fileID: 6605048400184063021}
 --- !u!1 &8995984210886806187
