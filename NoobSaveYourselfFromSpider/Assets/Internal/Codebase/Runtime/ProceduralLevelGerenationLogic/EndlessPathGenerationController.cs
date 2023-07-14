@@ -5,7 +5,6 @@
 //
 // **************************************************************** //
 
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -22,7 +21,7 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
         public float despawnOffset = 20f;
         public int maxBlocks = 20;
 
-        private List<GameObject> pool = new List<GameObject>();
+        private List<GameObject> pool = new();
         private float spawnDistance;
         private float maxDespawnPositionX;
 
@@ -48,9 +47,7 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
         private void Update()
         {
             if (pool.Count < maxBlocks)
-            {
                 SpawnBlock();
-            }
 
             for (int i = pool.Count - 1; i >= 0; i--)
             {
@@ -86,31 +83,6 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
         {
             Destroy(block);
             pool.Remove(block);
-        }
-
-        private float GetTileWidth(GameObject tile)
-        {
-            BoxCollider2D collider = tile.GetComponent<BoxCollider2D>();
-            if (collider != null)
-            {
-                return collider.bounds.size.x;
-            }
-
-            return 0f;
-        }
-
-        private float GetSizeX(GameObject target)
-        {
-            var boxCollider2D = target.GetComponent<BoxCollider2D>();
-
-            return boxCollider2D != null ? boxCollider2D.size.x : 0f;
-        }
-
-        private float GeOffsetX(GameObject target)
-        {
-            var boxCollider2D = target.GetComponent<BoxCollider2D>();
-
-            return boxCollider2D != null ? boxCollider2D.offset.x : 0f;
         }
     }
 }
