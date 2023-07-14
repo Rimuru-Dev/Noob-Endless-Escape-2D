@@ -929,10 +929,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 407254298}
   prefabs:
-  - {fileID: 3976992239557078837, guid: 25474ec938123114d8a50c5391153a05, type: 3}
-  - {fileID: 4390450713303228311, guid: 492b48c6932b7e047a463462ffaa5bc7, type: 3}
-  - {fileID: 1151166688071622159, guid: b673b73efcdad80439471c3597f61dde, type: 3}
-  spawnPosition: {x: 0, y: 0, z: 0}
+  - {fileID: 578989256318732749, guid: 0aeaa44ad68a30742a35c71c6267932a, type: 3}
+  - {fileID: 7545904902166724344, guid: 5569129d0fb8efe4ba9a13d66b63dbfa, type: 3}
+  - {fileID: 7545904902166724344, guid: 5569129d0fb8efe4ba9a13d66b63dbfa, type: 3}
   tileWidth: 0
 --- !u!4 &1037010375
 Transform:
