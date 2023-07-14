@@ -7,21 +7,17 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
 {
     public sealed class LevelGenerator : MonoBehaviour
     {
-        public Transform player;
-        public Tilemap tilemap;
         public GameObject[] prefabTiles;
-        public float spawnDistance = 10f;
-        public int maxTiles = 5;
+        public int maxTiles = 50;
 
-        private List<GameObject> spawnedTiles = new List<GameObject>();
-        private float totalWidth = 0f;
-        private float tileWidth = 0f;
+        private List<GameObject> spawnedTiles = new();
+        private float totalWidth;
+        private float tileWidth;
 
         private void Start()
         {
@@ -55,7 +51,7 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
 
         private void MoveLevel()
         {
-            float moveSpeed = 2f; // Устанавливайте свою скорость движения уровня
+            float moveSpeed = 2f;
             float newXPosition = transform.position.x - moveSpeed * Time.deltaTime;
             transform.position = new Vector3(newXPosition, transform.position.y, transform.position.z);
         }
@@ -89,14 +85,10 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
 
         private void AttachTileToPrevious(GameObject currentTile, GameObject previousTile)
         {
-            Bounds currentBounds = GetTileBounds(currentTile);
-            Bounds previousBounds = GetTileBounds(previousTile);
-
-            float offsetX = currentBounds.center.x - currentBounds.min.x + previousBounds.center.x -
-                            previousBounds.max.x;
-            float offsetY = currentBounds.center.y - currentBounds.min.y + previousBounds.center.y -
-                            previousBounds.max.y;
-            currentTile.transform.position += new Vector3(-offsetX, -offsetY, 0f);
+            float currentOffsetX = GetTileSize(currentTile).x / 2f;
+            float previousOffsetX = GetTileSize(previousTile).x / 2f;
+            float offsetX = tileWidth / 2f + currentOffsetX + previousOffsetX;
+            currentTile.transform.position = new Vector3(previousTile.transform.position.x + offsetX, 0f, 0f);
         }
 
         private GameObject SpawnRandomTile()
@@ -110,21 +102,21 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
             BoxCollider2D collider = tile.GetComponent<BoxCollider2D>();
             if (collider != null)
             {
-                return collider.size.x;
+                return collider.bounds.size.x;
             }
 
             return 0f;
         }
 
-        private Bounds GetTileBounds(GameObject tile)
+        private Vector2 GetTileSize(GameObject tile)
         {
             BoxCollider2D collider = tile.GetComponent<BoxCollider2D>();
             if (collider != null)
             {
-                return collider.bounds;
+                return collider.bounds.size;
             }
 
-            return new Bounds();
+            return Vector2.zero;
         }
     }
 }
