@@ -15,7 +15,7 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
         public GameObject[] prefabTiles;
         public int maxTiles = 50;
 
-        private List<GameObject> spawnedTiles = new();
+        private List<GameObject> spawnedTiles = new List<GameObject>();
         private float totalWidth;
         private float tileWidth;
 
@@ -85,9 +85,9 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
 
         private void AttachTileToPrevious(GameObject currentTile, GameObject previousTile)
         {
-            float currentOffsetX = GetTileSize(currentTile).x / 2f;
-            float previousOffsetX = GetTileSize(previousTile).x / 2f;
-            float offsetX = tileWidth / 2f + currentOffsetX + previousOffsetX;
+            Vector2 currentOffset = GetTileSize(currentTile) / 2f;
+            Vector2 previousOffset = GetTileSize(previousTile) / 2f;
+            float offsetX = tileWidth / 2f + currentOffset.x + previousOffset.x;
             currentTile.transform.position = new Vector3(previousTile.transform.position.x + offsetX, 0f, 0f);
         }
 
