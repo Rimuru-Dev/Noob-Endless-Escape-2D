@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
 {
@@ -17,15 +18,17 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
         public Transform spawnPoint;
         public GameObject[] prefabs;
         public float speed = -5;
-        public int spawnThreshold = 2; // Количество платформ, прошедших за экран, для спавна новых
+        public float spawnOffset = 40f;
+        public float despawnOffset = 20f;
+        public int maxBlocks = 20;
 
         private List<GameObject> pool = new List<GameObject>();
-        private float gapThreshold = 40f;
+        private float spawnDistance;
+        private float maxDespawnPositionX;
 
         private void Start()
         {
             float xPos = spawnPoint.position.x;
-
             foreach (var prefab in prefabs)
             {
                 var instance = Instantiate(prefab, root);
@@ -37,51 +40,52 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
                 var collider = instance.GetComponent<BoxCollider2D>();
                 xPos += collider.size.x;
             }
+
+            spawnDistance = pool[pool.Count - 1].transform.position.x - spawnPoint.position.x + spawnOffset;
+            maxDespawnPositionX = pool[0].transform.position.x - despawnOffset;
         }
 
         private void Update()
         {
+            if (pool.Count < maxBlocks)
+            {
+                SpawnBlock();
+            }
+
             for (int i = pool.Count - 1; i >= 0; i--)
             {
-                if (pool[i] != null)
+                GameObject block = pool[i];
+                if (block != null)
                 {
-                    pool[i].transform.position = new Vector2(pool[i].transform.position.x + speed * Time.deltaTime,
-                        pool[i].transform.position.y);
+                    block.transform.position = new Vector2(block.transform.position.x + speed * Time.deltaTime,
+                        block.transform.position.y);
 
-                    if (pool[i].transform.position.x < spawnPoint.position.x - gapThreshold)
+                    if (block.transform.position.x < maxDespawnPositionX)
                     {
-                        // Удаление частей уровня, которые вышли за границу экрана
-                        Destroy(pool[i]);
-                        pool.RemoveAt(i);
+                        DespawnBlock(block);
+                        break;
                     }
                 }
             }
+        }
 
-            // Генерация новых частей уровня, если количество платформ, прошедших за экран, достигает порога
-            int platformsPassed = 0;
-            foreach (var platform in pool)
-            {
-                if (platform.transform.position.x <= spawnPoint.position.x)
-                {
-                    platformsPassed++;
-                }
-            }
+        private void SpawnBlock()
+        {
+            int randomIndex = Random.Range(0, prefabs.Length);
+            var prefab = prefabs[randomIndex];
 
-            if (platformsPassed <= spawnThreshold)
-            {
-                float xPos = pool[pool.Count - 1].transform.position.x;
-                foreach (var prefab in prefabs)
-                {
-                    var instance = Instantiate(prefab, root);
-                    var position = new Vector2(xPos, spawnPoint.position.y);
+            var lastBlock = pool[pool.Count - 1];
+            var collider = lastBlock.GetComponent<BoxCollider2D>();
+            var position = new Vector2(lastBlock.transform.position.x + collider.size.x, spawnPoint.position.y);
 
-                    instance.transform.position = position;
-                    pool.Add(instance);
+            var instance = Instantiate(prefab, position, Quaternion.identity, root);
+            pool.Add(instance);
+        }
 
-                    var collider = instance.GetComponent<BoxCollider2D>();
-                    xPos += collider.size.x;
-                }
-            }
+        private void DespawnBlock(GameObject block)
+        {
+            Destroy(block);
+            pool.Remove(block);
         }
 
         private float GetTileWidth(GameObject tile)
