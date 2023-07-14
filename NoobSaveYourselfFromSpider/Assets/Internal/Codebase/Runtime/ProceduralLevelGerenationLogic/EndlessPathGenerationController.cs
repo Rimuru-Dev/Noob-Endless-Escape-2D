@@ -21,13 +21,13 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
         public float despawnOffset = 20f;
         public int maxBlocks = 20;
 
-        private List<GameObject> pool = new();
+        private readonly List<GameObject> pool = new();
         private float spawnDistance;
         private float maxDespawnPositionX;
 
         private void Start()
         {
-            float xPos = spawnPoint.position.x;
+            var xPos = spawnPoint.position.x;
             foreach (var prefab in prefabs)
             {
                 var instance = Instantiate(prefab, root);
@@ -36,11 +36,11 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
                 instance.transform.position = position;
                 pool.Add(instance);
 
-                var collider = instance.GetComponent<BoxCollider2D>();
-                xPos += collider.size.x;
+                var boxCollider2D = instance.GetComponent<BoxCollider2D>();
+                xPos += boxCollider2D.size.x;
             }
 
-            spawnDistance = pool[pool.Count - 1].transform.position.x - spawnPoint.position.x + spawnOffset;
+            spawnDistance = pool[^1].transform.position.x - spawnPoint.position.x + spawnOffset;
             maxDespawnPositionX = pool[0].transform.position.x - despawnOffset;
         }
 
@@ -49,31 +49,32 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
             if (pool.Count < maxBlocks)
                 SpawnBlock();
 
-            for (int i = pool.Count - 1; i >= 0; i--)
+            for (var i = pool.Count - 1; i >= 0; i--)
             {
-                GameObject block = pool[i];
-                if (block != null)
-                {
-                    block.transform.position = new Vector2(block.transform.position.x + speed * Time.deltaTime,
-                        block.transform.position.y);
+                var block = pool[i];
 
-                    if (block.transform.position.x < maxDespawnPositionX)
-                    {
-                        DespawnBlock(block);
-                        break;
-                    }
+                if (block == null)
+                    continue;
+
+                block.transform.position = new Vector2(block.transform.position.x + speed * Time.deltaTime,
+                    block.transform.position.y);
+
+                if (block.transform.position.x < maxDespawnPositionX)
+                {
+                    DespawnBlock(block);
+                    break;
                 }
             }
         }
 
         private void SpawnBlock()
         {
-            int randomIndex = Random.Range(0, prefabs.Length);
+            var randomIndex = Random.Range(0, prefabs.Length);
             var prefab = prefabs[randomIndex];
 
-            var lastBlock = pool[pool.Count - 1];
-            var collider = lastBlock.GetComponent<BoxCollider2D>();
-            var position = new Vector2(lastBlock.transform.position.x + collider.size.x, spawnPoint.position.y);
+            var lastBlock = pool[^1];
+            var boxCollider2D = lastBlock.GetComponent<BoxCollider2D>();
+            var position = new Vector2(lastBlock.transform.position.x + boxCollider2D.size.x, spawnPoint.position.y);
 
             var instance = Instantiate(prefab, position, Quaternion.identity, root);
             pool.Add(instance);
