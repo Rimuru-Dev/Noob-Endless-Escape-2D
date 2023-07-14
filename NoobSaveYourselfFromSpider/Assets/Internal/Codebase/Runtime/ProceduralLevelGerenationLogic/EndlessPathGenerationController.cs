@@ -5,6 +5,8 @@
 //
 // **************************************************************** //
 
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
@@ -12,36 +14,45 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
     public sealed class EndlessPathGenerationController : MonoBehaviour
     {
         public Transform root;
+        public Transform spawnPoint;
         public GameObject[] prefabs;
         public float tileWidth;
+        public float speed = -5;
+
+        private List<GameObject> pool = new();
 
         private void Start()
         {
-            tileWidth = GetTileWidth(prefabs[0]);
+            Vector2 pos = spawnPoint.position;
+            for (var i = 0; i < prefabs.Length; i++)
+            {
+                if (i == 0)
+                {
+                    var instance = Instantiate(prefabs[i], pos, Quaternion.identity, root);
+                    pool.Add(instance);
+                }
+                else
+                {
+                    var instance = Instantiate(prefabs[i], root);
+                    var position = new Vector2((i * instance.GetComponent<BoxCollider2D>().size.x) - pos.x, pos.y);
 
-            var instance_1 = Instantiate(prefabs[0], Vector3.zero, Quaternion.identity, root);
-            var instance_2 = Instantiate(prefabs[2], root);
+                    instance.transform.position = position;
 
-            var collider_1 = instance_1.GetComponent<BoxCollider2D>();
-            var collider_2 = instance_2.GetComponent<BoxCollider2D>();
+                    pool.Add(instance);
+                }
+            }
+        }
 
-            var pos = collider_1.size - collider_2.size;
-
-            instance_2.transform.position = pos;
-
-          //  instance_2.transform.position = new Vector2(collider_1.offset.y + collider_2.offset.y, instance_2.transform.position.y);
-
-
-            // // // // 
-
-            //   var instance_3 = Instantiate(prefabs[2], new Vector2(collider_1.offset.y + collider_2.offset.y, instance_2.transform.position.y), Quaternion.identity, root);
-            // var collider_3 = instance_3.GetComponent<BoxCollider2D>();
-            //
-            // var newPos = collider_2.size - collider_3.size;
-            //
-            // instance_3.transform.position = newPos;
-            //
-            // instance_3.transform.position = new Vector2(collider_2.offset.y + collider_3.offset.y, instance_3.transform.position.y);
+        private void Update()
+        {
+            for (var i = 0; i < pool.Count; i++)
+            {
+                if (pool[i] == null)
+                    pool.TrimExcess();
+                else
+                    pool[i].transform.position = new Vector2(pool[i].transform.position.x + speed * Time.deltaTime,
+                        pool[i].transform.position.y);
+            }
         }
 
         private float GetTileWidth(GameObject tile)
@@ -53,6 +64,20 @@ namespace Internal.Codebase.Runtime.ProceduralLevelGerenationLogic
             }
 
             return 0f;
+        }
+
+        private float GetSizeX(GameObject target)
+        {
+            var boxCollider2D = target.GetComponent<BoxCollider2D>();
+
+            return boxCollider2D != null ? boxCollider2D.size.x : 0f;
+        }
+
+        private float GeOffsetX(GameObject target)
+        {
+            var boxCollider2D = target.GetComponent<BoxCollider2D>();
+
+            return boxCollider2D != null ? boxCollider2D.offset.x : 0f;
         }
     }
 }
