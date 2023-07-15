@@ -75,22 +75,22 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
 
             maxDespawnPositionX = pool[0].transform.position.x - despawnOffset;
         }
-
+        
         private void Update()
         {
             if (pool.Count < maxBlocks)
                 SpawnBlock();
-
+        
             for (var i = pool.Count - 1; i >= 0; i--)
             {
                 var block = pool[i];
-
+        
                 if (block == null)
                     continue;
-
+        
                 block.transform.position = new Vector2(block.transform.position.x + speed * Time.deltaTime,
                     block.transform.position.y);
-
+        
                 if (block.transform.position.x < maxDespawnPositionX)
                 {
                     DespawnBlock(block);
@@ -105,31 +105,23 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
             var randomIndex = Random.Range(0, prefabs.Length);
             var prefab = prefabs[randomIndex];
 
-            var lastBlock = pool[^1];
+            var lastBlock = pool[pool.Count - 1];
             var lastBoxCollider = lastBlock.GetComponent<BoxCollider2D>();
-            var lastBlockPosition = lastBlock.transform.position;
+            var lastBlockOffset = lastBoxCollider.offset;
+            var lastBlockSize = lastBoxCollider.size;
 
-            var xOffset = lastBlockPosition.x + lastBoxCollider.size.x - lastBoxCollider.offset.x;
-            var offsetDifference = lastBoxCollider.offset.x - prefab.GetComponent<BoxCollider2D>().offset.x;
-            var sizeDifference = lastBoxCollider.size.x - prefab.GetComponent<BoxCollider2D>().size.x;
+            var currentBoxCollider = prefab.GetComponent<BoxCollider2D>();
+            var offsetDiff = lastBlockOffset.x - currentBoxCollider.offset.x;
+            var position = new Vector2(lastBlock.transform.position.x + lastBlockSize.x + offsetDiff, spawnPoint.position.y);
 
-            if (speed < 0)
-            {
-                // Учет движения блоков влево
-                xOffset -= speed * Time.deltaTime;
-                xOffset += offsetDifference + sizeDifference;
-            }
-            else
-            {
-                // Учет движения блоков вправо
-                xOffset += speed * Time.deltaTime;
-                xOffset += offsetDifference + sizeDifference;
-            }
-
-            var position = new Vector2(xOffset, spawnPoint.position.y);
-
-            var instance = Instantiate(prefab, position, Quaternion.identity, root);
+            var instance = Instantiate(prefab, root);
+            instance.transform.position = position;
             pool.Add(instance);
+
+            var firstBlock = pool[0];
+            var firstBlockPosition = firstBlock.transform.position;
+            var firstBoxCollider = firstBlock.GetComponent<BoxCollider2D>();
+            maxDespawnPositionX = firstBlockPosition.x - firstBoxCollider.size.x - firstBoxCollider.offset.x - despawnOffset;
         }
 
         private void DespawnBlock(GameObject block)
