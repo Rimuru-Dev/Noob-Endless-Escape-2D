@@ -80,21 +80,20 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
         {
             if (pool.Count < maxBlocks)
                 SpawnBlock();
-        
+
             for (var i = pool.Count - 1; i >= 0; i--)
             {
                 var block = pool[i];
-        
+
                 if (block == null)
                     continue;
-        
+
                 block.transform.position = new Vector2(block.transform.position.x + speed * Time.deltaTime,
                     block.transform.position.y);
-        
-                if (block.transform.position.x < maxDespawnPositionX)
+
+                if (block.transform.position.x + despawnOffset < -spawnOffset)
                 {
                     DespawnBlock(block);
-                    maxDespawnPositionX = pool[0].transform.position.x - despawnOffset;
                     break;
                 }
             }
@@ -119,9 +118,8 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
             pool.Add(instance);
 
             var firstBlock = pool[0];
-            var firstBlockPosition = firstBlock.transform.position;
             var firstBoxCollider = firstBlock.GetComponent<BoxCollider2D>();
-            maxDespawnPositionX = firstBlockPosition.x - firstBoxCollider.size.x - firstBoxCollider.offset.x - despawnOffset;
+            maxDespawnPositionX = firstBlock.transform.position.x - firstBoxCollider.size.x;
         }
 
         private void DespawnBlock(GameObject block)
