@@ -110,12 +110,22 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
             var lastBlockPosition = lastBlock.transform.position;
 
             var xOffset = lastBlockPosition.x + lastBoxCollider.size.x - lastBoxCollider.offset.x;
-
-            // Учитываем разницу в offset и размерах между блоками
             var offsetDifference = lastBoxCollider.offset.x - prefab.GetComponent<BoxCollider2D>().offset.x;
             var sizeDifference = lastBoxCollider.size.x - prefab.GetComponent<BoxCollider2D>().size.x;
-            xOffset += offsetDifference + sizeDifference;
-    
+
+            if (speed < 0)
+            {
+                // Учет движения блоков влево
+                xOffset -= speed * Time.deltaTime;
+                xOffset += offsetDifference + sizeDifference;
+            }
+            else
+            {
+                // Учет движения блоков вправо
+                xOffset += speed * Time.deltaTime;
+                xOffset += offsetDifference + sizeDifference;
+            }
+
             var position = new Vector2(xOffset, spawnPoint.position.y);
 
             var instance = Instantiate(prefab, position, Quaternion.identity, root);
