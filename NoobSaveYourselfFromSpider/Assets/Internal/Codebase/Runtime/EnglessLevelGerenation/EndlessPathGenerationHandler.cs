@@ -31,18 +31,18 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
         private readonly List<GameObject> pool = new List<GameObject>();
         private float maxDespawnPositionX;
 
-        private bool init = true;
+        [SerializeField, ReadOnly] private float xPos;
 
         private void Start()
         {
-            float xPos = spawnPoint.position.x;
+            xPos = spawnPoint.position.x;
 
             var previousPrefab = Instantiate(initialPrefab, root);
             previousPrefab.transform.position = new Vector2(xPos, spawnPoint.position.y);
             pool.Add(previousPrefab.gameObject);
 
             var previousCollider = previousPrefab.GetComponent<BoxCollider2D>();
-            
+
             int index = -1;
             foreach (var prefab in prefabs)
             {
@@ -53,7 +53,7 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
                     var position = new Vector2(xPos, spawnPoint.position.y);
                     pool.Add(instance);
                     var boxCollider = instance.GetComponent<BoxCollider2D>();
-                    xPos += previousCollider.size.x; 
+                    xPos += previousCollider.size.x;
                     position.x = xPos;
                     instance.transform.position = position;
                     previousPrefab = instance.transform;
@@ -80,17 +80,17 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
         {
             if (pool.Count < maxBlocks)
                 SpawnBlock();
-        
+
             for (var i = pool.Count - 1; i >= 0; i--)
             {
                 var block = pool[i];
-        
+
                 if (block == null)
                     continue;
-        
+
                 block.transform.position = new Vector2(block.transform.position.x + speed * Time.deltaTime,
                     block.transform.position.y);
-        
+
                 if (block.transform.position.x < maxDespawnPositionX)
                 {
                     DespawnBlock(block);
@@ -106,11 +106,17 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
             var prefab = prefabs[randomIndex];
 
             var lastBlock = pool[^1];
-            var boxCollider2D = lastBlock.GetComponent<BoxCollider2D>();
-            var halfWidth = boxCollider2D.bounds.size.x / 2f;
+            var lastBoxCollider = lastBlock.GetComponent<BoxCollider2D>();
+            var lastBlockPosition = lastBlock.transform.position;
 
-            var position = new Vector2(lastBlock.transform.position.x + boxCollider2D.bounds.size.x - halfWidth,
-                spawnPoint.position.y);
+            var xOffset = lastBlockPosition.x + lastBoxCollider.size.x - lastBoxCollider.offset.x;
+
+            // Учитываем разницу в offset и размерах между блоками
+            var offsetDifference = lastBoxCollider.offset.x - prefab.GetComponent<BoxCollider2D>().offset.x;
+            var sizeDifference = lastBoxCollider.size.x - prefab.GetComponent<BoxCollider2D>().size.x;
+            xOffset += offsetDifference + sizeDifference;
+    
+            var position = new Vector2(xOffset, spawnPoint.position.y);
 
             var instance = Instantiate(prefab, position, Quaternion.identity, root);
             pool.Add(instance);
