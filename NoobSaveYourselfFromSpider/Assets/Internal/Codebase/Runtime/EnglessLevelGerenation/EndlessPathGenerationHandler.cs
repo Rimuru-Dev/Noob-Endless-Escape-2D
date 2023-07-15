@@ -41,7 +41,7 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
             previousPrefab.transform.position = new Vector2(xPos, spawnPoint.position.y);
             pool.Add(previousPrefab.gameObject);
 
-            var previousCollider = previousPrefab.GetComponent<PrefabHelper>();
+            var previousCollider = previousPrefab.GetComponent<BoxCollider2D>();
 
             int index = -1;
             foreach (var prefab in prefabs)
@@ -52,8 +52,8 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
                     var instance = Instantiate(prefab, root);
                     var position = new Vector2(xPos, spawnPoint.position.y);
                     pool.Add(instance);
-                    var boxCollider = instance.GetComponent<PrefabHelper>();
-                    xPos += previousCollider.PrefabSize.x;
+                    var boxCollider = instance.GetComponent<BoxCollider2D>();
+                    xPos += previousCollider.size.x;
                     position.x = xPos;
                     instance.transform.position = position;
                     previousPrefab = instance.transform;
@@ -64,8 +64,8 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
                     var instance = Instantiate(prefab, root);
                     var position = new Vector2(xPos, spawnPoint.position.y);
                     pool.Add(instance);
-                    var boxCollider = instance.GetComponent<PrefabHelper>();
-                    xPos += previousCollider.PrefabSize.x + previousCollider.PrefabOffset.x - boxCollider.PrefabOffset.x;
+                    var boxCollider = instance.GetComponent<BoxCollider2D>();
+                    xPos += previousCollider.size.x + previousCollider.offset.x - boxCollider.offset.x;
                     position.x = xPos;
                     instance.transform.position = position;
                     previousPrefab = instance.transform;
@@ -73,35 +73,38 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
                 }
             }
 
-            var firstBlock = pool[0];
-            var firstBoxCollider = firstBlock.GetComponent<PrefabHelper>();
-            maxDespawnPositionX = firstBlock.transform.position.x - firstBoxCollider.PrefabSize.x;
+            maxDespawnPositionX = pool[0].transform.position.x - despawnOffset;
         }
 
-        
         private void SpawnBlock()
         {
             var randomIndex = Random.Range(0, prefabs.Length);
             var prefab = prefabs[randomIndex];
 
             var lastBlock = pool[pool.Count - 1];
-            var lastBoxCollider = lastBlock.GetComponent<PrefabHelper>();
-            var lastBlockOffset = lastBoxCollider.PrefabOffset;
-            var lastBlockSize = lastBoxCollider.PrefabSize;
+            var lastBoxCollider = lastBlock.GetComponent<BoxCollider2D>();
+            var lastBlockOffset = lastBoxCollider.offset;
+            var lastBlockSize = lastBoxCollider.size;
 
-            var currentBoxCollider = prefab.GetComponent<PrefabHelper>();
-            var offsetDiff = Mathf.Max(lastBlockOffset.x - currentBoxCollider.PrefabOffset.x, 0f);
-            var position = new Vector2(lastBlock.transform.position.x + lastBlockSize.x + offsetDiff, spawnPoint.position.y);
+            var currentBoxCollider = prefab.GetComponent<BoxCollider2D>();
+            var offsetDiff = lastBlockOffset.x - currentBoxCollider.offset.x;
+            var positionX = lastBlock.transform.position.x + lastBlockSize.x + offsetDiff;
+            var positionY = spawnPoint.position.y;
 
-            var instance = Instantiate(prefab, root);
-            instance.transform.position = position;
+            if (offsetDiff < 0)
+            {
+                positionX -= currentBoxCollider.offset.x;
+            }
+
+            var position = new Vector2(positionX, positionY);
+
+            var instance = Instantiate(prefab, position, Quaternion.identity, root);
             pool.Add(instance);
 
             var firstBlock = pool[0];
-            var firstBoxCollider = firstBlock.GetComponent<PrefabHelper>();
-            maxDespawnPositionX = firstBlock.transform.position.x - firstBoxCollider.PrefabSize.x;
+            var firstBoxCollider = firstBlock.GetComponent<BoxCollider2D>();
+            maxDespawnPositionX = firstBlock.transform.position.x - firstBoxCollider.size.x;
         }
-
         private void Update()
         {
             if (pool.Count < maxBlocks)
@@ -117,17 +120,11 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
                 block.transform.position = new Vector2(block.transform.position.x + speed * Time.deltaTime,
                     block.transform.position.y);
 
-                if (block.transform.position.x< maxDespawnPositionX)
+                if (block.transform.position.x + despawnOffset < -spawnOffset)
                 {
                     DespawnBlock(block);
-                    maxDespawnPositionX = pool[0].transform.position.x - despawnOffset;
                     break;
                 }
-                // if (block.transform.position.x + despawnOffset < -spawnOffset)
-                // {
-                //     DespawnBlock(block);
-                //     break;
-                // }
             }
         }
 
