@@ -31,6 +31,8 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
         private readonly List<GameObject> pool = new List<GameObject>();
         private float maxDespawnPositionX;
 
+        private bool init = true;
+
         private void Start()
         {
             float xPos = spawnPoint.position.x;
@@ -40,49 +42,63 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
             pool.Add(previousPrefab.gameObject);
 
             var previousCollider = previousPrefab.GetComponent<BoxCollider2D>();
-            xPos += previousCollider.size.x;
-
+            
+            int index = -1;
             foreach (var prefab in prefabs)
             {
-                var instance = Instantiate(prefab, root);
-                var position = new Vector2(xPos, spawnPoint.position.y);
-                pool.Add(instance);
-
-                var boxCollider = instance.GetComponent<BoxCollider2D>();
-                xPos += previousCollider.size.x + previousCollider.offset.x - boxCollider.offset.x;
-                position.x = xPos;
-                instance.transform.position = position;
-
-                previousPrefab = instance.transform;
-                previousCollider = boxCollider;
+                if (index == -1)
+                {
+                    index = 1;
+                    var instance = Instantiate(prefab, root);
+                    var position = new Vector2(xPos, spawnPoint.position.y);
+                    pool.Add(instance);
+                    var boxCollider = instance.GetComponent<BoxCollider2D>();
+                    xPos += previousCollider.size.x; 
+                    position.x = xPos;
+                    instance.transform.position = position;
+                    previousPrefab = instance.transform;
+                    previousCollider = boxCollider;
+                }
+                else
+                {
+                    var instance = Instantiate(prefab, root);
+                    var position = new Vector2(xPos, spawnPoint.position.y);
+                    pool.Add(instance);
+                    var boxCollider = instance.GetComponent<BoxCollider2D>();
+                    xPos += previousCollider.size.x + previousCollider.offset.x - boxCollider.offset.x;
+                    position.x = xPos;
+                    instance.transform.position = position;
+                    previousPrefab = instance.transform;
+                    previousCollider = boxCollider;
+                }
             }
 
             maxDespawnPositionX = pool[0].transform.position.x - despawnOffset;
         }
 
-        // private void Update()
-        // {
-        //     if (pool.Count < maxBlocks)
-        //         SpawnBlock();
-        //
-        //     for (var i = pool.Count - 1; i >= 0; i--)
-        //     {
-        //         var block = pool[i];
-        //
-        //         if (block == null)
-        //             continue;
-        //
-        //         block.transform.position = new Vector2(block.transform.position.x + speed * Time.deltaTime,
-        //             block.transform.position.y);
-        //
-        //         if (block.transform.position.x < maxDespawnPositionX)
-        //         {
-        //             DespawnBlock(block);
-        //             maxDespawnPositionX = pool[0].transform.position.x - despawnOffset;
-        //             break;
-        //         }
-        //     }
-        // }
+        private void Update()
+        {
+            if (pool.Count < maxBlocks)
+                SpawnBlock();
+        
+            for (var i = pool.Count - 1; i >= 0; i--)
+            {
+                var block = pool[i];
+        
+                if (block == null)
+                    continue;
+        
+                block.transform.position = new Vector2(block.transform.position.x + speed * Time.deltaTime,
+                    block.transform.position.y);
+        
+                if (block.transform.position.x < maxDespawnPositionX)
+                {
+                    DespawnBlock(block);
+                    maxDespawnPositionX = pool[0].transform.position.x - despawnOffset;
+                    break;
+                }
+            }
+        }
 
         private void SpawnBlock()
         {
