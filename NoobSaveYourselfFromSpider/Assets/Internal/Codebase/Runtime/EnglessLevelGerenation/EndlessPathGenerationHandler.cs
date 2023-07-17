@@ -105,6 +105,7 @@ namespace Internal.Codebase.Runtime.EnglessLevelGerenation
             var firstBoxCollider = firstBlock.GetComponent<BoxCollider2D>();
             maxDespawnPositionX = firstBlock.transform.position.x - firstBoxCollider.size.x;
         }
+        
         private void Update()
         {
             if (pool.Count < maxBlocks)
