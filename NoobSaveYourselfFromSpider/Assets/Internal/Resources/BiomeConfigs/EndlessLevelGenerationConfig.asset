@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa020a71c3e4b53827592867e391502, type: 3}
+  m_Name: EndlessLevelGenerationConfig
+  m_EditorClassIdentifier: 
+  <LaunchingPlatform>k__BackingField: {fileID: 5981375096742839005, guid: 626136a489388d3469b0606e35a2343b, type: 3}
+  <Prefabs>k__BackingField:
+  - {fileID: 5351232499655552657, guid: 569f8dd525c862549b3b895e5352d3a4, type: 3}
+  - {fileID: 3143464025643601979, guid: ab64c98ae323a6e46aa1095c4958dcfd, type: 3}
+  - {fileID: 4847513205142219379, guid: 2459842baa07159448efbe51c98ba71e, type: 3}
+  - {fileID: 5981375096742839005, guid: 626136a489388d3469b0606e35a2343b, type: 3}
+  - {fileID: 5981375096742839005, guid: 0d994d4f3ce186c4db0a61244a88e8e3, type: 3}
+  <StartSpawnPoint>k__BackingField: {x: -7.87, y: -4}
+  <LevelScrollingSpeed>k__BackingField: 5
+  <DespawnOffset>k__BackingField: 40
+  <MaxBlockCount>k__BackingField: 20
+  <SpawnCooldown>k__BackingField: 0.3
