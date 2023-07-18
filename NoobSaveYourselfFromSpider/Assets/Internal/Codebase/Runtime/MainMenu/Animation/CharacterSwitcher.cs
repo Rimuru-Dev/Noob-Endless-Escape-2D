@@ -39,7 +39,7 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
             }
         }
 
-        private void SwitchCharacter(bool isRight)
+        public void SwitchCharacter(bool isRight)
         {
             int newIndex;
             if (isRight)
