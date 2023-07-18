@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 5678609472263918214}
   - component: {fileID: 6485760564605988226}
   - component: {fileID: 2614559953711977572}
+  - component: {fileID: 3830909364879136353}
   m_Layer: 5
   m_Name: RightFlagIcon
   m_TagString: Untagged
@@ -213,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -244,6 +245,20 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 10, y: -10}
   m_UseGraphicAlpha: 1
+--- !u!114 &3830909364879136353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139912077891032435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b467263620414ae5873456c270bf7b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationDuration: 0.5
+  rotationAngle: 180
 --- !u!1 &3548550382647794090
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,9 +287,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1487947908946878012}
   - {fileID: 611215460140890413}
   - {fileID: 1923235696071336714}
+  - {fileID: 1487947908946878012}
   m_Father: {fileID: 5916155922123983741}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -464,6 +479,7 @@ GameObject:
   - component: {fileID: 919912173418538800}
   - component: {fileID: 5462104929119146825}
   - component: {fileID: 8484120877230557718}
+  - component: {fileID: 6002126460777705427}
   m_Layer: 5
   m_Name: LeftFlagIcon
   m_TagString: Untagged
@@ -513,7 +529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -544,6 +560,20 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 10, y: -10}
   m_UseGraphicAlpha: 1
+--- !u!114 &6002126460777705427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6943867773369687944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b467263620414ae5873456c270bf7b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationDuration: 0.5
+  rotationAngle: 180
 --- !u!1 &7673105412362329086
 GameObject:
   m_ObjectHideFlags: 0

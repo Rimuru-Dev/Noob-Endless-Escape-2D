@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9339623, g: 0.8262973, b: 0.2511125, a: 1}
+  m_Color: {r: 1, g: 0.6706295, b: 0.15566039, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 7716755608935885737}
   - component: {fileID: 4143868657541353964}
   - component: {fileID: 6515842818303321555}
+  - component: {fileID: 7354334598788968409}
   m_Layer: 5
   m_Name: FishIcon
   m_TagString: Untagged
@@ -308,6 +309,21 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 10, y: -10}
   m_UseGraphicAlpha: 1
+--- !u!114 &7354334598788968409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6472772375487880629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5df160b8f77045c997b40b95722f4f8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleMultiplier: 1.3
+  animationDuration: 0.3
+  animationRepeat: 4
 --- !u!1001 &7877814963908133993
 PrefabInstance:
   m_ObjectHideFlags: 0

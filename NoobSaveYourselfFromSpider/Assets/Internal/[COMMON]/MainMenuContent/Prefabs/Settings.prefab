@@ -49,7 +49,8 @@ GameObject:
   - component: {fileID: 5502800684018706107}
   - component: {fileID: 2564467470576729523}
   - component: {fileID: 2233079664001591585}
-  - component: {fileID: 2517770354734524733}
+  - component: {fileID: 3952113688089387672}
+  - component: {fileID: 7289386240512694452}
   m_Layer: 5
   m_Name: Buttom
   m_TagString: Untagged
@@ -159,7 +160,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2517770354734524733
+--- !u!114 &3952113688089387672
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,9 +169,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1181620461940316063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Script: {fileID: 11500000, guid: b467263620414ae5873456c270bf7b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationDuration: 0.5
+  rotationAngle: 180
+--- !u!114 &7289386240512694452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181620461940316063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 10, y: -10}
+  m_EffectDistance: {x: 3, y: 3}
   m_UseGraphicAlpha: 1
