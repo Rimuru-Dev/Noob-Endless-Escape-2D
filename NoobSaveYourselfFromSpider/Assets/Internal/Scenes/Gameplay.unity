@@ -223,9 +223,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 833546362043369097, guid: 6fac41dd85edf4d44b619fa8f29678a1, type: 3}
+      propertyPath: loopMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592551468618814458, guid: 6fac41dd85edf4d44b619fa8f29678a1, type: 3}
+      propertyPath: loopMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1739196360685177057, guid: 6fac41dd85edf4d44b619fa8f29678a1, type: 3}
+      propertyPath: loopMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181534534027941870, guid: 6fac41dd85edf4d44b619fa8f29678a1, type: 3}
+      propertyPath: loopMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895743652437275843, guid: 6fac41dd85edf4d44b619fa8f29678a1, type: 3}
+      propertyPath: loopMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5123973853345814511, guid: 6fac41dd85edf4d44b619fa8f29678a1, type: 3}
       propertyPath: m_Name
       value: Parallax
+      objectReference: {fileID: 0}
+    - target: {fileID: 8157560643640201449, guid: 6fac41dd85edf4d44b619fa8f29678a1, type: 3}
+      propertyPath: loopMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8436120045582438693, guid: 6fac41dd85edf4d44b619fa8f29678a1, type: 3}
       propertyPath: m_RootOrder
