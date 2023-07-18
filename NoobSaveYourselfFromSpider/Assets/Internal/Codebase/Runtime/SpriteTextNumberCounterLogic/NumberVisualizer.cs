@@ -74,7 +74,7 @@ namespace Internal.Codebase.Runtime.SpriteTextNumberCounterLogic
 
         private void Start()
         {
-            InvokeRepeating(nameof(UpdateNumber), 1f, .01f);
+            InvokeRepeating(nameof(UpdateNumber), 1f, .5f);
         }
 
         private void UpdateNumber()
