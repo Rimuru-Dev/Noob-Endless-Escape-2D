@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Internal.Codebase.Runtime.Hero
 {
-    public sealed class CharacterController : MonoBehaviour
+    public sealed class HeroController : MonoBehaviour
     {
         public float jumpForce = 5f; // Сила прыжка
         public float gravityScale = 1f; // Масштаб гравитации
