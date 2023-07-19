@@ -259,6 +259,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 152e9bc93f924dadb2da4dbe458c0c23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Emerald>k__BackingField: {fileID: 0}
+  <Fish>k__BackingField: {fileID: 0}
+  <PlayButton>k__BackingField: {fileID: 0}
 --- !u!114 &7446573271255190521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2337,8 +2340,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1551779304504371563, guid: 5909a7d2b5440ce4a88469325837c569, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 566935521805570854}
   m_SourcePrefab: {fileID: 100100000, guid: 5909a7d2b5440ce4a88469325837c569, type: 3}
+--- !u!1 &507452608080888622 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1551779304504371563, guid: 5909a7d2b5440ce4a88469325837c569, type: 3}
+  m_PrefabInstance: {fileID: 1334141340820761157}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &566935521805570854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507452608080888622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67f904d00a945d0826f784305f27ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Currancytext>k__BackingField: {fileID: 0}
 --- !u!224 &1444187121520830892 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 470937263069037545, guid: 5909a7d2b5440ce4a88469325837c569, type: 3}
@@ -2614,6 +2638,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Settings
       objectReference: {fileID: 0}
+    - target: {fileID: 3952113688089387672, guid: 38a45b1b59f3c51468628fc50884e28b, type: 3}
+      propertyPath: direction.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3952113688089387672, guid: 38a45b1b59f3c51468628fc50884e28b, type: 3}
+      propertyPath: direction.z
+      value: -180
+      objectReference: {fileID: 0}
     - target: {fileID: 7366504939280049147, guid: 38a45b1b59f3c51468628fc50884e28b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2804,11 +2836,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: EmeraldCurrency
       objectReference: {fileID: 0}
+    - target: {fileID: 6082887335274463485, guid: 845bcbe43dafe9c47bbac8217020c31d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1551779304504371563, guid: 845bcbe43dafe9c47bbac8217020c31d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 820490916487078970}
   m_SourcePrefab: {fileID: 100100000, guid: 845bcbe43dafe9c47bbac8217020c31d, type: 3}
+--- !u!1 &6965564880765692541 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1551779304504371563, guid: 845bcbe43dafe9c47bbac8217020c31d, type: 3}
+  m_PrefabInstance: {fileID: 8440782905679053590}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &820490916487078970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6965564880765692541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67f904d00a945d0826f784305f27ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Currancytext>k__BackingField: {fileID: 0}
 --- !u!224 &8334673788386476287 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 470937263069037545, guid: 845bcbe43dafe9c47bbac8217020c31d, type: 3}

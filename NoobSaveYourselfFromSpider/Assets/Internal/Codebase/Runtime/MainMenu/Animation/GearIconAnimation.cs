@@ -16,7 +16,7 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
     public sealed class GearIconAnimation : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private float animationDuration = 0.5f;
-        [SerializeField] private float rotationAngle = -180f;
+        [SerializeField] private Vector3 direction = new(0,-180f,0);
 
         private bool isAnimating;
         private RectTransform gearIconRectTransform;
@@ -38,7 +38,7 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
             if (gearIconRectTransform.localRotation == startRotation)
             {
                 gearIconRectTransform
-                    .DOLocalRotate(new Vector3(0f, rotationAngle, 0), animationDuration, RotateMode.FastBeyond360)
+                    .DOLocalRotate(direction, animationDuration, RotateMode.FastBeyond360)
                     .SetEase(Ease.OutElastic)
                     .OnComplete(RotateBack);
             }
