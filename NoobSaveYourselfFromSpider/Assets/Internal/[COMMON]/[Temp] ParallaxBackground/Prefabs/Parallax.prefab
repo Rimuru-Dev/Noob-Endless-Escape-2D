@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1301868866311708890}
   - component: {fileID: 5724381409697046392}
   - component: {fileID: 1739196360685177057}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Background_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c12323ae264e1c968a138d626fc28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loopMode: 2
+  loopMode: 1
   scrollSpeed: -1.5
 --- !u!1 &2744801034482869821
 GameObject:
@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 7422346538781206992}
   - component: {fileID: 5469315884867541222}
   - component: {fileID: 4895743652437275843}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Background_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -377,7 +377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c12323ae264e1c968a138d626fc28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loopMode: 0
+  loopMode: 1
   scrollSpeed: -2.5
 --- !u!1 &3774289309006385046
 GameObject:
@@ -392,7 +392,7 @@ GameObject:
   - component: {fileID: 7909097932040129814}
   - component: {fileID: 1490825442996667184}
   - component: {fileID: 833546362043369097}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Background_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,7 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c12323ae264e1c968a138d626fc28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loopMode: 0
+  loopMode: 1
   scrollSpeed: -3
 --- !u!1 &4219050604252386125
 GameObject:
@@ -680,7 +680,7 @@ GameObject:
   - component: {fileID: 8549772815597818949}
   - component: {fileID: 961169524877237915}
   - component: {fileID: 8157560643640201449}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Background_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -838,7 +838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c12323ae264e1c968a138d626fc28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loopMode: 2
+  loopMode: 1
   scrollSpeed: -1.5
 --- !u!1 &6245657318590788093
 GameObject:
@@ -886,7 +886,7 @@ GameObject:
   - component: {fileID: 3856935503010915045}
   - component: {fileID: 4300230768533039014}
   - component: {fileID: 1592551468618814458}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Background_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1044,7 +1044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c12323ae264e1c968a138d626fc28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loopMode: 0
+  loopMode: 1
   scrollSpeed: -2.5
 --- !u!1 &8807761808194223061
 GameObject:
@@ -1059,7 +1059,7 @@ GameObject:
   - component: {fileID: 831302961810160816}
   - component: {fileID: 6859838262211533113}
   - component: {fileID: 2181534534027941870}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Background_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1217,5 +1217,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0c12323ae264e1c968a138d626fc28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loopMode: 0
+  loopMode: 1
   scrollSpeed: -3
