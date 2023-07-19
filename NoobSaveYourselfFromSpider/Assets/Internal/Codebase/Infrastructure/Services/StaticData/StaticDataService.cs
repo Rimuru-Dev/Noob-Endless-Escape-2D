@@ -8,6 +8,7 @@
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.Resource;
 using Internal.Codebase.Runtime.Curtain;
+using Internal.Codebase.Runtime.MainMenu.Configs;
 using Zenject;
 
 namespace Internal.Codebase.Infrastructure.Services.StaticData
@@ -17,6 +18,7 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
         private readonly IResourceLoaderService resourceLoader;
 
         private CurtainConfig curtainConfig;
+        private MainMenuConfig mainMenuConfig;
 
         [Inject]
         public StaticDataService(IResourceLoaderService resourceLoader)
@@ -27,11 +29,17 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
         public void Initialize()
         {
             curtainConfig = resourceLoader.Load<CurtainConfig>(AssetPath.Curtain);
+            mainMenuConfig = resourceLoader.Load<MainMenuConfig>(AssetPath.MainMenuConfig);
         }
 
         public CurtainConfig ForCurtain()
         {
             return curtainConfig;
+        }
+
+        public MainMenuConfig ForMainMenu()
+        {
+            return mainMenuConfig;
         }
     }
 }

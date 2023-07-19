@@ -9,11 +9,14 @@ using UnityEngine;
 
 namespace Internal.Codebase.Runtime.Hero
 {
+    [SelectionBase]
+    [DisallowMultipleComponent]
     public sealed class JumpController : MonoBehaviour
     {
         public float jumpForce = 5f;
         public float rotationAngle = 90f;
         public float rotationSpeed = 5f;
+        public bool useMouseClick = true;
 
         private Rigidbody2D rb;
         private bool isJumping;
@@ -28,7 +31,8 @@ namespace Internal.Codebase.Runtime.Hero
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) && !isJumping)
+            if ((useMouseClick && Input.GetMouseButtonDown(0)) && !isJumping ||
+                (Input.GetKeyDown(KeyCode.Space) && !isJumping /*&& canJump*/))
                 Jump();
 
             if (Mathf.Abs(transform.position.x) > 0f)

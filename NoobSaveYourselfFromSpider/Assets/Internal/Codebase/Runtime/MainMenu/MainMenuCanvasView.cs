@@ -5,11 +5,12 @@
 //
 // **************************************************************** //
 
-namespace Internal.Codebase.Infrastructure.AssetManagement
+using UnityEngine;
+
+namespace Internal.Codebase.Runtime.MainMenu
 {
-    public readonly struct AssetPath
+    public sealed class MainMenuCanvasView : MonoBehaviour
     {
-        public const string Curtain = "Curtain/Config/CurtainConfig";
-        public const string MainMenuConfig = "MainMenu/Configs/MainMenuConfig";
+        
     }
 }

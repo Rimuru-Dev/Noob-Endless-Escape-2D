@@ -6,13 +6,17 @@
 // **************************************************************** //
 
 using Internal.Codebase.Runtime.Curtain;
+using Internal.Codebase.Runtime.MainMenu;
 using UnityEngine;
 
 namespace Internal.Codebase.Infrastructure.Factory.UI
 {
     public interface IUIFactory
     {
-        public Transform CreateRoot();
+        public Transform CreateMainMenuRoot();
         public CurtainView CreateCurtain();
+        
+        public GameObject CreateDynamicCanvas();
+        public MainMenuCanvasView CreateMainMenuCanvas();
     }
 }

@@ -10,6 +10,7 @@ using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.Services.Storage;
 using Internal.Codebase.Runtime.Curtain;
+using Internal.Codebase.Runtime.MainMenu;
 using UnityEngine;
 using Zenject;
 
@@ -21,7 +22,7 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
         private readonly IStaticDataService staticData;
         private readonly IStorageService storageService;
 
-        private Transform root;
+        private Transform mainMenuRoot;
 
         [Inject]
         public UIFactory(IAssetProvider assetProvider, IStaticDataService staticData,
@@ -32,18 +33,42 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
             this.storageService = storageService;
         }
 
-        public Transform CreateRoot()
+        public Transform CreateMainMenuRoot()
         {
-            throw new NotImplementedException("UI Root");
+            var config = staticData.ForMainMenu();
+
+            mainMenuRoot = assetProvider.Instantiate(config.UIRoot.gameObject).transform;
+
+            return mainMenuRoot;
         }
 
         public CurtainView CreateCurtain()
         {
             var config = staticData.ForCurtain();
-            var instance = assetProvider.Instantiate(config.CurtainView.gameObject, root);
+            var instance = assetProvider.Instantiate(config.CurtainView.gameObject);
             var view = instance.GetComponent<CurtainView>();
 
             view.Constructor(config.AnimationDuration);
+
+            return view;
+        }
+
+        public GameObject CreateDynamicCanvas()
+        {
+            var config = staticData.ForMainMenu();
+
+            var instance = assetProvider.Instantiate(config.DynamicCanvas.gameObject, mainMenuRoot);
+
+            return instance;
+        }
+
+        public MainMenuCanvasView CreateMainMenuCanvas()
+        {
+            var config = staticData.ForMainMenu();
+
+            var view = assetProvider
+                .Instantiate(config.MainMenuCanvas.gameObject, mainMenuRoot)
+                .GetComponent<MainMenuCanvasView>();
 
             return view;
         }

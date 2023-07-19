@@ -10,6 +10,7 @@ using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
+using Internal.Codebase.Runtime.MainMenu;
 using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,11 +46,21 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
         public void Enter()
         {
+            PrepareUI();
+
             // *** Hide Curtain *** //
             var config = staticData.ForCurtain();
             curtain.HideCurtain(config.HideDelay);
 
             Object.FindObjectOfType<Button>().onClick.AddListener(OnSceneLoaded);
+        }
+
+        private void PrepareUI()
+        {
+            uiFactory.CreateMainMenuRoot();
+            uiFactory.CreateDynamicCanvas();
+
+            MainMenuCanvasView mainMenu = uiFactory.CreateMainMenuCanvas();
         }
 
         public void Exit()
