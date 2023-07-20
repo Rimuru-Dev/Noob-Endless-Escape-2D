@@ -7,65 +7,193 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Internal.Codebase.Infrastructure.Services.StaticData;
+using Internal.Codebase.Runtime.SpriteTextNumberCounterLogic;
+using Internal.Codebase.Runtime.StorageData;
+using YG;
 
 namespace Internal.Codebase.Runtime.MainMenu.Animation
 {
     [Serializable]
     public sealed class SkinShopData
     {
-        public int id; [NaughtyAttributes.ShowAssetPreview(256, 256)]
+        public int id;
+
+        [NaughtyAttributes.ShowAssetPreview(256, 256)]
         public Sprite icon;
+
         public CurrancyTypeID priceType;
         public int price;
         public bool isOpen;
     }
 
+    [Serializable]
+    public sealed class CurrancyIcons
+    {
+        public Sprite icon;
+        public CurrancyTypeID currancyTypeID;
+    }
+
     public sealed class CharacterSwitcher : MonoBehaviour
     {
         public Image characterImage;
-        public Sprite[] characterSprites;
-
         public List<SkinShopData> skins;
+        public Button buyButton;
+
+        public GameObject selectSkin;
+        public Image cyrrancy;
+        public NumberVisualizer numberVisualizer;
+
+        public List<CurrancyIcons> currancyIcons;
 
         private RectTransform characterTransform;
         private int currentIndex;
         private bool isSwitching;
+        private Storage storage;
 
-        private void Start()
+        private int currentActualSkinId;
+        private int selectionSkinID;
+
+        private IPersistenProgressService persistenProgressService;
+
+        [System.Diagnostics.Conditional("DEBUG")]
+        private void OnValidate()
         {
+            int id = -1;
+            foreach (var skin in skins)
+            {
+                id++;
+                skin.id = id;
+            }
+        }
+
+        public void Initialize(Storage storage, IPersistenProgressService persistenProgressService)
+        {
+            this.storage = storage;
+            this.persistenProgressService = persistenProgressService;
+
+            if (storage.userSkins.SkinDatas == null || storage.userSkins.SkinDatas.Count <= 0)
+            {
+                storage.userSkins.SkinDatas = new List<SkinData>();
+
+                foreach (var skin in skins)
+                {
+                    var skinData = new SkinData();
+                    skinData.ID = skin.id;
+                    skinData.IsOpen = skin.isOpen;
+                    storage.userSkins.SkinDatas.Add(skinData);
+                }
+
+                storage.userSkins.SkinDatas[0].IsOpen = true;
+                storage.userSkins.selectionSkinId = storage.userSkins.SkinDatas[0].ID;
+
+                persistenProgressService.Save(this.storage);
+            }
+            else
+            {
+                foreach (var userSkin in storage.userSkins.SkinDatas)
+                {
+                    foreach (var skin in skins.Where(skin => userSkin.ID == skin.id))
+                    {
+                        skin.isOpen = userSkin.IsOpen;
+                    }
+                }
+            }
+
+            currentActualSkinId = storage.userSkins.selectionSkinId;
+
             characterTransform = characterImage.GetComponent<RectTransform>();
             characterTransform.localScale = Vector3.zero;
 
-            AnimateCharacter(true);
+            AnimateCharacter(true, currentActualSkinId);
+            UpdateUI(currentActualSkinId);
+
+            buyButton.onClick.AddListener(Buy);
+        }
+
+        private void Buy()
+        {
+            var skin = skins[selectionSkinID];
+
+            if (skin.isOpen)
+                return;
+
+            switch (skin.priceType)
+            {
+                case CurrancyTypeID.Emerald:
+                {
+                    if (storage.EmeraldCurrancy >= skin.price)
+                    {
+                        skin.isOpen = true;
+
+                        storage.userSkins.SkinDatas[selectionSkinID].IsOpen = true;
+                        storage.userSkins.selectionSkinId = selectionSkinID;
+
+                        storage.EmeraldCurrancy = -skin.price;
+
+                        selectSkin.SetActive(true);
+                        numberVisualizer.gameObject.SetActive(false);
+                        cyrrancy.gameObject.SetActive(false);
+
+                        persistenProgressService.Save(storage);
+                    }
+                }
+                    break;
+                case CurrancyTypeID.Fish:
+                {
+                    if (storage.FishCurrancy >= skin.price)
+                    {
+                        skin.isOpen = true;
+
+                        storage.userSkins.SkinDatas[selectionSkinID].IsOpen = true;
+                        storage.userSkins.selectionSkinId = selectionSkinID;
+
+                        storage.FishCurrancy = -skin.price;
+
+                        selectSkin.SetActive(true);
+                        numberVisualizer.gameObject.SetActive(false);
+                        cyrrancy.gameObject.SetActive(false);
+
+                        persistenProgressService.Save(storage);
+                    }
+                }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public void SwitchCharacter(bool isRight)
         {
+            if (isSwitching)
+                return;
+
             int newIndex;
 
             if (isRight)
             {
                 newIndex = currentIndex + 1;
-                if (newIndex >= characterSprites.Length)
-                {
-                    newIndex = 0;
-                }
 
-                AnimateCharacter(true, newIndex);
+                if (newIndex >= skins.Count)
+                    newIndex = 0;
             }
             else
             {
                 newIndex = currentIndex - 1;
-                if (newIndex < 0)
-                {
-                    newIndex = characterSprites.Length - 1;
-                }
 
-                AnimateCharacter(false, newIndex);
+                if (newIndex < 0)
+                    newIndex = skins.Count - 1;
             }
+
+            selectionSkinID = newIndex;
+
+            UpdateUI(newIndex);
+
+            AnimateCharacter(true, newIndex);
 
             isSwitching = true;
         }
@@ -80,7 +208,7 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
                 {
                     if (newIndex != -1)
                     {
-                        characterImage.sprite = characterSprites[newIndex];
+                        characterImage.sprite = skins[newIndex].icon;
                         currentIndex = newIndex;
                     }
 
@@ -95,5 +223,33 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
                         });
                 });
         }
+
+        private void UpdateUI(int id)
+        {
+            var skin = skins[id];
+
+            if (!skin.isOpen)
+            {
+                selectSkin.SetActive(false);
+
+                numberVisualizer.gameObject.SetActive(true);
+                numberVisualizer.ShowNumber(skin.price);
+
+                cyrrancy.gameObject.SetActive(true);
+                cyrrancy.sprite = currancyIcons.FirstOrDefault(icon => icon.currancyTypeID == skin.priceType)!.icon;
+            }
+            else
+            {
+                currentActualSkinId = id;
+                storage.userSkins.selectionSkinId = id;
+
+                selectSkin.SetActive(true);
+                numberVisualizer.gameObject.SetActive(false);
+                cyrrancy.gameObject.SetActive(false);
+            }
+        }
+
+        private void OnDestroy() =>
+            buyButton.onClick.RemoveListener(Buy);
     }
 }
