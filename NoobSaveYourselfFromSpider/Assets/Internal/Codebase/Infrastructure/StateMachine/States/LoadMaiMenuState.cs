@@ -62,16 +62,16 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         {
             uiFactory.CreateMainMenuRoot();
             uiFactory.CreateDynamicCanvas();
-
             mainMenu = uiFactory.CreateMainMenuCanvas();
 
-            mainMenu.Emerald.NumberVisualizer.ShowNumber(persistenProgressService.GetStoragesData().currancys.emerald);
-            mainMenu.Fish.NumberVisualizer.ShowNumber(persistenProgressService.GetStoragesData().currancys.fish);
-            mainMenu.BestDistance.NumberVisualizer.ShowNumber(persistenProgressService.GetStoragesData().userBestDistance.bestDistance);
+            var storage = persistenProgressService.GetStoragesData();
+
+            mainMenu.Emerald.Initialize(storage);
+            mainMenu.Fish.Initialize(storage);
+            mainMenu.BestDistance.Initialize(storage);
+            storage.Refresh();
 
             mainMenu.PlayButton.onClick.AddListener(OnSceneLoaded);
-
-            //     staticData
         }
 
         public void Exit()

@@ -7,14 +7,20 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Internal.Codebase.Runtime.StorageData
 {
     [Serializable]
-    public sealed class Currancys
+    public sealed class EmeraldCurrancy
     {
-        public int emerald;
-        public int fish;
+        public int emeralds;
+    }
+
+    [Serializable]
+    public sealed class FishCurrancy
+    {
+        public int fishs;
     }
 
     [Serializable]
@@ -58,10 +64,56 @@ namespace Internal.Codebase.Runtime.StorageData
     [Serializable]
     public sealed class Storage
     {
-        public Currancys currancys;
+        public FishCurrancy fishCurrancy;
+        public EmeraldCurrancy emeraldCurrancy;
+
         public UserBestDistance userBestDistance;
         public UserSkins userSkins;
         public UserBioms userBioms;
         public AudioSettings audioSettings;
+
+        [NonSerialized] public Action<int> OnFishCurrancyChanged;
+        [NonSerialized] public Action<int> OnEmeraldCurrancyChanged;
+        [NonSerialized] public Action<int> OnBestDistanceChanged;
+
+        public void Refresh()
+        {
+            OnEmeraldCurrancyChanged?.Invoke(emeraldCurrancy.emeralds);
+            OnFishCurrancyChanged?.Invoke(fishCurrancy.fishs);
+            OnBestDistanceChanged?.Invoke(userBestDistance.bestDistance);
+        }
+
+        public int FishCurrancy
+        {
+            get => fishCurrancy.fishs;
+
+            set
+            {
+                fishCurrancy.fishs += Mathf.Clamp(value, 0, int.MaxValue);
+                OnFishCurrancyChanged?.Invoke(fishCurrancy.fishs);
+            }
+        }
+
+        public int EmeraldCurrancy
+        {
+            get => emeraldCurrancy.emeralds;
+
+            set
+            {
+                emeraldCurrancy.emeralds += Mathf.Clamp(value, 0, int.MaxValue);
+                OnEmeraldCurrancyChanged?.Invoke(emeraldCurrancy.emeralds);
+            }
+        }
+
+        public int BestDistance
+        {
+            get => userBestDistance.bestDistance;
+
+            set
+            {
+                userBestDistance.bestDistance += Mathf.Clamp(value, 0, int.MaxValue);
+                OnBestDistanceChanged?.Invoke(userBestDistance.bestDistance);
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7362451505348096182}
   - component: {fileID: 7039601624617029331}
   - component: {fileID: 6916244579462335698}
+  - component: {fileID: 6228378568395170796}
   m_Layer: 5
   m_Name: CurrencyFish
   m_TagString: Untagged
@@ -95,6 +96,20 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 10, y: -10}
   m_UseGraphicAlpha: 1
+--- !u!114 &6228378568395170796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551779304504371563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67f904d00a945d0826f784305f27ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CurrancyTypeID>k__BackingField: 1
+  <NumberVisualizer>k__BackingField: {fileID: 8935297624193326034}
 --- !u!1 &5104609496102024024
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,3 +461,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3096680708628881762, guid: f78c196d70f5f854b9a371f0867c44a6, type: 3}
   m_PrefabInstance: {fileID: 7877814963908133993}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8935297624193326034 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1248362557227343803, guid: f78c196d70f5f854b9a371f0867c44a6, type: 3}
+  m_PrefabInstance: {fileID: 7877814963908133993}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668873111f114b2291dcfe033a6353d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

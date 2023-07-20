@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationDuration: 0.5
-  rotationAngle: 180
+  direction: {x: 0, y: -180, z: 0}
 --- !u!1 &3548550382647794090
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 7888832425789990964}
   - component: {fileID: 8089711216646176592}
   - component: {fileID: 3829919949323597052}
+  - component: {fileID: 8508505516685072847}
   m_Layer: 5
   m_Name: DigitPrefab
   m_TagString: Untagged
@@ -391,6 +392,35 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 10, y: -10}
   m_UseGraphicAlpha: 1
+--- !u!114 &8508505516685072847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4559378598940325353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668873111f114b2291dcfe033a6353d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsStartCounter: 0
+  numberSprites:
+  - {fileID: -42532505, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: -47934938, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: 1021940354, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: -406496073, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: -1540330128, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: -1351468427, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: -1976697465, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: -992646369, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: 764938082, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: 2124599757, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  numberImages:
+  - {fileID: 4810141733853864024}
+  - {fileID: 6495355255509784160}
+  - {fileID: 8124919564472724332}
+  - {fileID: 6858473938027878139}
 --- !u!1 &6191228115088796811
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,7 +603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationDuration: 0.5
-  rotationAngle: 180
+  direction: {x: 0, y: -180, z: 0}
 --- !u!1 &7673105412362329086
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,6 +680,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5916155922123983741}
+  - component: {fileID: 5361243839298296109}
   m_Layer: 5
   m_Name: BestScore
   m_TagString: Untagged
@@ -678,6 +709,19 @@ RectTransform:
   m_AnchoredPosition: {x: -400, y: 20}
   m_SizeDelta: {x: 500, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5361243839298296109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8030073390797338916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a64e70dab45400c909033ec27308c57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <NumberVisualizer>k__BackingField: {fileID: 8508505516685072847}
 --- !u!1 &8087760151458876207
 GameObject:
   m_ObjectHideFlags: 0
