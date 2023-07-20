@@ -658,6 +658,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DigitPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 887349880562369933, guid: f78c196d70f5f854b9a371f0867c44a6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 904009241, guid: b2e896807fa1beb4897ddd691bb2c72d, type: 3}
     - target: {fileID: 1248362557227343803, guid: f78c196d70f5f854b9a371f0867c44a6, type: 3}
       propertyPath: IsStartCounter
       value: 1

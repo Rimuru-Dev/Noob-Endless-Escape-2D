@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3096680708628881762}
   - component: {fileID: 2934339033228729955}
   - component: {fileID: 887349880562369933}
-  - component: {fileID: 7542615016868626763}
   - component: {fileID: 1248362557227343803}
   m_Layer: 5
   m_Name: DigitPrefab
@@ -34,7 +33,7 @@ RectTransform:
   m_Children:
   - {fileID: 203311789121656041}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8078126, y: 0.8092963}
   m_AnchorMax: {x: 0.958625, y: 0.95070374}
@@ -79,18 +78,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7542615016868626763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 407202918034696709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 861df972114049cc8c7356c88b37fcc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1248362557227343803
 MonoBehaviour:
   m_ObjectHideFlags: 0
