@@ -6,6 +6,7 @@
 // **************************************************************** //
 
 using System;
+using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.MainMenu;
 using UnityEngine;

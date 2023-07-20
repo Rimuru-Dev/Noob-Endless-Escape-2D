@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -1408457362, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  m_Sprite: {fileID: -1346110733, guid: b441ad969925de043bad8adcf49ebff7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 201328368784681977}
   - component: {fileID: 1975584935540572388}
   - component: {fileID: 507205313234098931}
+  - component: {fileID: 2261558872126293109}
   - component: {fileID: 5486645235183081572}
   m_Layer: 8
   m_Name: Hero
@@ -149,7 +150,7 @@ Transform:
   - {fileID: 452925312391639836}
   - {fileID: 5038999288144383400}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1975584935540572388
 BoxCollider2D:
@@ -223,6 +224,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2261558872126293109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9088350657408522445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dbdaa9bb75d4c669bee08c496a41b9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <HeroSpriteRenderer>k__BackingField: {fileID: 3684189127273395468}
+  jumpController: {fileID: 5486645235183081572}
 --- !u!114 &5486645235183081572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,3 +253,4 @@ MonoBehaviour:
   jumpForce: 5
   rotationAngle: -90
   rotationSpeed: 5
+  useMouseClick: 1

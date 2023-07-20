@@ -5,7 +5,7 @@
 //
 // **************************************************************** //
 
-namespace Internal.Codebase.Infrastructure.Services.StaticData
+namespace Internal.Codebase.Infrastructure.Services.PersistenProgress
 {
     public interface IPersistenProgressService
     {

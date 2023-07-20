@@ -23,6 +23,9 @@ namespace Internal.Codebase.Runtime.Hero
         private Quaternion targetRotation;
         private Vector3 initialPosition;
 
+        public bool IsCanReturnToInitialPosition { get; set; } = true;
+        public bool IsCanJump { get; set; } = true;
+
         private void Start()
         {
             rb = GetComponent<Rigidbody2D>();
@@ -31,8 +34,11 @@ namespace Internal.Codebase.Runtime.Hero
 
         private void Update()
         {
+            if (!IsCanJump)
+                return;
+
             if ((useMouseClick && Input.GetMouseButtonDown(0)) && !isJumping ||
-                (Input.GetKeyDown(KeyCode.Space) && !isJumping /*&& canJump*/))
+                (Input.GetKeyDown(KeyCode.Space) && !isJumping))
                 Jump();
 
             if (Mathf.Abs(transform.position.x) > 0f)
@@ -65,6 +71,9 @@ namespace Internal.Codebase.Runtime.Hero
 
         private void ReturnToInitialPosition()
         {
+            if (!IsCanReturnToInitialPosition)
+                return;
+
             var targetPosition = new Vector3(initialPosition.x, transform.position.y, transform.position.z);
             transform.position = Vector3.Lerp(transform.position, targetPosition, rotationSpeed * Time.deltaTime);
         }

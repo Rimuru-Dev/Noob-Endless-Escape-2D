@@ -11,7 +11,7 @@ using UnityEngine;
 using YG;
 using AudioSettings = Internal.Codebase.Runtime.StorageData.AudioSettings;
 
-namespace Internal.Codebase.Infrastructure.Services.StaticData
+namespace Internal.Codebase.Infrastructure.Services.PersistenProgress
 {
     public sealed class PersistenProgressService : IPersistenProgressService, IDisposable
     {
