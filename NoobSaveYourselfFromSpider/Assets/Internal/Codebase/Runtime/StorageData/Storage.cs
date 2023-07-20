@@ -34,12 +34,13 @@ namespace Internal.Codebase.Runtime.StorageData
     {
         public int selectionSkinId;
         public List<SkinData> SkinDatas;
+    }
 
-        public sealed class SkinData
-        {
-            public int ID;
-            public bool IsOpen;
-        }
+    [Serializable]
+    public sealed class SkinData
+    {
+        public int ID;
+        public bool IsOpen;
     }
 
     [Serializable]
@@ -47,12 +48,13 @@ namespace Internal.Codebase.Runtime.StorageData
     {
         public int selectionBiomId;
         public List<BiomDatas> BiomData;
+    }
 
-        public sealed class BiomDatas
-        {
-            public int ID;
-            public bool IsOpen;
-        }
+    [Serializable]
+    public sealed class BiomDatas
+    {
+        public int ID;
+        public bool IsOpen;
     }
 
     [Serializable]
@@ -89,7 +91,8 @@ namespace Internal.Codebase.Runtime.StorageData
 
             set
             {
-                fishCurrancy.fishs += Mathf.Clamp(value, 0, int.MaxValue);
+                fishCurrancy.fishs += value;
+                fishCurrancy.fishs = Mathf.Clamp(fishCurrancy.fishs, 0, int.MaxValue);
                 OnFishCurrancyChanged?.Invoke(fishCurrancy.fishs);
             }
         }
@@ -100,7 +103,8 @@ namespace Internal.Codebase.Runtime.StorageData
 
             set
             {
-                emeraldCurrancy.emeralds += Mathf.Clamp(value, 0, int.MaxValue);
+                emeraldCurrancy.emeralds += value;
+                emeraldCurrancy.emeralds = Mathf.Clamp(emeraldCurrancy.emeralds, 0, int.MaxValue);
                 OnEmeraldCurrancyChanged?.Invoke(emeraldCurrancy.emeralds);
             }
         }
@@ -111,7 +115,8 @@ namespace Internal.Codebase.Runtime.StorageData
 
             set
             {
-                userBestDistance.bestDistance += Mathf.Clamp(value, 0, int.MaxValue);
+                userBestDistance.bestDistance += value;
+                userBestDistance.bestDistance = Mathf.Clamp(userBestDistance.bestDistance, 0, int.MaxValue);
                 OnBestDistanceChanged?.Invoke(userBestDistance.bestDistance);
             }
         }

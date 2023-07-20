@@ -277,32 +277,61 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterImage: {fileID: 163922991917402242}
-  characterSprites:
-  - {fileID: -565388574, guid: 166c53fa10947f94ca477271f790117c, type: 3}
-  - {fileID: 1788482715, guid: 166c53fa10947f94ca477271f790117c, type: 3}
-  - {fileID: 1329119156, guid: 166c53fa10947f94ca477271f790117c, type: 3}
-  - {fileID: -1408457362, guid: 166c53fa10947f94ca477271f790117c, type: 3}
   skins:
   - id: 0
-    icon: {fileID: -1408457362, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+    icon: {fileID: -1377419032, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
     priceType: 0
     price: 0
     isOpen: 1
   - id: 1
-    icon: {fileID: -565388574, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+    icon: {fileID: -197256452, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
     priceType: 0
-    price: 20
+    price: 10
     isOpen: 0
   - id: 2
-    icon: {fileID: 1788482715, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+    icon: {fileID: -686344964, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
     priceType: 0
-    price: 100
+    price: 50
     isOpen: 0
   - id: 3
-    icon: {fileID: 1329119156, guid: 166c53fa10947f94ca477271f790117c, type: 3}
-    priceType: 1
-    price: 5
+    icon: {fileID: 1937092506, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
+    priceType: 0
+    price: 150
     isOpen: 0
+  - id: 4
+    icon: {fileID: -391973836, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
+    priceType: 1
+    price: 2
+    isOpen: 0
+  - id: 5
+    icon: {fileID: -63669742, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
+    priceType: 1
+    price: 4
+    isOpen: 0
+  - id: 6
+    icon: {fileID: 467396367, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
+    priceType: 0
+    price: 300
+    isOpen: 0
+  - id: 7
+    icon: {fileID: 1815338135, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
+    priceType: 1
+    price: 3
+    isOpen: 0
+  - id: 8
+    icon: {fileID: -419450692, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
+    priceType: 1
+    price: 7
+    isOpen: 0
+  buyButton: {fileID: 398535201957002618}
+  selectSkin: {fileID: 2357315360834772966}
+  cyrrancy: {fileID: 7818577755578471940}
+  numberVisualizer: {fileID: 8289867177267392899}
+  currancyIcons:
+  - icon: {fileID: 557182303, guid: 35e8df9dc7ead2549bc5f860088974b7, type: 3}
+    currancyTypeID: 0
+  - icon: {fileID: 1301073082, guid: b2e896807fa1beb4897ddd691bb2c72d, type: 3}
+    currancyTypeID: 1
 --- !u!1 &2217141195521238518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1173,7 +1202,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8112565763851973091
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1528,7 +1557,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1408457362, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  m_Sprite: {fileID: -1377419032, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2744,7 +2773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 407202918034696709, guid: f78c196d70f5f854b9a371f0867c44a6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 887349880562369933, guid: f78c196d70f5f854b9a371f0867c44a6, type: 3}
       propertyPath: m_Enabled
@@ -2844,6 +2873,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3096680708628881762, guid: f78c196d70f5f854b9a371f0867c44a6, type: 3}
   m_PrefabInstance: {fileID: 7086578283388497464}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8289867177267392899 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1248362557227343803, guid: f78c196d70f5f854b9a371f0867c44a6, type: 3}
+  m_PrefabInstance: {fileID: 7086578283388497464}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668873111f114b2291dcfe033a6353d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8440782905679053590
 PrefabInstance:
   m_ObjectHideFlags: 0
