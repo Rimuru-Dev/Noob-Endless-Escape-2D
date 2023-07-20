@@ -22,6 +22,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private readonly ISceneLoaderService sceneLoader;
         private readonly IStaticDataService staticData;
         private readonly IStorageService storageService;
+        private readonly IPersistenProgressService persistenProgressService;
         private IGameStateMachine gameStateMachine;
 
         [Inject]
@@ -29,12 +30,13 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             IStaticDataService staticData,
             ISceneLoaderService sceneLoader,
             ICurtainService curtain,
-            IStorageService storageService)
+            IStorageService storageService, IPersistenProgressService persistenProgressService)
         {
             this.staticData = staticData;
             this.sceneLoader = sceneLoader;
             this.curtain = curtain;
             this.storageService = storageService;
+            this.persistenProgressService = persistenProgressService;
         }
 
         public void Init(IGameStateMachine gameStateMachine)
@@ -55,6 +57,9 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
         private void PrepareServices()
         {
+            // Load Game Save Data
+            persistenProgressService.Init();
+
             // ** Localozation ** //
             // LocalizationManager.Read();
 

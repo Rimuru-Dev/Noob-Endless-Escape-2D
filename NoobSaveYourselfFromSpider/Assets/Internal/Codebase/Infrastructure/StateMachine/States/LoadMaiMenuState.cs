@@ -22,18 +22,23 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
     {
         private readonly ICurtainService curtain;
         private readonly ISceneLoaderService sceneLoader;
+        private readonly IPersistenProgressService persistenProgressService;
         private readonly IStaticDataService staticData;
         private readonly IUIFactory uiFactory;
         private IGameStateMachine gameStateMachine;
+
+        private MainMenuCanvasView mainMenu;
 
         [Inject]
         public LoadMaiMenuState(
             IStaticDataService staticData,
             ICurtainService curtain,
             IUIFactory uiFactory,
-            ISceneLoaderService sceneLoader)
+            ISceneLoaderService sceneLoader,
+            IPersistenProgressService persistenProgressService)
         {
             this.sceneLoader = sceneLoader;
+            this.persistenProgressService = persistenProgressService;
             this.staticData = staticData;
             this.curtain = curtain;
             this.uiFactory = uiFactory;
@@ -51,8 +56,6 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             // *** Hide Curtain *** //
             var config = staticData.ForCurtain();
             curtain.HideCurtain(config.HideDelay);
-
-            Object.FindObjectOfType<Button>().onClick.AddListener(OnSceneLoaded);
         }
 
         private void PrepareUI()
@@ -60,11 +63,20 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             uiFactory.CreateMainMenuRoot();
             uiFactory.CreateDynamicCanvas();
 
-            MainMenuCanvasView mainMenu = uiFactory.CreateMainMenuCanvas();
+            mainMenu = uiFactory.CreateMainMenuCanvas();
+
+            mainMenu.Emerald.NumberVisualizer.ShowNumber(persistenProgressService.GetStoragesData().currancys.emerald);
+            mainMenu.Fish.NumberVisualizer.ShowNumber(persistenProgressService.GetStoragesData().currancys.fish);
+            mainMenu.BestDistance.NumberVisualizer.ShowNumber(persistenProgressService.GetStoragesData().userBestDistance.bestDistance);
+
+            mainMenu.PlayButton.onClick.AddListener(OnSceneLoaded);
+
+            //     staticData
         }
 
         public void Exit()
         {
+            mainMenu.PlayButton.onClick.RemoveListener(OnSceneLoaded);
         }
 
         private void OnSceneLoaded()

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3096680708628881762}
   - component: {fileID: 2934339033228729955}
   - component: {fileID: 887349880562369933}
+  - component: {fileID: 7542615016868626763}
+  - component: {fileID: 1248362557227343803}
   m_Layer: 5
   m_Name: DigitPrefab
   m_TagString: Untagged
@@ -77,6 +79,46 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7542615016868626763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407202918034696709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 861df972114049cc8c7356c88b37fcc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1248362557227343803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407202918034696709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668873111f114b2291dcfe033a6353d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberSprites:
+  - {fileID: -42532505, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: -47934938, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: 1021940354, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: -406496073, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: -1540330128, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: -1351468427, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: -1976697465, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: -992646369, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: 764938082, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  - {fileID: 2124599757, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  numberImages:
+  - {fileID: 7716421509477071572}
+  - {fileID: 249156261743295356}
+  - {fileID: 2829745291101761472}
+  - {fileID: 2011058154999605890}
 --- !u!1 &595152112386078280
 GameObject:
   m_ObjectHideFlags: 0

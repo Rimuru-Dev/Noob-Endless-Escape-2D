@@ -1,4 +1,5 @@
-﻿
+﻿using Internal.Codebase.Runtime.StorageData;
+
 namespace YG
 {
     [System.Serializable]
@@ -12,12 +13,12 @@ namespace YG
 
         // Тестовые сохранения для демо сцены
         // Можно удалить этот код, но тогда удалите и демо (папка Example)
-        public int money = 1;                       // Можно задать полям значения по умолчанию
+        public int money = 1; // Можно задать полям значения по умолчанию
         public string newPlayerName = "Hello!";
         public bool[] openLevels = new bool[3];
 
         // Ваши сохранения
-
+        public Storage storage;
         // ...
 
         // Поля (сохранения) можно удалять и создавать новые. При обновлении игры сохранения ломаться не должны

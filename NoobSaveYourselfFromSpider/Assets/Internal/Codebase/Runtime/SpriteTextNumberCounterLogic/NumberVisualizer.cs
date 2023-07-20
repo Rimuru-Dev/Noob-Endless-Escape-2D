@@ -10,23 +10,28 @@ using UnityEngine.UI;
 
 namespace Internal.Codebase.Runtime.SpriteTextNumberCounterLogic
 {
+    // TODO: Refactoring on NumberVisualizerService : INumberVisualizerService
     public sealed class NumberVisualizer : MonoBehaviour
     {
+        public bool IsStartCounter; // TODO: Refactoring this!
         public Sprite[] numberSprites;
         public Image[] numberImages;
 
         #region Visualize Text
 
+#if UNITY_EDITOR
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
                 ShowNumber(Random.Range(0, 9999));
-            if (Input.GetKeyDown(KeyCode.W))
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
                 ShowNumber(0);
-            if (Input.GetKeyDown(KeyCode.R))
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
                 ShowNumber(145);
         }
-
+#endif
         public void ShowNumber(int number)
         {
             DisableAllImage();
@@ -74,7 +79,8 @@ namespace Internal.Codebase.Runtime.SpriteTextNumberCounterLogic
 
         private void Start()
         {
-            InvokeRepeating(nameof(UpdateNumber), 1f, .5f);
+            if (IsStartCounter)
+                InvokeRepeating(nameof(UpdateNumber), 1f, .5f);
         }
 
         private void UpdateNumber()

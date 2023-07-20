@@ -36,6 +36,7 @@ namespace Internal.Codebase.Infrastructure.Installers
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
             Container.Bind<ISceneLoaderService>().To<SceneLoaderService>().AsSingle();
             Container.Bind<IStorageService>().To<JsonToFileStorageService>().AsSingle();
+            Container.Bind<IPersistenProgressService>().To<PersistenProgressService>().AsSingle();
             Container.Bind<IResourceLoaderService>().To<ResourceLoaderServiceService>().AsSingle();
         }
 
