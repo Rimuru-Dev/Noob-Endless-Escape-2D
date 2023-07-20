@@ -11,6 +11,7 @@ using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
 using Internal.Codebase.Runtime.MainMenu;
+using Internal.Codebase.Runtime.MainMenu.Animation;
 using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 using UnityEngine.UI;
@@ -62,6 +63,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         {
             uiFactory.CreateMainMenuRoot();
             uiFactory.CreateDynamicCanvas();
+
             mainMenu = uiFactory.CreateMainMenuCanvas();
 
             var storage = persistenProgressService.GetStoragesData();
@@ -72,6 +74,10 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             storage.Refresh();
 
             mainMenu.PlayButton.onClick.AddListener(OnSceneLoaded);
+
+            mainMenu.gameObject
+                .GetComponent<CharacterSwitcher>()
+                .Initialize(storage, persistenProgressService);
         }
 
         public void Exit()
