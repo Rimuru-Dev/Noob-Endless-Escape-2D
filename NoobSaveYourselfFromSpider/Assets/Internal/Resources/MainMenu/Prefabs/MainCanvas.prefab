@@ -282,6 +282,27 @@ MonoBehaviour:
   - {fileID: 1788482715, guid: 166c53fa10947f94ca477271f790117c, type: 3}
   - {fileID: 1329119156, guid: 166c53fa10947f94ca477271f790117c, type: 3}
   - {fileID: -1408457362, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+  skins:
+  - id: 0
+    icon: {fileID: -1408457362, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+    priceType: 0
+    price: 0
+    isOpen: 1
+  - id: 1
+    icon: {fileID: -565388574, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+    priceType: 0
+    price: 20
+    isOpen: 0
+  - id: 2
+    icon: {fileID: 1788482715, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+    priceType: 0
+    price: 100
+    isOpen: 0
+  - id: 3
+    icon: {fileID: 1329119156, guid: 166c53fa10947f94ca477271f790117c, type: 3}
+    priceType: 1
+    price: 5
+    isOpen: 0
 --- !u!1 &2217141195521238518
 GameObject:
   m_ObjectHideFlags: 0
