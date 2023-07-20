@@ -7,12 +7,14 @@
 
 using UnityEngine;
 
-namespace Internal.Codebase.Infrastructure.Factory.Hero
+namespace Internal.Codebase.Runtime.Hero
 {
-    public interface IHeroFactory
+    public sealed class HeroDie : MonoBehaviour
     {
-        public GameObject Hero { get; }
-        public Runtime.Hero.Hero CreateHero();
-        public void CreateHeroCamera();
+        public void ApplyHeroDie()
+        {
+            Debug.Log("Hero Die");
+            Time.timeScale = 0;
+        }
     }
 }

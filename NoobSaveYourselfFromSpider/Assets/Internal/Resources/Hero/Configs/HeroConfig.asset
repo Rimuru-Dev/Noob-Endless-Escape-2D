@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88df9293c4214e34aca7703535fbba7b, type: 3}
+  m_Name: HeroConfig
+  m_EditorClassIdentifier: 
+  <HeroPrefab>k__BackingField: {fileID: 2261558872126293109, guid: 52bffbfc5c1eb0649a07d30f819412e0, type: 3}
+  <HeroVirtualCamera>k__BackingField: {fileID: 5134643096044349387, guid: 6ab8317f3bfecc242bc476305179edec, type: 3}

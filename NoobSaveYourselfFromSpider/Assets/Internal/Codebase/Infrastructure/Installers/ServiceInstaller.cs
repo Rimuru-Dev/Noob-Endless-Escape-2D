@@ -7,6 +7,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Internal.Codebase.Infrastructure.AssetManagement;
+using Internal.Codebase.Infrastructure.Factory;
 using Internal.Codebase.Infrastructure.Factory.Hero;
 using Internal.Codebase.Infrastructure.Factory.UI;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
@@ -45,6 +46,7 @@ namespace Internal.Codebase.Infrastructure.Installers
         {
             Container.Bind<IUIFactory>().To<UIFactory>().AsSingle();
             Container.Bind<IHeroFactory>().To<HeroFactory>().AsSingle();
+            Container.Bind<IGameFactory>().To<GameFactory>().AsSingle();
         }
     }
 }

@@ -35,6 +35,16 @@ namespace Internal.Codebase.Infrastructure.AssetManagement
             return Object.Instantiate(prefab);
         }
 
+        public T Instantiate<T>(string path, Transform parent = null) where T : UnityEngine.Object
+        {
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException(path);
+
+            var prefab = resourceLoader.Load<T>(path);
+
+            return Object.Instantiate(prefab, parent);
+        }
+
         public GameObject Instantiate(string path, Transform parent = null)
         {
             if (string.IsNullOrEmpty(path))

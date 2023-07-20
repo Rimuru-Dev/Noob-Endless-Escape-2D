@@ -6,6 +6,7 @@
 // **************************************************************** //
 
 using System;
+using Cinemachine;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.Services.Storage;
@@ -20,7 +21,7 @@ namespace Internal.Codebase.Infrastructure.Factory.Hero
         private readonly IStaticDataService staticData;
         private readonly IStorageService storageService;
 
-        public GameObject Hero { get; }
+        public GameObject Hero { get; private set; }
 
         [Inject]
         public HeroFactory(IAssetProvider assetProvider, IStaticDataService staticData, IStorageService storageService)
@@ -30,9 +31,27 @@ namespace Internal.Codebase.Infrastructure.Factory.Hero
             this.storageService = storageService;
         }
 
-        public GameObject CreateHero()
+        public Runtime.Hero.Hero CreateHero()
         {
-            throw new NotImplementedException("Hero");
+            var heroConfig = staticData.ForHero();
+
+            // TODO: Added override T Instantiate<T>()
+            var hero = assetProvider.Instantiate(heroConfig.HeroPrefab.gameObject).GetComponent<Runtime.Hero.Hero>();
+
+            Hero = hero.gameObject;
+
+            return hero;
+        }
+
+        public void CreateHeroCamera()
+        {
+            var heroConfig = staticData.ForHero();
+
+            var heroCanera = assetProvider
+                .Instantiate(heroConfig.HeroVirtualCamera.gameObject)
+                .GetComponent<CinemachineVirtualCamera>();
+
+            heroCanera.Follow = Hero.transform;
         }
     }
 }

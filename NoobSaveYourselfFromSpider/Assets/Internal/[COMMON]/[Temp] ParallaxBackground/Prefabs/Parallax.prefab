@@ -182,7 +182,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 620739754933881015}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FirstLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,7 +561,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 853174053992055049}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SecondLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -594,7 +594,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7538387222333668501}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -629,7 +629,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8436120045582438693}
   - component: {fileID: 1773915876055685465}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Parallax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -650,7 +650,7 @@ Transform:
   m_Children:
   - {fileID: 7538387222333668501}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1773915876055685465
 MonoBehaviour:
@@ -849,7 +849,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1533421192815818531}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ThreeLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

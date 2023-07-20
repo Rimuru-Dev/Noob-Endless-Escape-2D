@@ -5,12 +5,21 @@
 //
 // **************************************************************** //
 
+using System;
+using Cinemachine;
+using Internal.Codebase.Infrastructure.AssetManagement;
+using Internal.Codebase.Infrastructure.Factory;
+using Internal.Codebase.Infrastructure.Factory.Hero;
 using Internal.Codebase.Infrastructure.Factory.UI;
 using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
+using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
+using Internal.Codebase.Runtime.Hero;
+using UnityEngine;
 using Zenject;
+using Object = UnityEngine.Object;
 
 namespace Internal.Codebase.Infrastructure.StateMachine.States
 {
@@ -20,6 +29,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private readonly ISceneLoaderService sceneLoader;
         private readonly IStaticDataService staticData;
         private readonly IUIFactory uiFactory;
+        private readonly IHeroFactory heroFactory;
+        private readonly IGameFactory gameFactory;
         private IGameStateMachine gameStateMachine;
 
         [Inject]
@@ -27,12 +38,16 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             ICurtainService curtain,
             ISceneLoaderService sceneLoader,
             IStaticDataService staticData,
-            IUIFactory uiFactory)
+            IUIFactory uiFactory,
+            IHeroFactory heroFactory,
+            IGameFactory gameFactory)
         {
             this.curtain = curtain;
             this.sceneLoader = sceneLoader;
             this.staticData = staticData;
             this.uiFactory = uiFactory;
+            this.heroFactory = heroFactory;
+            this.gameFactory = gameFactory;
         }
 
         public void Init(IGameStateMachine gameStateMachine) =>
@@ -40,9 +55,26 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
         public void Enter()
         {
+            PrepareScene();
+
             // *** Hide Curtain *** //
             var config = staticData.ForCurtain();
             curtain.HideCurtain(config.HideDelay);
+        }
+
+        private void PrepareScene()
+        {
+            var levelGenerator = gameFactory.CreateLevelGenerator();
+            levelGenerator.Prepare();
+
+            var hero = heroFactory.CreateHero();
+            heroFactory.CreateHeroCamera();
+
+            var spawnPoint = levelGenerator.GetComponentInChildren<HeroSpawnPoint>();
+            hero.transform.position = spawnPoint != null 
+                ? spawnPoint.transform.position 
+                : new Vector3(0, 5f, 0); // default position
+            
         }
 
         public void Exit()

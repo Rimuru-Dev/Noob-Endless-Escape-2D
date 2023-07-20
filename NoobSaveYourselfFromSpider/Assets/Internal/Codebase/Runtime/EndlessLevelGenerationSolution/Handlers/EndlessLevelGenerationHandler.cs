@@ -40,15 +40,13 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
         {
             pool = new List<Prefab>(config.MaxBlockCount);
 
-            lastSpawnedPrefab = Instantiate(config.LaunchingPlatform, config.StartSpawnPoint, Quaternion.identity, transform);
-            
+            lastSpawnedPrefab = Instantiate(config.LaunchingPlatform, config.StartSpawnPoint, Quaternion.identity,
+                transform);
+
             pool.Add(lastSpawnedPrefab);
 
             StartEndlessLevelGeneration();
         }
-
-        private void Start() =>
-            Prepare();
 
         private void Update()
         {
@@ -104,7 +102,8 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
                 if (pool.Count < config.MaxBlockCount)
                 {
                     var position = rightConnectPoint.position;
-                    var nextPrefab = Instantiate(config.Prefabs[nextPrefabIndex], position, Quaternion.identity, transform);
+                    var nextPrefab = Instantiate(config.Prefabs[nextPrefabIndex], position, Quaternion.identity,
+                        transform);
 
                     pool.Add(nextPrefab);
 

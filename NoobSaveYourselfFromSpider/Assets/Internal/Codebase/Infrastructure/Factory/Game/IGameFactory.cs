@@ -5,14 +5,12 @@
 //
 // **************************************************************** //
 
-using UnityEngine;
+using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
 
-namespace Internal.Codebase.Infrastructure.Factory.Hero
+namespace Internal.Codebase.Infrastructure.Factory
 {
-    public interface IHeroFactory
+    public interface IGameFactory
     {
-        public GameObject Hero { get; }
-        public Runtime.Hero.Hero CreateHero();
-        public void CreateHeroCamera();
+        public EndlessLevelGenerationHandler CreateLevelGenerator();
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 452925312391639836}
   - component: {fileID: 3684189127273395468}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 507205313234098931}
   - component: {fileID: 2261558872126293109}
   - component: {fileID: 5486645235183081572}
+  - component: {fileID: -3516122880135011127}
   m_Layer: 8
   m_Name: Hero
   m_TagString: Player
@@ -254,3 +255,15 @@ MonoBehaviour:
   rotationAngle: -90
   rotationSpeed: 5
   useMouseClick: 1
+--- !u!114 &-3516122880135011127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9088350657408522445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd340f118a074606bdb67750c1cd5089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

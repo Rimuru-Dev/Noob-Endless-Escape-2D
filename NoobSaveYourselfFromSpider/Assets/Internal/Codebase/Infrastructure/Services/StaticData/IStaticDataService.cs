@@ -6,6 +6,8 @@
 // **************************************************************** //
 
 using Internal.Codebase.Runtime.Curtain;
+using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
+using Internal.Codebase.Runtime.Hero;
 using Internal.Codebase.Runtime.MainMenu.Configs;
 
 namespace Internal.Codebase.Infrastructure.Services.StaticData
@@ -15,5 +17,7 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
         public void Initialize();
         public CurtainConfig ForCurtain();
         public MainMenuConfig ForMainMenu();
+        public HeroConfig ForHero();
+        public EndlessLevelGenerationConfig ForEndlessLevelGenerationConfig();
     }
 }
