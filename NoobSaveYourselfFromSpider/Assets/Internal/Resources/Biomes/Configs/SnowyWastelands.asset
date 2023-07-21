@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa020a71c3e4b53827592867e391502, type: 3}
+  m_Name: SnowyWastelands
+  m_EditorClassIdentifier: 
+  <BiomeTypeID>k__BackingField: 1
+  <LaunchingPlatform>k__BackingField: {fileID: 5981375096742839005, guid: 3a779e5fc4af6ca488d0e68437e53691, type: 3}
+  <Prefabs>k__BackingField:
+  - {fileID: 5981375096742839005, guid: 304bb685455713b4c895c4a7222e7130, type: 3}
+  - {fileID: 5981375096742839005, guid: 304bb685455713b4c895c4a7222e7130, type: 3}
+  - {fileID: 5981375096742839005, guid: 304bb685455713b4c895c4a7222e7130, type: 3}
+  - {fileID: 5981375096742839005, guid: 304bb685455713b4c895c4a7222e7130, type: 3}
+  - {fileID: 7808544488804360026, guid: 89835236527aeea41aae9afeecaf478c, type: 3}
+  - {fileID: 5351232499655552657, guid: 6c47e4411eb4edf40aef080cd00ef3cd, type: 3}
+  - {fileID: 3143464025643601979, guid: f9bb9eb051a0e4f4b951aeeb4b418fb1, type: 3}
+  - {fileID: 4847513205142219379, guid: 891667b6706dda643bfc59875cc5ab1b, type: 3}
+  <StartSpawnPoint>k__BackingField: {x: -7.87, y: -3}
+  <LevelScrollingSpeed>k__BackingField: 3
+  <DespawnOffset>k__BackingField: 40
+  <MaxBlockCount>k__BackingField: 20
+  <SpawnCooldown>k__BackingField: 0.3

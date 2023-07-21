@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9aa020a71c3e4b53827592867e391502, type: 3}
-  m_Name: EndlessLevelGenerationConfig
+  m_Name: GreenPlains
   m_EditorClassIdentifier: 
   <LaunchingPlatform>k__BackingField: {fileID: 5981375096742839005, guid: 3a779e5fc4af6ca488d0e68437e53691, type: 3}
   <Prefabs>k__BackingField:

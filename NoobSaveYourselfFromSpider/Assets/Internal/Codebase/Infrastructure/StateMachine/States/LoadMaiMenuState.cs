@@ -11,6 +11,7 @@ using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
+using Internal.Codebase.Runtime.BiomeShop;
 using Internal.Codebase.Runtime.MainMenu;
 using Internal.Codebase.Runtime.MainMenu.Animation;
 using Internal.Codebase.Utilities.Constants;
@@ -30,6 +31,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private IGameStateMachine gameStateMachine;
 
         private MainMenuCanvasView mainMenu;
+        private BiomeShopView biomeShop;
 
         [Inject]
         public LoadMaiMenuState(
@@ -66,6 +68,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             uiFactory.CreateDynamicCanvas();
 
             mainMenu = uiFactory.CreateMainMenuCanvas();
+            biomeShop = mainMenu.BiomeShopView;
 
             var storage = persistenProgressService.GetStoragesData();
 
@@ -74,8 +77,26 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             mainMenu.BestDistance.Initialize(storage);
             storage.Refresh();
 
-            mainMenu.PlayButton.onClick.AddListener(OnSceneLoaded);
+            //   mainMenu.PlayButton.onClick.AddListener(OnSceneLoaded);
 
+            // Biom ! Transition in Biomhandler.cs
+            {
+                var bioms = persistenProgressService.GetStoragesData().userBioms;
+
+                foreach (var biomsData in bioms.biomeData)
+                {
+                    if (biomsData.isOpen)
+                    {
+                    }
+                    else
+                    {
+                        // Вынеси в отдельный контроллер и канфиги кешируй в Boot ! А не уже в гей-мплей сцене
+                        biomeShop.BuyBiomWinter.gameObject.SetActive(false);
+                        biomeShop.LookIcon.gameObject.SetActive(true);
+                        // biomeShop.NumberVisualizer.gameObject.SetActive(false);
+                    }
+                }
+            }
             mainMenu.gameObject
                 .GetComponent<CharacterSwitcher>()
                 .Initialize(storage, persistenProgressService);
@@ -84,6 +105,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         public void Exit()
         {
             mainMenu.PlayButton.onClick.RemoveListener(OnSceneLoaded);
+            mainMenu = null;
+            biomeShop = null;
         }
 
         private void OnSceneLoaded()
