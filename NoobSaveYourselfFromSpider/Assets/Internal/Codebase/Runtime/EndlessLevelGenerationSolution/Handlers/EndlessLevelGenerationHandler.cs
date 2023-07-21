@@ -22,6 +22,7 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
     public sealed class EndlessLevelGenerationHandler : MonoBehaviour, IEndlessLevelGenerationHandler
     {
         [SerializeField] private EndlessLevelGenerationConfig config;
+        [SerializeField] private bool useStart = false;
 
         private List<Prefab> pool;
         private Prefab lastSpawnedPrefab;
@@ -33,6 +34,12 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
                 throw new ArgumentNullException(nameof(endlessLevelGenerationConfig));
 
             config = endlessLevelGenerationConfig;
+        }
+
+        private void Start()
+        {
+            if (useStart)
+                Prepare();
         }
 
         // TODO: Start in Infrastructure. And Remove MonoBehaviour or Spawn This Object on scene in LevelFactory.

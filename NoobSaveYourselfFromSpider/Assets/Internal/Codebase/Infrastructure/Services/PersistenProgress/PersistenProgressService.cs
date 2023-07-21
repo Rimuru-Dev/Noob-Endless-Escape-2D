@@ -24,7 +24,7 @@ namespace Internal.Codebase.Infrastructure.Services.PersistenProgress
             if (YandexGame.SDKEnabled)
                 Load();
             else
-                Debug.Log("Eroor Loaded");
+                Debug.Log("Error Loaded");
 
             YandexGame.GetDataEvent += Load;
         }
