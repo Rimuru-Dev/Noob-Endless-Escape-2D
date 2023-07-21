@@ -7,7 +7,9 @@
 
 using System;
 using System.Collections.Generic;
+using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Internal.Codebase.Runtime.StorageData
 {
@@ -46,15 +48,15 @@ namespace Internal.Codebase.Runtime.StorageData
     [Serializable]
     public sealed class UserBioms
     {
-        public int selectionBiomId;
-        public List<BiomDatas> BiomData;
+        public BiomeTypeID selectionBiomId;
+        public List<BiomDatas> biomeData;
     }
 
     [Serializable]
     public sealed class BiomDatas
     {
-        public int ID;
-        public bool IsOpen;
+        public BiomeTypeID id;
+        public bool isOpen;
     }
 
     [Serializable]

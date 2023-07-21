@@ -20,6 +20,9 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs
     [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public sealed class EndlessLevelGenerationConfig : ScriptableObject
     {
+        [field: SerializeField]
+        public BiomeTypeID BiomeTypeID { get; private set; }
+        
         [field: Header("Settings")]
         [field: Tooltip("Стартовая платформа. Первая платформа при генерации мира/пути.")]
         [field: SerializeField]

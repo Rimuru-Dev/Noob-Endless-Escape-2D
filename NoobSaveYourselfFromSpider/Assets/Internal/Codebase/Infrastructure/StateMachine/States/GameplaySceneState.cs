@@ -64,17 +64,17 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
         private void PrepareScene()
         {
+            var hero = heroFactory.CreateHero();
+            heroFactory.CreateHeroCamera();
+            hero.transform.position = new Vector3(0, 5f, 0);
+
             var levelGenerator = gameFactory.CreateLevelGenerator();
             levelGenerator.Prepare();
 
-            var hero = heroFactory.CreateHero();
-            heroFactory.CreateHeroCamera();
-
-            var spawnPoint = levelGenerator.GetComponentInChildren<HeroSpawnPoint>();
-            hero.transform.position = spawnPoint != null 
-                ? spawnPoint.transform.position 
-                : new Vector3(0, 5f, 0); // default position
-            
+            // var spawnPoint = levelGenerator.GetComponentInChildren<HeroSpawnPoint>();
+            // hero.transform.position = spawnPoint != null 
+            //     ? spawnPoint.transform.position 
+            //     : new Vector3(0, 5f, 0); // default position
         }
 
         public void Exit()

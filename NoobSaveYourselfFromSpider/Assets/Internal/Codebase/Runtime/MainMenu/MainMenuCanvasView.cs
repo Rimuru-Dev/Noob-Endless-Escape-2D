@@ -5,6 +5,7 @@
 //
 // **************************************************************** //
 
+using Internal.Codebase.Runtime.BiomeShop;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,5 +19,6 @@ namespace Internal.Codebase.Runtime.MainMenu
         [field: SerializeField] public BestDistanceUIView BestDistance { get; private set; }
         
         [field: SerializeField] public Button PlayButton { get; private set; }
+        [field: SerializeField] public BiomeShopView BiomeShopView { get; private set; }
     }
 }
