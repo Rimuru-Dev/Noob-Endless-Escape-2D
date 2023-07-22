@@ -76,6 +76,11 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             mainMenu.Emerald.Initialize(storage);
             mainMenu.Fish.Initialize(storage);
             mainMenu.BestDistance.Initialize(storage);
+            
+            
+            mainMenu.BuyCurrencyView.Constructor(storage, persistenProgressService);
+            mainMenu.BuyCurrencyViewShortPanel.Constructor(storage, persistenProgressService);
+            
             storage.Refresh();
 
             //   mainMenu.PlayButton.onClick.AddListener(OnSceneLoaded);

@@ -17,8 +17,10 @@ namespace Internal.Codebase.Runtime.MainMenu
         [field: SerializeField] public CurrancyUIView Fish { get; private set; }
         [field: SerializeField] public SettingsUIView Settings { get; private set; }
         [field: SerializeField] public BestDistanceUIView BestDistance { get; private set; }
-        
+
         [field: SerializeField] public Button PlayButton { get; private set; }
         [field: SerializeField] public BiomeShopView BiomeShopView { get; private set; }
+        public BuyCurrency BuyCurrencyView;
+        public BuyCurrency BuyCurrencyViewShortPanel;
     }
 }
