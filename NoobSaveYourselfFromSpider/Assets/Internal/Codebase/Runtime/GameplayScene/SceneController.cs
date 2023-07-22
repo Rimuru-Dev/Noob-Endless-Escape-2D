@@ -11,9 +11,11 @@ using System.Linq;
 using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.StaticData;
+using Internal.Codebase.Runtime.Hero;
 using Internal.Codebase.Runtime.Obstacles;
 using Internal.Codebase.Runtime.SpriteTextNumberCounterLogic;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Internal.Codebase.Runtime.GameplayScene
@@ -21,6 +23,13 @@ namespace Internal.Codebase.Runtime.GameplayScene
     public sealed class SceneController : MonoBehaviour
     {
         public NumberVisualizer numberVisualizer;
+        public GameTimer advTimer;
+
+        // Popup
+        public GameObject popup;
+        public Button goMainMenuButton;
+        public Button rebirthButton;
+
 
         [Inject] private IPersistenProgressService persistenProgressService;
         [Inject] private IStaticDataService staticDataService;
@@ -30,10 +39,22 @@ namespace Internal.Codebase.Runtime.GameplayScene
 
         public List<DeadlyObstacle> obstacles = new();
 
-        public void Container(Hero.HeroViewController heroViewController)
+        public void Container(HeroViewController heroViewController, Action action)
         {
             this.heroViewController = heroViewController;
             this.heroViewController.heroDie.OnDie += Die;
+
+            advTimer.OnTimerOn += StartTimer;
+            advTimer.OnTimerOff += EndTimer;
+            goMainMenuButton.onClick.AddListener(() => { action?.Invoke(); });
+        }
+
+        private void StartTimer()
+        {
+        }
+
+        private void EndTimer()
+        {
         }
 
         public void Die()
@@ -64,7 +85,7 @@ namespace Internal.Codebase.Runtime.GameplayScene
                 obstacle.gameObject.SetActive(false);
 
             obstacles.Clear();
-            
+
             heroViewController.HeroSpriteRenderer.color = Color.white;
             heroViewController.jumpController.IsCanJump = true;
             numberVisualizer.IsPause = false;
@@ -82,7 +103,13 @@ namespace Internal.Codebase.Runtime.GameplayScene
 
         private void OnDestroy()
         {
-            this.heroViewController.heroDie.OnDie -= Die;
+            advTimer.OnTimerOn -= StartTimer;
+            advTimer.OnTimerOff -= EndTimer;
+
+            goMainMenuButton.onClick.RemoveAllListeners();
+
+            if (heroViewController != null)
+                heroViewController.heroDie.OnDie -= Die;
         }
     }
 }

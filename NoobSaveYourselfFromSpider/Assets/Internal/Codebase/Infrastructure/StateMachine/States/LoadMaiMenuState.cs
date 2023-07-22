@@ -136,8 +136,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             biomeShop.PlayBiomeForest.onClick.RemoveListener(PlayForest);
             biomeShop.PlayBiomWinter.onClick.RemoveListener(PlayWinter);
             mainMenu.PlayButton.onClick.RemoveListener(OnSceneLoaded);
-            mainMenu = null;
-            biomeShop = null;
+            // mainMenu = null;
+            // biomeShop = null;
         }
 
         private void OnSceneLoaded()
