@@ -12,6 +12,7 @@ using Internal.Codebase.Infrastructure.Factory;
 using Internal.Codebase.Infrastructure.Factory.Hero;
 using Internal.Codebase.Infrastructure.Factory.UI;
 using Internal.Codebase.Infrastructure.Services.Curtain;
+using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
@@ -31,6 +32,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private readonly IUIFactory uiFactory;
         private readonly IHeroFactory heroFactory;
         private readonly IGameFactory gameFactory;
+        private readonly IPersistenProgressService persistenProgressService;
         private IGameStateMachine gameStateMachine;
 
         [Inject]
@@ -40,7 +42,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             IStaticDataService staticData,
             IUIFactory uiFactory,
             IHeroFactory heroFactory,
-            IGameFactory gameFactory)
+            IGameFactory gameFactory,
+            IPersistenProgressService persistenProgressService)
         {
             this.curtain = curtain;
             this.sceneLoader = sceneLoader;
@@ -48,6 +51,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             this.uiFactory = uiFactory;
             this.heroFactory = heroFactory;
             this.gameFactory = gameFactory;
+            this.persistenProgressService = persistenProgressService;
         }
 
         public void Init(IGameStateMachine gameStateMachine) =>

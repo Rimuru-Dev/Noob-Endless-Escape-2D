@@ -6,6 +6,9 @@
 // **************************************************************** //
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.StorageData;
 using UnityEngine;
 using YG;
@@ -56,6 +59,29 @@ namespace Internal.Codebase.Infrastructure.Services.PersistenProgress
                     userSkins = new UserSkins(),
                     userBestDistance = new UserBestDistance()
                 };
+
+
+                // Biome
+                // Lol Kek :3 Default biome settings
+                {
+                    newStorage.userBioms.selectionBiomId = BiomeTypeID.GreenPlains;
+
+                    newStorage.userBioms.biomeData = new List<BiomDatas>();
+
+                    var biom1 = new BiomDatas
+                    {
+                        id = BiomeTypeID.GreenPlains,
+                        isOpen = true
+                    };
+                    newStorage.userBioms.biomeData.Add(biom1);
+
+                    var biom2 = new BiomDatas
+                    {
+                        id = BiomeTypeID.SnowyWastelands,
+                        isOpen = false
+                    };
+                    newStorage.userBioms.biomeData.Add(biom2);
+                }
                 YandexGame.savesData.storage = newStorage;
                 storage = newStorage;
                 YandexGame.SaveProgress();

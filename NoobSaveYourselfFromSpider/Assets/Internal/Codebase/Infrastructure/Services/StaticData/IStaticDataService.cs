@@ -18,6 +18,7 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
         public CurtainConfig ForCurtain();
         public MainMenuConfig ForMainMenu();
         public HeroConfig ForHero();
-        public EndlessLevelGenerationConfig ForEndlessLevelGenerationConfig();
+        public EndlessLevelGenerationConfig GreenPlains { get; set; }
+        public EndlessLevelGenerationConfig SnowyWastelands { get; set; }
     }
 }

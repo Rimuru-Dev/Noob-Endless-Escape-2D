@@ -5,6 +5,7 @@
 //
 // **************************************************************** //
 
+using System.Collections.Generic;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.Resource;
 using Internal.Codebase.Runtime.Curtain;
@@ -22,7 +23,12 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
         private CurtainConfig curtainConfig;
         private MainMenuConfig mainMenuConfig;
         private HeroConfig heroConfig;
-        private EndlessLevelGenerationConfig levelGenerationConfig;
+        //private EndlessLevelGenerationConfig levelGenerationConfig;
+
+        private EndlessLevelGenerationConfig greenPlains;
+        private EndlessLevelGenerationConfig snowyWastelands;
+
+        // private Dictionary<BiomeTypeID, EndlessLevelGenerationConfig> biomes;
 
         [Inject]
         public StaticDataService(IResourceLoaderService resourceLoader) =>
@@ -34,8 +40,11 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
             mainMenuConfig = resourceLoader.Load<MainMenuConfig>(AssetPath.MainMenuConfig);
             heroConfig = resourceLoader.Load<HeroConfig>(AssetPath.HeroConfig);
 
-            levelGenerationConfig =
-                resourceLoader.Load<EndlessLevelGenerationConfig>("Biomes/Configs/EndlessLevelGenerationConfig");
+            greenPlains = resourceLoader.Load<EndlessLevelGenerationConfig>("Biomes/Configs/GreenPlains");
+            snowyWastelands = resourceLoader.Load<EndlessLevelGenerationConfig>("Biomes/Configs/SnowyWastelands");
+
+            // levelGenerationConfig =
+            //     resourceLoader.LoadAll<EndlessLevelGenerationConfig>(AssetPath.BiomeConfigs);
         }
 
         public CurtainConfig ForCurtain() =>
@@ -47,7 +56,16 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
         public HeroConfig ForHero() =>
             heroConfig;
 
-        public EndlessLevelGenerationConfig ForEndlessLevelGenerationConfig() =>
-            levelGenerationConfig;
+        public EndlessLevelGenerationConfig GreenPlains
+        {
+            get => greenPlains;
+            set => greenPlains = value;
+        }
+        
+        public EndlessLevelGenerationConfig SnowyWastelands
+        {
+            get => snowyWastelands;
+            set => snowyWastelands = value;
+        }
     }
 }

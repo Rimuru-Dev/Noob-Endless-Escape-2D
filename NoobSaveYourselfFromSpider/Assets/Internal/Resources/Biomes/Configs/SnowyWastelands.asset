@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SnowyWastelands
   m_EditorClassIdentifier: 
   <BiomeTypeID>k__BackingField: 1
-  <LaunchingPlatform>k__BackingField: {fileID: 5981375096742839005, guid: 3a779e5fc4af6ca488d0e68437e53691, type: 3}
+  <LaunchingPlatform>k__BackingField: {fileID: 5981375096742839005, guid: 38bfc6bbe9696d945bd476eaca0781ed, type: 3}
   <Prefabs>k__BackingField:
   - {fileID: 5981375096742839005, guid: 304bb685455713b4c895c4a7222e7130, type: 3}
   - {fileID: 5981375096742839005, guid: 304bb685455713b4c895c4a7222e7130, type: 3}

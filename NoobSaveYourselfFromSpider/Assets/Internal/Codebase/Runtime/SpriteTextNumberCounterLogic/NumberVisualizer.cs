@@ -50,7 +50,13 @@ namespace Internal.Codebase.Runtime.SpriteTextNumberCounterLogic
                 if (digit < 0 || digit >= numberSprites.Length)
                     continue;
 
+                // if (i > numberImages.Length)
+                //     continue;
+                
                 var image = numberImages[i];
+                // if (image == null)
+                //     continue;
+
                 if (!image.gameObject.activeSelf)
                 {
                     image.gameObject.SetActive(true);
