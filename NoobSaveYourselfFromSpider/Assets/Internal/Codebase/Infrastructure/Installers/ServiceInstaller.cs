@@ -8,6 +8,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Factory;
+using Internal.Codebase.Infrastructure.Factory.Game;
 using Internal.Codebase.Infrastructure.Factory.Hero;
 using Internal.Codebase.Infrastructure.Factory.UI;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;

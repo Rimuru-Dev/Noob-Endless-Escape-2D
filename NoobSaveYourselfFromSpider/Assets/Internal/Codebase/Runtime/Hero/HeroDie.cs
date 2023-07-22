@@ -5,16 +5,19 @@
 //
 // **************************************************************** //
 
+using System;
 using UnityEngine;
 
 namespace Internal.Codebase.Runtime.Hero
 {
     public sealed class HeroDie : MonoBehaviour
     {
+        public Action OnDie;
+
         public void ApplyHeroDie()
         {
             Debug.Log("Hero Die");
-            Time.timeScale = 0;
+            OnDie?.Invoke();
         }
     }
 }

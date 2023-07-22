@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.StaticData;
+using Internal.Codebase.Runtime.Enemy.Base;
 using Internal.Codebase.Runtime.Enemy.Configs;
 using Internal.Codebase.Runtime.Enemy.ProgressBar;
+using Internal.Codebase.Runtime.Enemy.States;
 using UnityEngine;
 using Zenject;
 
-namespace Internal.Codebase.Runtime.Enemy
+namespace Internal.Codebase.Runtime.Enemy.View
 {
     [SelectionBase]
     [DisallowMultipleComponent]

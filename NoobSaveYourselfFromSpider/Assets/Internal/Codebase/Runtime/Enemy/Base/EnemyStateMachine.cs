@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Internal.Codebase.Runtime.Enemy
+namespace Internal.Codebase.Runtime.Enemy.Base
 {
     public sealed class EnemyStateMachine
     {

@@ -239,6 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <HeroSpriteRenderer>k__BackingField: {fileID: 3684189127273395468}
   jumpController: {fileID: 5486645235183081572}
+  heroDie: {fileID: -3516122880135011127}
 --- !u!114 &5486645235183081572
 MonoBehaviour:
   m_ObjectHideFlags: 0

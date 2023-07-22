@@ -31,12 +31,12 @@ namespace Internal.Codebase.Infrastructure.Factory.Hero
             this.storageService = storageService;
         }
 
-        public Runtime.Hero.Hero CreateHero()
+        public Runtime.Hero.HeroViewController CreateHero()
         {
             var heroConfig = staticData.ForHero();
 
             // TODO: Added override T Instantiate<T>()
-            var hero = assetProvider.Instantiate(heroConfig.HeroPrefab.gameObject).GetComponent<Runtime.Hero.Hero>();
+            var hero = assetProvider.Instantiate(heroConfig.HeroViewControllerPrefab.gameObject).GetComponent<Runtime.Hero.HeroViewController>();
 
             Hero = hero.gameObject;
 

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
+using Internal.Codebase.Runtime.Enemy.Base;
 using Internal.Codebase.Runtime.Enemy.Configs;
 using Internal.Codebase.Runtime.Enemy.ProgressBar;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.Enemy
+namespace Internal.Codebase.Runtime.Enemy.States
 {
     public sealed class ShowBossState : State
     {

@@ -81,7 +81,7 @@ namespace Internal.Codebase.Runtime.SpriteTextNumberCounterLogic
 
         #region Endless Auto Visualize
 
-        private int currentNumber = 0;
+        public int currentNumber = 0;
 
         private void Start()
         {
@@ -89,8 +89,12 @@ namespace Internal.Codebase.Runtime.SpriteTextNumberCounterLogic
                 InvokeRepeating(nameof(UpdateNumber), 1f, .5f);
         }
 
+        public bool IsPause { get; set; } = false;
         private void UpdateNumber()
         {
+            if (IsPause)
+                return;
+            
             currentNumber++;
             var numberString = currentNumber.ToString("0000");
 

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88df9293c4214e34aca7703535fbba7b, type: 3}
   m_Name: HeroConfig
   m_EditorClassIdentifier: 
-  <HeroPrefab>k__BackingField: {fileID: 2261558872126293109, guid: 52bffbfc5c1eb0649a07d30f819412e0, type: 3}
+  <HeroViewControllerPrefab>k__BackingField: {fileID: 2261558872126293109, guid: 52bffbfc5c1eb0649a07d30f819412e0, type: 3}
   <HeroVirtualCamera>k__BackingField: {fileID: 5134643096044349387, guid: 6ab8317f3bfecc242bc476305179edec, type: 3}

@@ -117,7 +117,7 @@ namespace Internal.Codebase.Runtime.StorageData
 
             set
             {
-                userBestDistance.bestDistance += value;
+                userBestDistance.bestDistance = value;
                 userBestDistance.bestDistance = Mathf.Clamp(userBestDistance.bestDistance, 0, int.MaxValue);
                 OnBestDistanceChanged?.Invoke(userBestDistance.bestDistance);
             }

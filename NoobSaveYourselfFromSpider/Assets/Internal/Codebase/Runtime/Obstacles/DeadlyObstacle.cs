@@ -5,11 +5,10 @@
 //
 // **************************************************************** //
 
-using System;
 using Internal.Codebase.Runtime.Hero;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime
+namespace Internal.Codebase.Runtime.Obstacles
 {
     [RequireComponent(typeof(Collider2D))]
     public sealed class DeadlyObstacle : MonoBehaviour

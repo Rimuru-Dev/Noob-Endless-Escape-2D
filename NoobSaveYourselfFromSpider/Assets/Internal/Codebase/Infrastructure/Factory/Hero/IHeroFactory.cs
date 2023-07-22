@@ -12,7 +12,7 @@ namespace Internal.Codebase.Infrastructure.Factory.Hero
     public interface IHeroFactory
     {
         public GameObject Hero { get; }
-        public Runtime.Hero.Hero CreateHero();
+        public Runtime.Hero.HeroViewController CreateHero();
         public void CreateHeroCamera();
     }
 }

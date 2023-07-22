@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.Enemy
+namespace Internal.Codebase.Runtime.Enemy.Base
 {
     [Serializable]
     public abstract class State

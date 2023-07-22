@@ -5,16 +5,18 @@
 //
 // **************************************************************** //
 
+using System;
 using UnityEngine;
 
 namespace Internal.Codebase.Runtime.Hero
 {
     [SelectionBase]
     [DisallowMultipleComponent]
-    public sealed class Hero : MonoBehaviour
+    public sealed class HeroViewController : MonoBehaviour
     {
         [field: SerializeField] public SpriteRenderer HeroSpriteRenderer { get; private set; }
 
-        [SerializeField] private JumpController jumpController;
+        [SerializeField] public JumpController jumpController;
+        public HeroDie heroDie;
     }
 }

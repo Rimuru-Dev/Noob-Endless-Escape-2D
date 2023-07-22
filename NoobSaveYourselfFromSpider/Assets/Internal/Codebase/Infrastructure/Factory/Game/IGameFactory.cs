@@ -5,10 +5,9 @@
 //
 // **************************************************************** //
 
-using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
 
-namespace Internal.Codebase.Infrastructure.Factory
+namespace Internal.Codebase.Infrastructure.Factory.Game
 {
     public interface IGameFactory
     {

@@ -9,6 +9,7 @@ using System;
 using Cinemachine;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Factory;
+using Internal.Codebase.Infrastructure.Factory.Game;
 using Internal.Codebase.Infrastructure.Factory.Hero;
 using Internal.Codebase.Infrastructure.Factory.UI;
 using Internal.Codebase.Infrastructure.Services.Curtain;
@@ -17,6 +18,7 @@ using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
+using Internal.Codebase.Runtime.GameplayScene;
 using Internal.Codebase.Runtime.Hero;
 using UnityEngine;
 using Zenject;
@@ -74,6 +76,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
             var levelGenerator = gameFactory.CreateLevelGenerator();
             levelGenerator.Prepare();
+
+            Object.FindObjectOfType<SceneController>().Container(hero);
 
             // var spawnPoint = levelGenerator.GetComponentInChildren<HeroSpawnPoint>();
             // hero.transform.position = spawnPoint != null 

@@ -5,7 +5,6 @@
 //
 // **************************************************************** //
 
-using System;
 using System.Diagnostics.CodeAnalysis;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.PersistenProgress;
@@ -13,7 +12,7 @@ using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
 
-namespace Internal.Codebase.Infrastructure.Factory
+namespace Internal.Codebase.Infrastructure.Factory.Game
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     public sealed class GameFactory : IGameFactory
