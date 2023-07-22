@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a51d52e3244c3b91b54acd004fb4df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <DeadlyObstacleTypeID>k__BackingField: 1
 --- !u!1 &3996091593075207332
 GameObject:
   m_ObjectHideFlags: 0

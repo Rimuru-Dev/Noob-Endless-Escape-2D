@@ -6626,6 +6626,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftEdge: {fileID: 3650270869654358777}
   rightEdge: {fileID: 6945352793156135284}
+  defaultDeadlyObstacle: []
+  trapDeadlyObstacle: []
 --- !u!1 &8480696945621422018
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
 {
     [SelectionBase]
     [DisallowMultipleComponent]
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+    [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeNullComparison")]
     public sealed class EndlessLevelGenerationHandler : MonoBehaviour, IEndlessLevelGenerationHandler
     {
         [SerializeField] private EndlessLevelGenerationConfig config;

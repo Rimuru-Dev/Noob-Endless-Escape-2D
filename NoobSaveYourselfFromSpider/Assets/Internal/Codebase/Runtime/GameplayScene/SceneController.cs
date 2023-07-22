@@ -6,9 +6,12 @@
 // **************************************************************** //
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.StaticData;
+using Internal.Codebase.Runtime.Obstacles;
 using Internal.Codebase.Runtime.SpriteTextNumberCounterLogic;
 using UnityEngine;
 using Zenject;
@@ -25,6 +28,8 @@ namespace Internal.Codebase.Runtime.GameplayScene
 
         private Hero.HeroViewController heroViewController;
 
+        public List<DeadlyObstacle> obstacles = new();
+
         public void Container(Hero.HeroViewController heroViewController)
         {
             this.heroViewController = heroViewController;
@@ -33,6 +38,7 @@ namespace Internal.Codebase.Runtime.GameplayScene
 
         public void Die()
         {
+            heroViewController.HeroSpriteRenderer.color = Color.red;
             numberVisualizer.IsPause = true;
             heroViewController.jumpController.IsCanJump = false;
             Time.timeScale = 0;
@@ -46,10 +52,20 @@ namespace Internal.Codebase.Runtime.GameplayScene
 
                 persistenProgressService.Save(storage);
             }
+
+            obstacles = new List<DeadlyObstacle>();
+            foreach (var deadlyObstacle in FindObjectsOfType<DeadlyObstacle>(true))
+                obstacles.Add(deadlyObstacle);
         }
 
         public void Rebirth()
         {
+            foreach (var obstacle in obstacles.Where(obstacle => obstacle != null))
+                obstacle.gameObject.SetActive(false);
+
+            obstacles.Clear();
+            
+            heroViewController.HeroSpriteRenderer.color = Color.white;
             heroViewController.jumpController.IsCanJump = true;
             numberVisualizer.IsPause = false;
 

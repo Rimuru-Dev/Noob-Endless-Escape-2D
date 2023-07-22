@@ -13,6 +13,8 @@ namespace Internal.Codebase.Runtime.Obstacles
     [RequireComponent(typeof(Collider2D))]
     public sealed class DeadlyObstacle : MonoBehaviour
     {
+        [field: SerializeField] public DeadlyObstacleTypeID DeadlyObstacleTypeID { get; private set; }
+
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (!other.transform.CompareTag("Player"))

@@ -6,18 +6,18 @@
 // **************************************************************** //
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.ConnectPoint;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.PrefabHelper;
+using Internal.Codebase.Runtime.Obstacles;
 using UnityEditor;
 using UnityEngine;
 
 namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Editor
 {
     [CustomEditor(typeof(Prefab))]
-    [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeInvocation")]
-    [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeNullComparison")]
     public sealed class PrefabHelperEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
@@ -32,6 +32,9 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Editor
 
             if (GUILayout.Button("Hide Connection Point"))
                 ShowHideSpriteRenderer(false);
+
+            // if (GUILayout.Button("CACHE ALL COLLIDERS!!!"))
+            CacheColliders();
 
             if (GUI.changed)
                 EditorUtility.SetDirty(target);
@@ -68,6 +71,31 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Editor
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        private void CacheColliders()
+        {
+            var prefabHelper = (Prefab)target;
+            var deadlyObstacles = prefabHelper.GetComponentsInChildren<DeadlyObstacle>(true);
+
+            prefabHelper.defaultDeadlyObstacle = new List<DeadlyObstacle>();
+            prefabHelper.trapDeadlyObstacle = new List<DeadlyObstacle>();
+
+            foreach (var deadlyObstacle in deadlyObstacles.Where(x => x != null))
+            {
+                switch (deadlyObstacle.DeadlyObstacleTypeID)
+                {
+                    case DeadlyObstacleTypeID.Default:
+                        prefabHelper.defaultDeadlyObstacle.Add(deadlyObstacle);
+                        break;
+                    case DeadlyObstacleTypeID.Trap:
+                        prefabHelper.trapDeadlyObstacle.Add(deadlyObstacle);
+                        break;
+                    default:
+                        prefabHelper.defaultDeadlyObstacle.Add(deadlyObstacle);
+                        break;
                 }
             }
         }
