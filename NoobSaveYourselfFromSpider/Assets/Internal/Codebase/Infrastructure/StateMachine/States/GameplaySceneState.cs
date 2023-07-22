@@ -6,6 +6,7 @@
 // **************************************************************** //
 
 using System;
+using System.Linq;
 using Cinemachine;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Factory;
@@ -73,6 +74,11 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             var hero = heroFactory.CreateHero();
             heroFactory.CreateHeroCamera();
             hero.transform.position = new Vector3(0, 5f, 0);
+
+            var skinDatas = staticData.ForSkins().gameplaySkinDatas;
+            var userSkin = persistenProgressService.GetStoragesData().userSkins;
+
+            hero.HeroSpriteRenderer.sprite = skinDatas.FirstOrDefault(x => x.id == userSkin.selectionSkinId)!.icon;
 
             var levelGenerator = gameFactory.CreateLevelGenerator();
             levelGenerator.Prepare();

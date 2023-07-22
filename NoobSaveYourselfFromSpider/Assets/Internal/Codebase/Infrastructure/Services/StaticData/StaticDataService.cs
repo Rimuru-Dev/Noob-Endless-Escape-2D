@@ -8,6 +8,7 @@
 using System.Collections.Generic;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.Resource;
+using Internal.Codebase.Runtime;
 using Internal.Codebase.Runtime.Curtain;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.Hero;
@@ -24,6 +25,7 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
         private MainMenuConfig mainMenuConfig;
         private HeroConfig heroConfig;
         //private EndlessLevelGenerationConfig levelGenerationConfig;
+        private Skins skins;
 
         private EndlessLevelGenerationConfig greenPlains;
         private EndlessLevelGenerationConfig snowyWastelands;
@@ -42,6 +44,8 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
 
             greenPlains = resourceLoader.Load<EndlessLevelGenerationConfig>("Biomes/Configs/GreenPlains");
             snowyWastelands = resourceLoader.Load<EndlessLevelGenerationConfig>("Biomes/Configs/SnowyWastelands");
+            skins = resourceLoader.Load<Skins>("Skins/Skins");
+
 
             // levelGenerationConfig =
             //     resourceLoader.LoadAll<EndlessLevelGenerationConfig>(AssetPath.BiomeConfigs);
@@ -67,5 +71,7 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
             get => snowyWastelands;
             set => snowyWastelands = value;
         }
+
+        public Skins ForSkins() => skins;
     }
 }

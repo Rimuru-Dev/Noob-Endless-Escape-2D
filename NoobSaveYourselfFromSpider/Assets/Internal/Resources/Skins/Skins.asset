@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e39ba048e32347458ae01cf600576d17, type: 3}
+  m_Name: Skins
+  m_EditorClassIdentifier: 
+  gameplaySkinDatas:
+  - id: 0
+    icon: {fileID: -1346110733, guid: b441ad969925de043bad8adcf49ebff7, type: 3}
+  - id: 1
+    icon: {fileID: -2136019631, guid: b441ad969925de043bad8adcf49ebff7, type: 3}
+  - id: 2
+    icon: {fileID: -1162902236, guid: b441ad969925de043bad8adcf49ebff7, type: 3}
+  - id: 3
+    icon: {fileID: -73657928, guid: b441ad969925de043bad8adcf49ebff7, type: 3}
+  - id: 4
+    icon: {fileID: 1520112986, guid: b441ad969925de043bad8adcf49ebff7, type: 3}
+  - id: 5
+    icon: {fileID: 609690931, guid: b441ad969925de043bad8adcf49ebff7, type: 3}
+  - id: 6
+    icon: {fileID: -802307407, guid: b441ad969925de043bad8adcf49ebff7, type: 3}
+  - id: 7
+    icon: {fileID: -1658395546, guid: b441ad969925de043bad8adcf49ebff7, type: 3}
+  - id: 8
+    icon: {fileID: -368967910, guid: b441ad969925de043bad8adcf49ebff7, type: 3}

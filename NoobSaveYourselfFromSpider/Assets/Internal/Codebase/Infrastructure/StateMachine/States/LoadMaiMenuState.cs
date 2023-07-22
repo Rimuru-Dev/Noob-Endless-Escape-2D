@@ -118,6 +118,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         {
             persistenProgressService.GetStoragesData().userBioms.selectionBiomId = BiomeTypeID.SnowyWastelands;
             OnSceneLoaded();
+           // mainMenu.
         }
 
         private void PlayForest()
