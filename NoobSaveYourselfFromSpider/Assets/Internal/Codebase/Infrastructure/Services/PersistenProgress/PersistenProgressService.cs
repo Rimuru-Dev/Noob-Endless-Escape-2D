@@ -60,7 +60,7 @@ namespace Internal.Codebase.Infrastructure.Services.PersistenProgress
                     userBestDistance = new UserBestDistance()
                 };
 
-
+                newStorage.audioSettings.volume = 0.1f;
                 // Biome
                 // Lol Kek :3 Default biome settings
                 {

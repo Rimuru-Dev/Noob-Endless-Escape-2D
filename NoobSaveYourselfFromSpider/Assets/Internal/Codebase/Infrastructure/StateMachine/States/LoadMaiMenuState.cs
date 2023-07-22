@@ -11,6 +11,7 @@ using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
+using Internal.Codebase.Runtime;
 using Internal.Codebase.Runtime.BiomeShop;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.MainMenu;
@@ -76,11 +77,11 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             mainMenu.Emerald.Initialize(storage);
             mainMenu.Fish.Initialize(storage);
             mainMenu.BestDistance.Initialize(storage);
-            
-            
+
+
             mainMenu.BuyCurrencyView.Constructor(storage, persistenProgressService);
             mainMenu.BuyCurrencyViewShortPanel.Constructor(storage, persistenProgressService);
-            
+
             storage.Refresh();
 
             //   mainMenu.PlayButton.onClick.AddListener(OnSceneLoaded);
@@ -112,13 +113,15 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
             biomeShop.PlayBiomeForest.onClick.AddListener(PlayForest);
             biomeShop.PlayBiomWinter.onClick.AddListener(PlayWinter);
+
+            GameObject.FindObjectOfType<GeneralAudioHandler>(true)?.Constructor(storage, persistenProgressService);
         }
 
         private void PlayWinter()
         {
             persistenProgressService.GetStoragesData().userBioms.selectionBiomId = BiomeTypeID.SnowyWastelands;
             OnSceneLoaded();
-           // mainMenu.
+            // mainMenu.
         }
 
         private void PlayForest()
