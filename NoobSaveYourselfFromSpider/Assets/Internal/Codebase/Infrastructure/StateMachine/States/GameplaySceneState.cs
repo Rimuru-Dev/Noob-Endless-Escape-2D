@@ -76,7 +76,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         {
             var hero = heroFactory.CreateHero();
             heroFactory.CreateHeroCamera();
-            hero.transform.position = new Vector3(0, 5f, 0);
+            hero.transform.position = new Vector3(0, 7f, 0);
 
             var skinDatas = staticData.ForSkins().gameplaySkinDatas;
             var userSkin = persistenProgressService.GetStoragesData().userSkins;
