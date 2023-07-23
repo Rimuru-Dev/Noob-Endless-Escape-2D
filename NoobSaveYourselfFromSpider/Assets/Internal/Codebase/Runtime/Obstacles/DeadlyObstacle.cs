@@ -20,9 +20,9 @@ namespace Internal.Codebase.Runtime.Obstacles
             if (!other.transform.CompareTag("Player"))
                 return;
 
-            other.transform
-                .GetComponent<HeroDie>()
-                .ApplyHeroDie();
+            var die = other.transform.GetComponent<HeroDie>();
+            if (die != null)
+                die.ApplyHeroDie();
         }
     }
 }

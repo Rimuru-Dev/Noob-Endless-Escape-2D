@@ -242,7 +242,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1721849807, guid: b2e896807fa1beb4897ddd691bb2c72d, type: 3}
+  m_Sprite: {fileID: -1748085587, guid: b2e896807fa1beb4897ddd691bb2c72d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -384,8 +384,8 @@ MonoBehaviour:
   numberVisualizer: {fileID: 796707602075828932}
   advTimer: {fileID: 1861769715}
   popup: {fileID: 1097793271}
-  goMainMenuButton: {fileID: 706111473}
-  rebirthButton: {fileID: 142000997}
+  goMainMenuButton: {fileID: 1848345803}
+  rebirthButton: {fileID: 706111473}
   obstacles: []
 --- !u!1 &335451304
 GameObject:
@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 706111473}
   - component: {fileID: 706111472}
   m_Layer: 5
-  m_Name: GoMainMenuButton
+  m_Name: rebirth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -532,10 +532,10 @@ RectTransform:
   m_Father: {fileID: 1011346266}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000045776367, y: 0}
-  m_SizeDelta: {x: 280, y: 280}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &706111472
 MonoBehaviour:
@@ -616,7 +616,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -488595554, guid: 35e8df9dc7ead2549bc5f860088974b7, type: 3}
+  m_Sprite: {fileID: -912242581, guid: b2e896807fa1beb4897ddd691bb2c72d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1045,7 +1045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1097793272
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1790,7 +1790,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &595152111945301441
 GameObject:
   m_ObjectHideFlags: 0

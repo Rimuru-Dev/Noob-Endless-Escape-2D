@@ -48,6 +48,9 @@ namespace Internal.Codebase.Runtime
         private void OnEnable() =>
             YandexGame.RewardVideoEvent += Rewarded;
 
+        private void OnDisable() =>
+            YandexGame.RewardVideoEvent -= Rewarded;
+
         private void Rewarded(int id)
         {
             if (id == 10)
@@ -62,9 +65,6 @@ namespace Internal.Codebase.Runtime
                 persistenProgressService.Save(storage);
             }
         }
-
-        private void OnDisable() =>
-            YandexGame.RewardVideoEvent -= Rewarded;
 
         private void ShowAdvButton(int id) =>
             yandexGameSDK._RewardedShow(id);

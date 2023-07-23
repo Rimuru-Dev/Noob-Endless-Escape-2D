@@ -27,6 +27,7 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
         private List<Prefab> pool;
         private Prefab lastSpawnedPrefab;
         private bool CanSpawnNextPrefab { get; set; } = true;
+        public bool Pause { get; set; }
 
         public void Constructor(EndlessLevelGenerationConfig endlessLevelGenerationConfig)
         {
@@ -57,6 +58,9 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
 
         private void Update()
         {
+            if (Pause)
+                return;
+            
             if (IsCanLevelScrolling())
                 return;
 
@@ -103,6 +107,9 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
         {
             while (CanSpawnNextPrefab)
             {
+                if (Pause)
+                    yield return new WaitForSeconds(config.SpawnCooldown);
+
                 var rightConnectPoint = lastSpawnedPrefab.rightEdge.transform;
                 var nextPrefabIndex = Random.Range(0, config.Prefabs.Length);
 

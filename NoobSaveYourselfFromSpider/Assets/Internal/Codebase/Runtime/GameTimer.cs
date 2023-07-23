@@ -20,7 +20,7 @@ namespace Internal.Codebase.Runtime
 
         public Action OnTimerOn;
         public Action OnTimerOff;
-        
+
         private void Update()
         {
             if (!isCountdownStarted)
@@ -48,16 +48,16 @@ namespace Internal.Codebase.Runtime
         {
             // Проверка, чтобы таймер не запускался повторно, пока не завершится текущий отсчет.
             if (!isCountdownStarted)
-            {
-                OnTimerOn?.Invoke();
+            {         OnTimerOn?.Invoke();
                 countdownTimer = initialCooldownTimer;
-                
+
                 isCountdownStarted = true;
-                
+
                 gameObject.SetActive(true);
-                
+
                 numberVisualizer.gameObject.SetActive(true);
                 numberVisualizer.ShowNumber((int)countdownTimer);
+       
             }
         }
     }
