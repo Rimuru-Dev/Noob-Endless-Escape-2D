@@ -7,6 +7,7 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Internal.Codebase.Runtime.Obstacles;
 using UnityEngine;
 
@@ -60,6 +61,7 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.PrefabHelper
                 {
                     var randomIndex = Random.Range(0, trapDeadlyObstacle.Count);
 
+                    if (trapDeadlyObstacle[randomIndex] == null) continue;
                     trapDeadlyObstacle[randomIndex].gameObject.SetActive(true);
                     trapDeadlyObstacle.RemoveAt(randomIndex);
                 }
@@ -73,6 +75,9 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.PrefabHelper
                     {
                         var randomIndex = Random.Range(0, rewardViews.Count);
 
+                        if (rewardViews[randomIndex] == null)
+                            continue;
+
                         rewardViews[randomIndex].gameObject.SetActive(true);
                         rewardViews.RemoveAt(randomIndex);
                     }
@@ -81,7 +86,7 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.PrefabHelper
 
             void DisableRandomObstacles()
             {
-                foreach (var obstacle in trapDeadlyObstacle)
+                foreach (var obstacle in trapDeadlyObstacle.Where(x => x != null))
                     obstacle.gameObject.SetActive(false);
             }
         }
