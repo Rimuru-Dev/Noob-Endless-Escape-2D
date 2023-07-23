@@ -55,19 +55,24 @@ namespace Internal.Codebase.Runtime
         {
             if (id == 10)
             {
+                AudioListener.volume = storage.audioSettings.volume;
                 storage.FishCurrancy = 1;
                 persistenProgressService.Save(storage);
             }
 
             if (id == 20)
             {
+                AudioListener.volume = storage.audioSettings.volume;
                 storage.EmeraldCurrancy = 9;
                 persistenProgressService.Save(storage);
             }
         }
 
-        private void ShowAdvButton(int id) =>
+        private void ShowAdvButton(int id)
+        {
+            AudioListener.volume = 0;
             yandexGameSDK._RewardedShow(id);
+        }
 
         private void BuyEmerald()
         {

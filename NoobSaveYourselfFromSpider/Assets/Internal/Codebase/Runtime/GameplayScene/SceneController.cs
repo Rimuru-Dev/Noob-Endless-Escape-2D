@@ -18,6 +18,7 @@ using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.PrefabHelper;
 using Internal.Codebase.Runtime.Hero;
 using Internal.Codebase.Runtime.Obstacles;
 using Internal.Codebase.Runtime.SpriteTextNumberCounterLogic;
+using Internal.Codebase.Runtime.StorageData;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +29,10 @@ namespace Internal.Codebase.Runtime.GameplayScene
 {
     public sealed class SceneController : MonoBehaviour
     {
+        public Button startPause;
+        public Button stopPause;
+        public Button home;
+
         public NumberVisualizer numberVisualizer;
         public GameTimer advTimer;
 
@@ -48,8 +53,10 @@ namespace Internal.Codebase.Runtime.GameplayScene
 
         public void Container(HeroViewController heroViewController,
             GameStateMachine gameStateMachine,
-            ISceneLoaderService sceneLoader, Action action, EndlessLevelGenerationHandler endlessLevelGenerationHandler)
+            ISceneLoaderService sceneLoader, Action action, EndlessLevelGenerationHandler endlessLevelGenerationHandler,
+            Storage storage)
         {
+            this.storage = storage;
             this.endlessLevelGenerationHandler = endlessLevelGenerationHandler;
             this.gameStateMachine = gameStateMachine;
             this.heroViewController = heroViewController;
@@ -72,6 +79,18 @@ namespace Internal.Codebase.Runtime.GameplayScene
             rebirthButton.onClick.AddListener(Reb);
 
             yandexGameSDK = FindObjectOfType<YandexGame>(true);
+
+            startPause.onClick.AddListener(() => { Time.timeScale = 0; });
+            stopPause.onClick.AddListener(() => { Time.timeScale = 1; });
+            home.onClick.AddListener(() =>
+            {
+                Time.timeScale = 1;
+                //sceneLoader.LoadScene(SceneName.Menu, () => { gameStateMachine.EnterState<LoadMaiMenuState>(); });
+                endlessLevelGenerationHandler.Pause = true;
+                heroViewController.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                heroViewController.jumpController.IsCanJump = false;
+                action?.Invoke();
+            });
         }
 
         private void StartTimer()
@@ -90,11 +109,13 @@ namespace Internal.Codebase.Runtime.GameplayScene
             YandexGame.RewardVideoEvent += Rewarded;
 
         public int rebirdthID = 50;
+        private Storage storage;
 
         private void Rewarded(int id)
         {
             if (id == 50)
             {
+                AudioListener.volume = storage.audioSettings.volume;
                 endlessLevelGenerationHandler.Pause = true;
                 Time.timeScale = 1;
                 popup.SetActive(false);
@@ -102,8 +123,11 @@ namespace Internal.Codebase.Runtime.GameplayScene
             }
         }
 
-        private void ShowAdvButton(int id) =>
+        private void ShowAdvButton(int id)
+        {
+            AudioListener.volume = 0;
             yandexGameSDK._RewardedShow(id);
+        }
 
         private void OnDisable() =>
             YandexGame.RewardVideoEvent -= Rewarded;
@@ -159,13 +183,13 @@ namespace Internal.Codebase.Runtime.GameplayScene
 
             heroViewController.transform.position = new Vector3(0, 5f, 0);
         }
-
+#if UNITY_EDITOR
         private void Update()
         {
             if (Input.GetKey(key: KeyCode.P))
                 Rebirth();
         }
-
+#endif
         private void OnDestroy()
         {
             advTimer.OnTimerOn -= StartTimer;
@@ -176,6 +200,10 @@ namespace Internal.Codebase.Runtime.GameplayScene
 
             if (heroViewController != null)
                 heroViewController.heroDie.OnDie -= Die;
+
+            startPause.onClick.RemoveAllListeners();
+            stopPause.onClick.RemoveAllListeners();
+            home.onClick.RemoveAllListeners();
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Internal.Codebase.Runtime.DevelopLogic
     {
         [Inject] private IPersistenProgressService persistenProgressService;
 
+#if UNITY_EDITOR
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.S))
@@ -38,4 +39,5 @@ namespace Internal.Codebase.Runtime.DevelopLogic
             }
         }
     }
+#endif
 }

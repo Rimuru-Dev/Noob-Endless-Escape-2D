@@ -12,16 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa020a71c3e4b53827592867e391502, type: 3}
   m_Name: GreenPlains
   m_EditorClassIdentifier: 
-  <LaunchingPlatform>k__BackingField: {fileID: 5981375096742839005, guid: 3a779e5fc4af6ca488d0e68437e53691, type: 3}
+  <BiomeTypeID>k__BackingField: 0
+  <LaunchingPlatform>k__BackingField: {fileID: 5981375096742839005, guid: 626136a489388d3469b0606e35a2343b, type: 3}
   <Prefabs>k__BackingField:
-  - {fileID: 5981375096742839005, guid: 304bb685455713b4c895c4a7222e7130, type: 3}
-  - {fileID: 5981375096742839005, guid: 304bb685455713b4c895c4a7222e7130, type: 3}
-  - {fileID: 5981375096742839005, guid: 304bb685455713b4c895c4a7222e7130, type: 3}
-  - {fileID: 5981375096742839005, guid: 304bb685455713b4c895c4a7222e7130, type: 3}
-  - {fileID: 7808544488804360026, guid: 89835236527aeea41aae9afeecaf478c, type: 3}
-  - {fileID: 5351232499655552657, guid: 6c47e4411eb4edf40aef080cd00ef3cd, type: 3}
-  - {fileID: 3143464025643601979, guid: f9bb9eb051a0e4f4b951aeeb4b418fb1, type: 3}
-  - {fileID: 4847513205142219379, guid: 891667b6706dda643bfc59875cc5ab1b, type: 3}
+  - {fileID: 3143464025643601979, guid: ab64c98ae323a6e46aa1095c4958dcfd, type: 3}
+  - {fileID: 5351232499655552657, guid: 569f8dd525c862549b3b895e5352d3a4, type: 3}
+  - {fileID: 7808544488804360026, guid: eb9d092fba8631043bf05a7c6372f396, type: 3}
+  - {fileID: 4168955054455426080, guid: 297db5039e94e714f8012eda6503b97e, type: 3}
+  - {fileID: 1606252162485705996, guid: e1e73adf9f14b8b47b1e40198ba13db6, type: 3}
+  - {fileID: 5981375096742839005, guid: 626136a489388d3469b0606e35a2343b, type: 3}
+  - {fileID: 5351232499655552657, guid: 569f8dd525c862549b3b895e5352d3a4, type: 3}
+  - {fileID: 3143464025643601979, guid: ab64c98ae323a6e46aa1095c4958dcfd, type: 3}
+  - {fileID: 4847513205142219379, guid: 2459842baa07159448efbe51c98ba71e, type: 3}
+  - {fileID: 5981375096742839005, guid: 6fb7bf3311b2d614c817d89570c7eeb6, type: 3}
+  - {fileID: 7808544488804360026, guid: eb9d092fba8631043bf05a7c6372f396, type: 3}
+  - {fileID: 4168955054455426080, guid: 297db5039e94e714f8012eda6503b97e, type: 3}
+  - {fileID: 1606252162485705996, guid: e1e73adf9f14b8b47b1e40198ba13db6, type: 3}
+  - {fileID: 5981375096742839005, guid: 626136a489388d3469b0606e35a2343b, type: 3}
+  - {fileID: 5351232499655552657, guid: 569f8dd525c862549b3b895e5352d3a4, type: 3}
+  - {fileID: 3143464025643601979, guid: ab64c98ae323a6e46aa1095c4958dcfd, type: 3}
+  - {fileID: 4847513205142219379, guid: 2459842baa07159448efbe51c98ba71e, type: 3}
+  - {fileID: 5981375096742839005, guid: 6fb7bf3311b2d614c817d89570c7eeb6, type: 3}
   <StartSpawnPoint>k__BackingField: {x: -7.87, y: -3}
   <LevelScrollingSpeed>k__BackingField: 3
   <DespawnOffset>k__BackingField: 40

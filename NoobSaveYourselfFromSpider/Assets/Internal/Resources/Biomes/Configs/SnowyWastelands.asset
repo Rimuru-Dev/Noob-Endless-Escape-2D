@@ -13,16 +13,20 @@ MonoBehaviour:
   m_Name: SnowyWastelands
   m_EditorClassIdentifier: 
   <BiomeTypeID>k__BackingField: 1
-  <LaunchingPlatform>k__BackingField: {fileID: 5981375096742839005, guid: 38bfc6bbe9696d945bd476eaca0781ed, type: 3}
+  <LaunchingPlatform>k__BackingField: {fileID: 1585247901767339198, guid: 0bf0a0a96d3099e459311e93f2c0be57, type: 3}
   <Prefabs>k__BackingField:
-  - {fileID: 5981375096742839005, guid: 304bb685455713b4c895c4a7222e7130, type: 3}
-  - {fileID: 5981375096742839005, guid: 304bb685455713b4c895c4a7222e7130, type: 3}
-  - {fileID: 5981375096742839005, guid: 304bb685455713b4c895c4a7222e7130, type: 3}
-  - {fileID: 5981375096742839005, guid: 304bb685455713b4c895c4a7222e7130, type: 3}
-  - {fileID: 7808544488804360026, guid: 89835236527aeea41aae9afeecaf478c, type: 3}
-  - {fileID: 5351232499655552657, guid: 6c47e4411eb4edf40aef080cd00ef3cd, type: 3}
-  - {fileID: 3143464025643601979, guid: f9bb9eb051a0e4f4b951aeeb4b418fb1, type: 3}
-  - {fileID: 4847513205142219379, guid: 891667b6706dda643bfc59875cc5ab1b, type: 3}
+  - {fileID: 6296571587741263371, guid: f558c50c85ba0eb4bbdf62c76769cdd3, type: 3}
+  - {fileID: 4696470713701250878, guid: 508a8147654570e418b091aa6a8901df, type: 3}
+  - {fileID: 1585247901767339198, guid: 0bf0a0a96d3099e459311e93f2c0be57, type: 3}
+  - {fileID: 4610907157509315487, guid: 5acf4fca5e34b614e823562955c9029e, type: 3}
+  - {fileID: 8538736920641865262, guid: c032c6862af952447b3c8b2b7e31abf2, type: 3}
+  - {fileID: 1906359160353259964, guid: 0e017a1b25e47fd4c81af19b5eeb9177, type: 3}
+  - {fileID: 6296571587741263371, guid: f558c50c85ba0eb4bbdf62c76769cdd3, type: 3}
+  - {fileID: 4696470713701250878, guid: 508a8147654570e418b091aa6a8901df, type: 3}
+  - {fileID: 1585247901767339198, guid: 0bf0a0a96d3099e459311e93f2c0be57, type: 3}
+  - {fileID: 4610907157509315487, guid: 5acf4fca5e34b614e823562955c9029e, type: 3}
+  - {fileID: 8538736920641865262, guid: c032c6862af952447b3c8b2b7e31abf2, type: 3}
+  - {fileID: 1906359160353259964, guid: 0e017a1b25e47fd4c81af19b5eeb9177, type: 3}
   <StartSpawnPoint>k__BackingField: {x: -7.87, y: -3}
   <LevelScrollingSpeed>k__BackingField: 3
   <DespawnOffset>k__BackingField: 40

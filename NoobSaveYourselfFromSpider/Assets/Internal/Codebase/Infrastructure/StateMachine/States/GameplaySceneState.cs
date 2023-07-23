@@ -87,7 +87,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             levelGenerator.Prepare();
 
             sceneController = GameObject.FindObjectOfType<SceneController>();
-            sceneController.Container(hero, gameStateMachine, sceneLoader, OnSceneLoaded, levelGenerator); //(() =>
+            sceneController.Container(hero, gameStateMachine, sceneLoader, OnSceneLoaded, levelGenerator,  persistenProgressService.GetStoragesData()); //(() =>
             // {
             //     // Перенеси ссылку на стейт машину и лоадер в SceneController!!
             //     sceneLoader.LoadScene(SceneName.Menu, (() => { gameStateMachine.EnterState<LoadMaiMenuState>(); }));
