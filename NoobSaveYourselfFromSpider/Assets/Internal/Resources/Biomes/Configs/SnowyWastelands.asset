@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa020a71c3e4b53827592867e391502, type: 3}
   m_Name: SnowyWastelands
   m_EditorClassIdentifier: 
+  background: {fileID: 21300000, guid: 480d75be43e241e47aeabaa836adb2a2, type: 3}
   <BiomeTypeID>k__BackingField: 1
   <LaunchingPlatform>k__BackingField: {fileID: 1585247901767339198, guid: 0bf0a0a96d3099e459311e93f2c0be57, type: 3}
   <Prefabs>k__BackingField:

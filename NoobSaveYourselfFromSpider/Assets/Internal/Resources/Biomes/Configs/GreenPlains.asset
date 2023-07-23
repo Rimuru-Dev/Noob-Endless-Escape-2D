@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa020a71c3e4b53827592867e391502, type: 3}
   m_Name: GreenPlains
   m_EditorClassIdentifier: 
+  background: {fileID: 21300000, guid: 79e018cf337b73d4f97f9f441938253b, type: 3}
   <BiomeTypeID>k__BackingField: 0
   <LaunchingPlatform>k__BackingField: {fileID: 5981375096742839005, guid: 626136a489388d3469b0606e35a2343b, type: 3}
   <Prefabs>k__BackingField:

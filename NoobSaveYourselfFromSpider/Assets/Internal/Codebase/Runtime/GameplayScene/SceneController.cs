@@ -13,6 +13,7 @@ using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine;
+using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.PrefabHelper;
 using Internal.Codebase.Runtime.Hero;
@@ -40,7 +41,7 @@ namespace Internal.Codebase.Runtime.GameplayScene
         public GameObject popup;
         public Button goMainMenuButton;
         public Button rebirthButton;
-
+        public SpriteRenderer[] parallax;
 
         [Inject] private IPersistenProgressService persistenProgressService;
         [Inject] private IStaticDataService staticDataService;
@@ -51,9 +52,12 @@ namespace Internal.Codebase.Runtime.GameplayScene
         public List<DeadlyObstacle> obstacles = new();
         private EndlessLevelGenerationHandler endlessLevelGenerationHandler;
 
-        public void Container(HeroViewController heroViewController,
+        public void Container(
+            HeroViewController heroViewController,
             GameStateMachine gameStateMachine,
-            ISceneLoaderService sceneLoader, Action action, EndlessLevelGenerationHandler endlessLevelGenerationHandler,
+            ISceneLoaderService sceneLoader,
+            Action action,
+            EndlessLevelGenerationHandler endlessLevelGenerationHandler,
             Storage storage)
         {
             this.storage = storage;
@@ -91,6 +95,23 @@ namespace Internal.Codebase.Runtime.GameplayScene
                 heroViewController.jumpController.IsCanJump = false;
                 action?.Invoke();
             });
+
+            // set parallax
+            {
+                var config = persistenProgressService.GetStoragesData();
+
+                var selectionBiom = config.userBioms.selectionBiomId;
+
+                var biom = selectionBiom switch
+                {
+                    BiomeTypeID.GreenPlains => staticDataService.GreenPlains,
+                    BiomeTypeID.SnowyWastelands => staticDataService.SnowyWastelands,
+                    _ => staticDataService.GreenPlains
+                };
+
+                foreach (var sriteRenderer in parallax)
+                    sriteRenderer.sprite = biom.background;
+            }
         }
 
         private void StartTimer()

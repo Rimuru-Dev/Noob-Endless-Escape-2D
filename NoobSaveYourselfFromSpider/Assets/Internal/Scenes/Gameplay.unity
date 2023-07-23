@@ -389,6 +389,9 @@ MonoBehaviour:
   popup: {fileID: 1097793271}
   goMainMenuButton: {fileID: 1848345803}
   rebirthButton: {fileID: 706111473}
+  parallax:
+  - {fileID: 1488788959159781413}
+  - {fileID: 1488788959159781412}
   obstacles: []
   yandexGameSDK: {fileID: 0}
   rebirdthID: 50
@@ -3196,6 +3199,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fac41dd85edf4d44b619fa8f29678a1, type: 3}
+--- !u!212 &1488788959159781412 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1837786377960953758, guid: 6fac41dd85edf4d44b619fa8f29678a1, type: 3}
+  m_PrefabInstance: {fileID: 1488788959159781411}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1488788959159781413 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3167282763967451677, guid: 6fac41dd85edf4d44b619fa8f29678a1, type: 3}
+  m_PrefabInstance: {fileID: 1488788959159781411}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2011058154517668107
 MonoBehaviour:
   m_ObjectHideFlags: 0

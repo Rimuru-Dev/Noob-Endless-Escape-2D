@@ -20,6 +20,7 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs
     [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public sealed class EndlessLevelGenerationConfig : ScriptableObject
     {
+        public Sprite background;
         [field: SerializeField]
         public BiomeTypeID BiomeTypeID { get; private set; }
         
