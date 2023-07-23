@@ -29,7 +29,7 @@ MonoBehaviour:
   - {fileID: 8538736920641865262, guid: c032c6862af952447b3c8b2b7e31abf2, type: 3}
   - {fileID: 1906359160353259964, guid: 0e017a1b25e47fd4c81af19b5eeb9177, type: 3}
   <StartSpawnPoint>k__BackingField: {x: -7.87, y: -3}
-  <LevelScrollingSpeed>k__BackingField: 3
+  <LevelScrollingSpeed>k__BackingField: 2.5
   <DespawnOffset>k__BackingField: 40
   <MaxBlockCount>k__BackingField: 20
   <SpawnCooldown>k__BackingField: 0.3
