@@ -34,9 +34,10 @@ namespace Internal.Codebase.Runtime
                 return;
 
             isCollectRewarded = true;
-            storage.emeraldCurrancy.emeralds = emeraldCurrancyRewardCount;
+            storage.EmeraldCurrancy = emeraldCurrancyRewardCount;
+            persistenProgressService.Save(storage);
 
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }

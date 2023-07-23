@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CurtainConfig
   m_EditorClassIdentifier: 
   <CurtainView>k__BackingField: {fileID: 7650625447939580882, guid: e8c0f439b12d8bb4ab9fd639e19c8d3e, type: 3}
-  <HideDelay>k__BackingField: 1.3
-  <AnimationDuration>k__BackingField: 1.5
+  <HideDelay>k__BackingField: 1
+  <AnimationDuration>k__BackingField: 1

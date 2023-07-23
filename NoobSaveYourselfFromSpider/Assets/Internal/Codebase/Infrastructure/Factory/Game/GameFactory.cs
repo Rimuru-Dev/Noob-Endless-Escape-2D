@@ -45,7 +45,10 @@ namespace Internal.Codebase.Infrastructure.Factory.Game
                 _ => staticDataService.GreenPlains
             };
 
-            levelGenerationHandler.Constructor(biom);
+            levelGenerationHandler.Constructor(
+                biom,
+                persistenProgressService.GetStoragesData(),
+                persistenProgressService);
 
             return levelGenerationHandler;
         }

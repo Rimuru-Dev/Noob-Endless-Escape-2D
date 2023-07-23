@@ -23,7 +23,7 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.PrefabHelper
         public List<DeadlyObstacle> trapDeadlyObstacle;
 
         public List<RewardView> rewardViews;
-        public float spawnChance = 0.1f;
+        public float spawnChance = 0.15f;
 
         private void Start()
         {

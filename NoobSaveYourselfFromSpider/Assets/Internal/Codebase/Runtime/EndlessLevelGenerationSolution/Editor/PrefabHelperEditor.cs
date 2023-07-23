@@ -98,6 +98,12 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Editor
                         break;
                 }
             }
+
+            var rewardViews = prefabHelper.GetComponentsInChildren<RewardView>(true);
+            prefabHelper.rewardViews = new List<RewardView>();
+            
+            foreach (var reward in rewardViews.Where(x => x != null))
+                prefabHelper.rewardViews.Add(reward);
         }
     }
 }

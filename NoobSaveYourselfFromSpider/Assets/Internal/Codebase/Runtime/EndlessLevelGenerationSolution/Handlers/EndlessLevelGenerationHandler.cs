@@ -9,8 +9,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.PrefabHelper;
+using Internal.Codebase.Runtime.StorageData;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -26,14 +29,19 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
 
         private List<Prefab> pool;
         private Prefab lastSpawnedPrefab;
+        private Storage storage;
+        private IPersistenProgressService persistenProgressService;
         private bool CanSpawnNextPrefab { get; set; } = true;
         public bool Pause { get; set; }
 
-        public void Constructor(EndlessLevelGenerationConfig endlessLevelGenerationConfig)
+        public void Constructor(EndlessLevelGenerationConfig endlessLevelGenerationConfig, Storage storage,
+            IPersistenProgressService persistenProgressService)
         {
             if (endlessLevelGenerationConfig == null)
                 throw new ArgumentNullException(nameof(endlessLevelGenerationConfig));
 
+            this.storage = storage;
+            this.persistenProgressService = persistenProgressService;
             config = endlessLevelGenerationConfig;
         }
 
@@ -50,6 +58,9 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
 
             lastSpawnedPrefab = Instantiate(config.LaunchingPlatform, config.StartSpawnPoint, Quaternion.identity,
                 transform);
+            
+            foreach (var reward in lastSpawnedPrefab.rewardViews.Where(reward => reward != null))
+                reward.Constructor(storage, persistenProgressService);
 
             pool.Add(lastSpawnedPrefab);
 
@@ -60,7 +71,7 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
         {
             if (Pause)
                 return;
-            
+
             if (IsCanLevelScrolling())
                 return;
 
@@ -127,6 +138,9 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
                     nextPrefab.transform.position -= offset;
 
                     lastSpawnedPrefab = nextPrefab;
+
+                    foreach (var reward in nextPrefab.rewardViews.Where(reward => reward != null))
+                        reward.Constructor(storage, persistenProgressService);
                 }
 
                 yield return new WaitForSeconds(config.SpawnCooldown);
