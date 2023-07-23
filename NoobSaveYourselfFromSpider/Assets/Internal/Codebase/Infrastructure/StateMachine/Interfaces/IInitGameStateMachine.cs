@@ -9,6 +9,6 @@ namespace Internal.Codebase.Infrastructure.StateMachine.Interfaces
 {
     public interface IInitGameStateMachine
     {
-        public void Init(IGameStateMachine gameStateMachine);
+        public void Init(GameStateMachine gameStateMachine);
     }
 }

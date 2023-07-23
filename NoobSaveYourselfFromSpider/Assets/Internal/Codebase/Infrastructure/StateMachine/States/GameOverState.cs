@@ -11,7 +11,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 {
     public sealed class GameOverState : IStateNext
     {
-        public void Init(IGameStateMachine gameStateMachine)
+        public void Init(GameStateMachine gameStateMachine)
         {
         }
 

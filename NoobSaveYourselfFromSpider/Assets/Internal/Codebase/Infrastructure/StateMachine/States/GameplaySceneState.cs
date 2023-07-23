@@ -21,6 +21,7 @@ using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
 using Internal.Codebase.Runtime.GameplayScene;
 using Internal.Codebase.Runtime.Hero;
+using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -36,7 +37,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private readonly IHeroFactory heroFactory;
         private readonly IGameFactory gameFactory;
         private readonly IPersistenProgressService persistenProgressService;
-        private IGameStateMachine gameStateMachine;
+        private GameStateMachine gameStateMachine;
 
         [Inject]
         public GameplaySceneState(
@@ -57,7 +58,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             this.persistenProgressService = persistenProgressService;
         }
 
-        public void Init(IGameStateMachine gameStateMachine) =>
+        public void Init(GameStateMachine gameStateMachine) =>
             this.gameStateMachine = gameStateMachine;
 
         public void Enter()
@@ -68,6 +69,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             var config = staticData.ForCurtain();
             curtain.HideCurtain(config.HideDelay);
         }
+
+        private SceneController sceneController;
 
         private void PrepareScene()
         {
@@ -83,16 +86,39 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             var levelGenerator = gameFactory.CreateLevelGenerator();
             levelGenerator.Prepare();
 
-            Object.FindObjectOfType<SceneController>().Container(hero);
+            sceneController = GameObject.FindObjectOfType<SceneController>();
+            sceneController.Container(hero, gameStateMachine, sceneLoader, OnSceneLoaded); //(() =>
+            // {
+            //     // Перенеси ссылку на стейт машину и лоадер в SceneController!!
+            //     sceneLoader.LoadScene(SceneName.Menu, (() => { gameStateMachine.EnterState<LoadMaiMenuState>(); }));
+            //     
+            // })); //OnSceneLoaded);
+        }
 
-            // var spawnPoint = levelGenerator.GetComponentInChildren<HeroSpawnPoint>();
-            // hero.transform.position = spawnPoint != null 
-            //     ? spawnPoint.transform.position 
-            //     : new Vector3(0, 5f, 0); // default position
+        private void LeaveToMainMenuState() =>
+            curtain.ShowCurtain(true, LoadScene);
+
+        private void LoadScene() =>
+            sceneLoader.LoadScene(SceneName.Menu, EnterMainMenuState);
+
+        private void EnterMainMenuState() => gameStateMachine.EnterState<LoadMaiMenuState>();
+
+        private void OnSceneLoaded()
+        {
+            curtain.ShowCurtain(true,
+                () =>
+                {
+                    sceneLoader.LoadScene(SceneName.Menu, (() =>
+                    {
+                        Debug.Log($"gameStateMachine == null? - {gameStateMachine == null}");
+                        gameStateMachine.EnterState<LoadMaiMenuState>();
+                    }));
+                });
         }
 
         public void Exit()
         {
+            // gameStateMachine.EnterState<LoadMaiMenuState>();
         }
     }
 }
