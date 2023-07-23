@@ -22,16 +22,37 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.PrefabHelper
         public List<DeadlyObstacle> defaultDeadlyObstacle;
         public List<DeadlyObstacle> trapDeadlyObstacle;
 
-        // TODO: Transfer to  RandomActivationService
+        public List<RewardView> rewardViews;
+        public float spawnChance = 0.1f;
+
         private void Start()
         {
             var minActiveObstacles = trapDeadlyObstacle.Count / 2;
             var maxActiveObstacles = trapDeadlyObstacle.Count;
             var activeObstaclesCount = Random.Range(minActiveObstacles, maxActiveObstacles + 1);
 
+            var minActiveRewards = rewardViews.Count / 2;
+            var maxActiveRewards = rewardViews.Count;
+            var activeRewardsCount = Random.Range(minActiveRewards, maxActiveRewards + 1);
+
             EnableRandomObstacles();
 
+            bool spawnRewards = ShouldSpawnRewards(); // Проверка, будут ли награды активированы
+
+            if (spawnRewards)
+            {
+                EnableRandomRewards();
+            }
+
             DisableRandomObstacles();
+
+            bool ShouldSpawnRewards()
+            {
+                // Генерируем случайное число и сравниваем его с вероятностью спавна
+                float randomNum = Random.value;
+
+                return randomNum < spawnChance;
+            }
 
             void EnableRandomObstacles()
             {
@@ -41,6 +62,20 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.PrefabHelper
 
                     trapDeadlyObstacle[randomIndex].gameObject.SetActive(true);
                     trapDeadlyObstacle.RemoveAt(randomIndex);
+                }
+            }
+
+            void EnableRandomRewards()
+            {
+                for (var i = 0; i < activeRewardsCount; i++)
+                {
+                    if (rewardViews.Count > 0)
+                    {
+                        var randomIndex = Random.Range(0, rewardViews.Count);
+
+                        rewardViews[randomIndex].gameObject.SetActive(true);
+                        rewardViews.RemoveAt(randomIndex);
+                    }
                 }
             }
 
