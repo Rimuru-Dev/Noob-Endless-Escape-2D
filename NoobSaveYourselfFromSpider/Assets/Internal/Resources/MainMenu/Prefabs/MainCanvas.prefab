@@ -5572,8 +5572,8 @@ MonoBehaviour:
   buyFish: {fileID: 6194756224889073938}
   buyEmerald: {fileID: 6559638876315635780}
   yandexGameSDK: {fileID: 0}
-  rewardFish: 10
-  rewardEmerald: 20
+  rewardFish: 11
+  rewardEmerald: 21
 --- !u!1 &8135957473299757698
 GameObject:
   m_ObjectHideFlags: 0

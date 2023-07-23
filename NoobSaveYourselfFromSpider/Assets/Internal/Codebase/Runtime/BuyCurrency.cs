@@ -53,14 +53,14 @@ namespace Internal.Codebase.Runtime
 
         private void Rewarded(int id)
         {
-            if (id == 10)
+            if (id == rewardFish)
             {
                 AudioListener.volume = storage.audioSettings.volume;
                 storage.FishCurrancy = 1;
                 persistenProgressService.Save(storage);
             }
 
-            if (id == 20)
+            if (id == rewardEmerald)
             {
                 AudioListener.volume = storage.audioSettings.volume;
                 storage.EmeraldCurrancy = 9;
@@ -76,12 +76,12 @@ namespace Internal.Codebase.Runtime
 
         private void BuyEmerald()
         {
-            ShowAdvButton(20);
+            ShowAdvButton(rewardEmerald);
         }
 
         private void BuyFish()
         {
-            ShowAdvButton(10);
+            ShowAdvButton(rewardFish);
         }
     }
 }
