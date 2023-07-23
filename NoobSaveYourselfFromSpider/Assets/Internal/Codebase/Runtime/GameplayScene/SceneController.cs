@@ -10,10 +10,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.PersistenProgress;
+using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
+using Internal.Codebase.Infrastructure.StateMachine;
+using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
+using Internal.Codebase.Infrastructure.StateMachine.States;
 using Internal.Codebase.Runtime.Hero;
 using Internal.Codebase.Runtime.Obstacles;
 using Internal.Codebase.Runtime.SpriteTextNumberCounterLogic;
+using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -34,19 +39,29 @@ namespace Internal.Codebase.Runtime.GameplayScene
         [Inject] private IPersistenProgressService persistenProgressService;
         [Inject] private IStaticDataService staticDataService;
         [Inject] private ICurtainService curtainService;
-
+        private GameStateMachine gameStateMachine;
         private Hero.HeroViewController heroViewController;
-
+        private ISceneLoaderService sceneLoader;
         public List<DeadlyObstacle> obstacles = new();
 
-        public void Container(HeroViewController heroViewController, Action action)
+        public void Container(
+            HeroViewController heroViewController,
+            GameStateMachine gameStateMachine,
+            ISceneLoaderService sceneLoader, Action action)
         {
+            this.gameStateMachine = gameStateMachine;
             this.heroViewController = heroViewController;
             this.heroViewController.heroDie.OnDie += Die;
+            this.sceneLoader = sceneLoader;
+
 
             advTimer.OnTimerOn += StartTimer;
             advTimer.OnTimerOff += EndTimer;
-            goMainMenuButton.onClick.AddListener(() => { action?.Invoke(); });
+            goMainMenuButton.onClick.AddListener(() =>
+            {
+                //sceneLoader.LoadScene(SceneName.Menu, () => { gameStateMachine.EnterState<LoadMaiMenuState>(); });
+                action?.Invoke();
+            });
         }
 
         private void StartTimer()

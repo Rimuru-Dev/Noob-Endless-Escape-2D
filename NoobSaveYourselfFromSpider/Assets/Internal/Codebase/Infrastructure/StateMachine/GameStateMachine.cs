@@ -64,6 +64,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine
         {
             states[typeof(BootstrapState)].Init(this);
             states[typeof(LoadMaiMenuState)].Init(this);
+            states[typeof(GameplaySceneState)].Init(this);
+            states[typeof(GameOverState)].Init(this);
         }
     }
 }

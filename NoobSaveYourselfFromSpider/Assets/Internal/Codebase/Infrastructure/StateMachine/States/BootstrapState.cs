@@ -24,7 +24,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private readonly IStaticDataService staticData;
         private readonly IStorageService storageService;
         private readonly IPersistenProgressService persistenProgressService;
-        private IGameStateMachine gameStateMachine;
+        private GameStateMachine gameStateMachine;
 
         [Inject]
         public BootstrapState(
@@ -40,7 +40,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             this.persistenProgressService = persistenProgressService;
         }
 
-        public void Init(IGameStateMachine gameStateMachine)
+        public void Init(GameStateMachine gameStateMachine)
         {
             this.gameStateMachine = gameStateMachine;
         }

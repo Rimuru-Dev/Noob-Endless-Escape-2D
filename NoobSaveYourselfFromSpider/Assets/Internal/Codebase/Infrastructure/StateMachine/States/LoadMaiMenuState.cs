@@ -30,7 +30,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private readonly IPersistenProgressService persistenProgressService;
         private readonly IStaticDataService staticData;
         private readonly IUIFactory uiFactory;
-        private IGameStateMachine gameStateMachine;
+        private GameStateMachine gameStateMachine;
 
         private MainMenuCanvasView mainMenu;
         private BiomeShopView biomeShop;
@@ -50,7 +50,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             this.uiFactory = uiFactory;
         }
 
-        public void Init(IGameStateMachine gameStateMachine)
+        public void Init(GameStateMachine gameStateMachine)
         {
             this.gameStateMachine = gameStateMachine;
         }

@@ -37,7 +37,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private readonly IHeroFactory heroFactory;
         private readonly IGameFactory gameFactory;
         private readonly IPersistenProgressService persistenProgressService;
-        private IGameStateMachine gameStateMachine;
+        private GameStateMachine gameStateMachine;
 
         [Inject]
         public GameplaySceneState(
@@ -58,7 +58,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             this.persistenProgressService = persistenProgressService;
         }
 
-        public void Init(IGameStateMachine gameStateMachine) =>
+        public void Init(GameStateMachine gameStateMachine) =>
             this.gameStateMachine = gameStateMachine;
 
         public void Enter()
@@ -69,6 +69,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             var config = staticData.ForCurtain();
             curtain.HideCurtain(config.HideDelay);
         }
+
+        private SceneController sceneController;
 
         private void PrepareScene()
         {
@@ -84,12 +86,13 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             var levelGenerator = gameFactory.CreateLevelGenerator();
             levelGenerator.Prepare();
 
-            Object.FindObjectOfType<SceneController>().Container(hero,(() =>
-            {
-                // Перенеси ссылку на стейт машину и лоадер в SceneController!!
-                sceneLoader.LoadScene(SceneName.Menu, (() => { gameStateMachine.EnterState<LoadMaiMenuState>(); }));
-                
-            })); //OnSceneLoaded);
+            sceneController = GameObject.FindObjectOfType<SceneController>();
+            sceneController.Container(hero, gameStateMachine, sceneLoader, OnSceneLoaded); //(() =>
+            // {
+            //     // Перенеси ссылку на стейт машину и лоадер в SceneController!!
+            //     sceneLoader.LoadScene(SceneName.Menu, (() => { gameStateMachine.EnterState<LoadMaiMenuState>(); }));
+            //     
+            // })); //OnSceneLoaded);
         }
 
         private void LeaveToMainMenuState() =>
@@ -105,7 +108,11 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             curtain.ShowCurtain(true,
                 () =>
                 {
-                    sceneLoader.LoadScene(SceneName.Menu, (() => { gameStateMachine.EnterState<LoadMaiMenuState>(); }));
+                    sceneLoader.LoadScene(SceneName.Menu, (() =>
+                    {
+                        Debug.Log($"gameStateMachine == null? - {gameStateMachine == null}");
+                        gameStateMachine.EnterState<LoadMaiMenuState>();
+                    }));
                 });
         }
 
