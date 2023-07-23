@@ -144,8 +144,8 @@ TextureImporter:
         width: 13
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 1, y: 1, z: 1, w: 1}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -165,8 +165,8 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 4, y: 4, z: 4, w: 4}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -186,8 +186,8 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 4, y: 4, z: 4, w: 4}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -207,7 +207,7 @@ TextureImporter:
         width: 15
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -220,7 +220,28 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CommonAtlass_5
+      name: CommonAtlass_4
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 30
+        width: 44
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ded6e7b943e0aa4eb71dbf8c5fb9e9e
+      internalID: -912242581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CommonAtlass_6
       rect:
         serializedVersion: 2
         x: 0
@@ -228,14 +249,14 @@ TextureImporter:
         width: 22
         height: 27
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5bb31fb035535bd45a0426862e9fc3be
-      internalID: -1721849807
+      spriteID: c01146068b7250d409bcf3d49d932889
+      internalID: -1748085587
       vertices: []
       indices: 
       edges: []
@@ -257,6 +278,7 @@ TextureImporter:
       CommonAtlass_3: 1301073082
       CommonAtlass_4: -912242581
       CommonAtlass_5: -1721849807
+      CommonAtlass_6: -1748085587
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
