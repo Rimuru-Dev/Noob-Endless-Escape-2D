@@ -5,10 +5,7 @@
 //
 // **************************************************************** //
 
-using System;
 using Internal.Codebase.Infrastructure.Services.PersistenProgress;
-using Internal.Codebase.Infrastructure.Services.StaticData;
-using Internal.Codebase.Runtime.MainMenu;
 using UnityEngine;
 using YG;
 using Zenject;
@@ -17,9 +14,9 @@ namespace Internal.Codebase.Runtime.DevelopLogic
 {
     public sealed class Develop : MonoBehaviour
     {
+#if UNITY_EDITOR
         [Inject] private IPersistenProgressService persistenProgressService;
 
-#if UNITY_EDITOR
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.S))
@@ -38,6 +35,6 @@ namespace Internal.Codebase.Runtime.DevelopLogic
                 //     YandexGame.SaveProgress();
             }
         }
-    }
 #endif
+    }
 }

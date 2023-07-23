@@ -5,6 +5,7 @@
 //
 // **************************************************************** //
 
+using System;
 using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Runtime.StorageData;
 using UnityEngine;
@@ -62,6 +63,10 @@ namespace Internal.Codebase.Runtime
             AudioListener.volume = valueChanged;
 
             storage.audioSettings.volume = valueChanged;
+        }
+
+        private void OnDisable()
+        {
             persistenProgressService.Save(storage);
         }
 

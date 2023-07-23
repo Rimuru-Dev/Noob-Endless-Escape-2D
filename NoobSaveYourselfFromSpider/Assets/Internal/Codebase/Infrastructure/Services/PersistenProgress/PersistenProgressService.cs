@@ -45,11 +45,11 @@ namespace Internal.Codebase.Infrastructure.Services.PersistenProgress
 
         public void Load()
         {
-            Debug.Log("<color=yellow>Loaded !!!</color>");
+            // Debug.Log("<color=yellow>Loaded !!!</color>");
 
             if (YandexGame.savesData.storage == null)
             {
-                Debug.Log("<color=yellow>Load Default</color>");
+                // Debug.Log("<color=yellow>Load Default</color>");
                 var newStorage = new Runtime.StorageData.Storage
                 {
                     fishCurrancy = new FishCurrancy(),
@@ -84,11 +84,11 @@ namespace Internal.Codebase.Infrastructure.Services.PersistenProgress
                 }
                 YandexGame.savesData.storage = newStorage;
                 storage = newStorage;
-                YandexGame.SaveProgress();
+                // YandexGame.SaveProgress();
             }
             else
             {
-                Debug.Log("<color=yellow>Load Old Save</color>");
+                // Debug.Log("<color=yellow>Load Old Save</color>");
                 storage = YandexGame.savesData.storage;
             }
         }

@@ -57,15 +57,17 @@ namespace Internal.Codebase.Runtime
             {
                 AudioListener.volume = storage.audioSettings.volume;
                 storage.FishCurrancy = 1;
-                persistenProgressService.Save(storage);
+                // persistenProgressService.Save(storage);
             }
 
             if (id == rewardEmerald)
             {
                 AudioListener.volume = storage.audioSettings.volume;
                 storage.EmeraldCurrancy = 9;
-                persistenProgressService.Save(storage);
+                // persistenProgressService.Save(storage);
             }
+
+            persistenProgressService.Save(storage);
         }
 
         private void ShowAdvButton(int id)

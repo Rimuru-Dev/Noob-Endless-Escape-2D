@@ -138,14 +138,15 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             mainMenu.PlayButton.onClick.RemoveListener(OnSceneLoaded);
             // mainMenu = null;
             // biomeShop = null;
+            // persistenProgressService.Save(persistenProgressService.GetStoragesData());
         }
 
         private void OnSceneLoaded()
         {
             curtain.ShowCurtain(true, () =>
             {
-                sceneLoader.LoadScene(SceneName.Gameplay,
-                    () => { gameStateMachine.EnterState<GameplaySceneState>(); });
+                persistenProgressService.Save(persistenProgressService.GetStoragesData());
+                sceneLoader.LoadScene(SceneName.Gameplay, () => { gameStateMachine.EnterState<GameplaySceneState>(); });
             });
         }
     }
