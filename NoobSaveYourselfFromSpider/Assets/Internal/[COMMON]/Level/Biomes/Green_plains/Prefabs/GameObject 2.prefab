@@ -1192,7 +1192,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3314832983893485352
 Transform:
   m_ObjectHideFlags: 0
@@ -10289,7 +10289,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.9758811, y: 0}
+  m_Offset: {x: -2.4753623, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -10300,7 +10300,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.0080137, y: 1}
+  m_Size: {x: 4.0090513, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &4495756344207419482
 GameObject:
@@ -20293,6 +20293,10 @@ PrefabInstance:
     - target: {fileID: 5416202673719553951, guid: 5587248929d332f42ad85fcae37757d0, type: 3}
       propertyPath: m_Name
       value: Collider_7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416202673719553951, guid: 5587248929d332f42ad85fcae37757d0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5604781712248908152, guid: 5587248929d332f42ad85fcae37757d0, type: 3}
       propertyPath: m_Size.x

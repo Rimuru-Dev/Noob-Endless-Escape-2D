@@ -82,9 +82,14 @@ namespace Internal.Codebase.Runtime.StorageData
 
         public void Refresh()
         {
-            OnEmeraldCurrancyChanged?.Invoke(emeraldCurrancy.emeralds);
-            OnFishCurrancyChanged?.Invoke(fishCurrancy.fishs);
-            OnBestDistanceChanged?.Invoke(userBestDistance.bestDistance);
+            if (emeraldCurrancy != null)
+                OnEmeraldCurrancyChanged?.Invoke(emeraldCurrancy.emeralds);
+
+            if (fishCurrancy != null)
+                OnFishCurrancyChanged?.Invoke(fishCurrancy.fishs);
+
+            if (userBestDistance != null)
+                OnBestDistanceChanged?.Invoke(userBestDistance.bestDistance);
         }
 
         public int FishCurrancy

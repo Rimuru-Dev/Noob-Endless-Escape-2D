@@ -17,6 +17,7 @@ using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.PrefabHelper;
 using Internal.Codebase.Runtime.Hero;
+using Internal.Codebase.Runtime.MainMenu.Animation;
 using Internal.Codebase.Runtime.Obstacles;
 using Internal.Codebase.Runtime.SpriteTextNumberCounterLogic;
 using Internal.Codebase.Runtime.StorageData;
@@ -28,7 +29,7 @@ using Zenject;
 
 namespace Internal.Codebase.Runtime.GameplayScene
 {
-    public sealed class SceneController : MonoBehaviour
+    public sealed class SceneController : MonoBehaviour, IFuckingSaveLoad
     {
         public Button startPause;
         public Button stopPause;
@@ -60,7 +61,7 @@ namespace Internal.Codebase.Runtime.GameplayScene
             EndlessLevelGenerationHandler endlessLevelGenerationHandler,
             Storage storage)
         {
-            this.storage = storage;
+            // this.storage = storage;
             this.endlessLevelGenerationHandler = endlessLevelGenerationHandler;
             this.gameStateMachine = gameStateMachine;
             this.heroViewController = heroViewController;
@@ -98,7 +99,7 @@ namespace Internal.Codebase.Runtime.GameplayScene
 
             // set parallax
             {
-                var config = persistenProgressService.GetStoragesData();
+                var config = YandexGame.savesData.storage;
 
                 var selectionBiom = config.userBioms.selectionBiomId;
 
@@ -125,6 +126,24 @@ namespace Internal.Codebase.Runtime.GameplayScene
         }
 
         public YandexGame yandexGameSDK;
+
+        private void Awake()
+        {
+            if (YandexGame.SDKEnabled)
+                Load();
+
+            YandexGame.GetDataEvent += Load;
+        }
+
+        public void Save()
+        {
+            YandexGame.savesData.storage = storage;
+        }
+
+        public void Load()
+        {
+            storage = YandexGame.savesData.storage;
+        }
 
         private void OnEnable() =>
             YandexGame.RewardVideoEvent += Rewarded;
@@ -163,14 +182,14 @@ namespace Internal.Codebase.Runtime.GameplayScene
             home.gameObject.SetActive(false);
             stopPause.gameObject.SetActive(false);
             startPause.gameObject.SetActive(false);
-                
+
             popup.SetActive(true);
             heroViewController.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             heroViewController.HeroSpriteRenderer.color = Color.red;
             numberVisualizer.IsPause = true;
             heroViewController.jumpController.IsCanJump = false;
 
-            var storage = persistenProgressService.GetStoragesData();
+            var storage = YandexGame.savesData.storage;
             var bestDistance = storage.BestDistance;
             var currentDistance = numberVisualizer.currentNumber;
 
@@ -178,7 +197,8 @@ namespace Internal.Codebase.Runtime.GameplayScene
             {
                 storage.BestDistance = currentDistance;
 
-                persistenProgressService.Save(storage);
+                YandexGame.savesData.storage = storage;
+                // persistenProgressService.Save(storage);
             }
 
 
@@ -206,8 +226,8 @@ namespace Internal.Codebase.Runtime.GameplayScene
             heroViewController.jumpController.IsCanJump = true;
             numberVisualizer.IsPause = false;
 
-            heroViewController.transform.position = new Vector3(0, 5f, 0);
-            
+            heroViewController.transform.position = new Vector3(0, 6f, 0);
+
             // home.gameObject.SetActive(true);
             // stopPause.gameObject.SetActive(true);
             startPause.gameObject.SetActive(true);
@@ -223,7 +243,7 @@ namespace Internal.Codebase.Runtime.GameplayScene
         {
             advTimer.OnTimerOn -= StartTimer;
             advTimer.OnTimerOff -= EndTimer;
-
+            YandexGame.GetDataEvent -= Load;
             goMainMenuButton.onClick.RemoveAllListeners();
             rebirthButton.onClick.RemoveAllListeners();
 
