@@ -92,7 +92,8 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
                 storage.userSkins.SkinDatas[0].IsOpen = true;
                 storage.userSkins.selectionSkinId = storage.userSkins.SkinDatas[0].ID;
 
-                persistenProgressService.Save(this.storage);
+                if (YandexGame.SDKEnabled)
+                    persistenProgressService.Save(this.storage);
             }
             else
             {

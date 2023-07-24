@@ -163,7 +163,7 @@ namespace Internal.Codebase.Runtime.GameplayScene
             home.gameObject.SetActive(false);
             stopPause.gameObject.SetActive(false);
             startPause.gameObject.SetActive(false);
-                
+
             popup.SetActive(true);
             heroViewController.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             heroViewController.HeroSpriteRenderer.color = Color.red;
@@ -206,8 +206,8 @@ namespace Internal.Codebase.Runtime.GameplayScene
             heroViewController.jumpController.IsCanJump = true;
             numberVisualizer.IsPause = false;
 
-            heroViewController.transform.position = new Vector3(0, 5f, 0);
-            
+            heroViewController.transform.position = new Vector3(0, 6f, 0);
+
             // home.gameObject.SetActive(true);
             // stopPause.gameObject.SetActive(true);
             startPause.gameObject.SetActive(true);

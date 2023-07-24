@@ -6,6 +6,8 @@
 // **************************************************************** //
 
 using System.Diagnostics.CodeAnalysis;
+using Internal.Codebase.Infrastructure.Services.PersistenProgress;
+using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine;
 using Internal.Codebase.Infrastructure.StateMachine.States;
 using UnityEngine;
@@ -17,6 +19,11 @@ namespace Internal.Codebase.Infrastructure.Boot
     public sealed class GameBootstrapper : MonoBehaviour
     {
         private GameStateMachine gameStateMachine;
+
+        [Inject] public IPersistenProgressService PersistenProgressService;
+        [Inject] public IStaticDataService StaticDataService;
+
+        public static GameBootstrapper Instance;
 
         private void Awake()
         {
@@ -52,7 +59,7 @@ namespace Internal.Codebase.Infrastructure.Boot
         private void ApplyDontDestroyOnLoad()
         {
             transform.SetParent(null);
-
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
 
