@@ -1,26 +1,55 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Internal.Codebase.Infrastructure.Services.PersistenProgress;
-using Internal.Codebase.Infrastructure.Services.StaticData;
 using UnityEngine;
-using Zenject;
 
 public class SaveLoadHandler : MonoBehaviour
 {
-    [Inject] public IPersistenProgressService PersistenProgressService;
-    [Inject] public IStaticDataService StaticDataService;
-
-    public static SaveLoadHandler Instance;
-
-    private void Awake()
-    {
-        // if (Instance == null)
-        //     Instance = this;
-        //
-        // DontDestroyOnLoad(this);
-
-        Debug.Log($"IPersistenProgressService == null -> {PersistenProgressService == null}");
-        Debug.Log($"IStaticDataService == null -> {StaticDataService == null}");
-    }
+    // private List<IFuckingSaveLoad> savedInterfaces = new();
+    //
+    // private void OnEnable()
+    // {
+    //     SceneManager.sceneLoaded += OnSceneLoaded;
+    // }
+    //
+    // private void OnDisable()
+    // {
+    //     SceneManager.sceneLoaded -= OnSceneLoaded;
+    // }
+    //
+    // private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    // {
+    //     savedInterfaces.Clear();
+    //
+    //     var f = GameObject.FindObjectsOfType<GameObject>(true);
+    //
+    //     foreach (var c in f.Where(x => x != null))
+    //     {
+    //         var s = c.GetComponent<IFuckingSaveLoad>();
+    //         if (s != null)
+    //         {
+    //             savedInterfaces.Add(s);
+    //         }
+    //     }
+    //
+    //     Debug.Log("<color=green>Cache</color>");
+    // }
+    //
+    // private void Start()
+    // {
+    //     StartCoroutine(AutoSave());
+    // }
+    //
+    // private IEnumerator AutoSave()
+    // {
+    //     while (true)
+    //     {
+    //         yield return new WaitForSeconds(7f);
+    //
+    //         foreach (var obj in savedInterfaces)
+    //         {
+    //             obj?.Save();
+    //             Debug.Log("<color=magenta>Save</color>");
+    //         }
+    //
+    //         YandexGame.SaveProgress();
+    //     }
+    // }
 }

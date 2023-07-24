@@ -51,11 +51,7 @@ namespace Internal.Codebase.Infrastructure.Boot
                 foreach (var c in f.Where(x => x != null))
                 {
                     var s = c.GetComponent<IFuckingSaveLoad>();
-                    if (s != null)
-                    {
-                        // Debug.Log(c.name);
-                        s?.Save();
-                    }
+                    s?.Save();
                 }
 
                 YandexGame.SaveProgress();

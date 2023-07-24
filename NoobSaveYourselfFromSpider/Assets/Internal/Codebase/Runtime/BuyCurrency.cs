@@ -78,14 +78,15 @@ namespace Internal.Codebase.Runtime
         {
             if (id == rewardFish)
             {
-                AudioListener.volume = storage.audioSettings.volume;
+                AudioListener.volume = storage.audioSettings?.volume ?? 1.15f;
                 storage.FishCurrancy = 1;
                 // persistenProgressService.Save(storage);
             }
 
             if (id == rewardEmerald)
             {
-                AudioListener.volume = storage.audioSettings.volume;
+                AudioListener.volume = storage.audioSettings?.volume ?? 1.15f;
+
                 storage.EmeraldCurrancy = 9;
                 // persistenProgressService.Save(storage);
             }

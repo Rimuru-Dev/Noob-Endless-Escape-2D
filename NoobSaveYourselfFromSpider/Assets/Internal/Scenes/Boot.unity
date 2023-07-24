@@ -191,7 +191,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2211564899198745197, guid: caf9732433f4dc044845763962493607, type: 3}
   m_PrefabInstance: {fileID: 1793637494}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &522775119
+--- !u!114 &522775123
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -200,9 +200,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 522775115}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac058f95226ffd6438bdd32d1aaabd18, type: 3}
+  m_Script: {fileID: 11500000, guid: 325fd32b2172cd144ac0d193ae7c15ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetFPS: 90
 --- !u!1 &1361890713
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1361890714}
   - component: {fileID: 1361890715}
+  - component: {fileID: 1361890716}
   m_Layer: 0
   m_Name: Bootstrupper
   m_TagString: Untagged
@@ -245,6 +247,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db2ae221c27340bea981898bf228023f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1361890716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361890713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac058f95226ffd6438bdd32d1aaabd18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1793637494
@@ -309,5 +323,5 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2211564899198745197, guid: caf9732433f4dc044845763962493607, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 522775119}
+      addedObject: {fileID: 522775123}
   m_SourcePrefab: {fileID: 100100000, guid: caf9732433f4dc044845763962493607, type: 3}
