@@ -19,6 +19,7 @@ using Internal.Codebase.Runtime.MainMenu.Animation;
 using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 using Zenject;
 
 namespace Internal.Codebase.Infrastructure.StateMachine.States
@@ -57,7 +58,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
         public void Enter()
         {
-            persistenProgressService.Load();
+            // persistenProgressService.Load();
 
             PrepareUI();
 
@@ -74,17 +75,17 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             mainMenu = uiFactory.CreateMainMenuCanvas();
             biomeShop = mainMenu.BiomeShopView;
 
-            var storage = persistenProgressService.GetStoragesData();
+            // var storage = persistenProgressService.GetStoragesData();
 
-            mainMenu.Emerald.Initialize(storage);
-            mainMenu.Fish.Initialize(storage);
-            mainMenu.BestDistance.Initialize(storage);
+            // mainMenu.Emerald.Initialize(storage);
+            // mainMenu.Fish.Initialize(storage);
+            // mainMenu.BestDistance.Initialize(storage);
 
 
-            mainMenu.BuyCurrencyView.Constructor(storage, persistenProgressService);
-            mainMenu.BuyCurrencyViewShortPanel.Constructor(storage, persistenProgressService);
+            // mainMenu.BuyCurrencyView.Constructor(storage, persistenProgressService);
+            // mainMenu.BuyCurrencyViewShortPanel.Constructor(storage, persistenProgressService);
 
-            storage.Refresh();
+            // storage.Refresh();
 
             //   mainMenu.PlayButton.onClick.AddListener(OnSceneLoaded);
 
@@ -106,29 +107,27 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
                 //     }
                 // }
             }
-            mainMenu.gameObject
-                .GetComponent<CharacterSwitcher>()
-                .Initialize(storage, persistenProgressService);
+            //  mainMenu.gameObject.GetComponent<CharacterSwitcher>().Initialize(storage, persistenProgressService);
 
             biomeShop.Constructor(staticData, persistenProgressService);
-            biomeShop.Initialize(storage);
+            // biomeShop.Initialize(storage);
 
             biomeShop.PlayBiomeForest.onClick.AddListener(PlayForest);
             biomeShop.PlayBiomWinter.onClick.AddListener(PlayWinter);
 
-            GameObject.FindObjectOfType<GeneralAudioHandler>(true)?.Constructor(storage, persistenProgressService);
+            GameObject.FindObjectOfType<GeneralAudioHandler>(true)?.Constructor( /*storage,*/ persistenProgressService);
         }
 
         private void PlayWinter()
         {
-            persistenProgressService.GetStoragesData().userBioms.selectionBiomId = BiomeTypeID.SnowyWastelands;
+            YandexGame.savesData.storage.userBioms.selectionBiomId = BiomeTypeID.SnowyWastelands;
             OnSceneLoaded();
             // mainMenu.
         }
 
         private void PlayForest()
         {
-            persistenProgressService.GetStoragesData().userBioms.selectionBiomId = BiomeTypeID.GreenPlains;
+            YandexGame.savesData.storage.userBioms.selectionBiomId = BiomeTypeID.GreenPlains;
             OnSceneLoaded();
         }
 

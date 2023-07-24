@@ -27,7 +27,7 @@ namespace Internal.Codebase.Runtime.DevelopLogic
 
             if (Input.GetKeyDown(KeyCode.T))
             {
-                var data = persistenProgressService.GetStoragesData();
+                var data = YandexGame.savesData.storage;
 
                 data.EmeraldCurrancy = 50;
                 data.FishCurrancy = 45;

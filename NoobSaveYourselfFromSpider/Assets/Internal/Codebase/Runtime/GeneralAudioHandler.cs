@@ -7,15 +7,18 @@
 
 using System;
 using Internal.Codebase.Infrastructure.Services.PersistenProgress;
+using Internal.Codebase.Runtime.MainMenu.Animation;
 using Internal.Codebase.Runtime.StorageData;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
+using AudioSettings = Internal.Codebase.Runtime.StorageData.AudioSettings;
 
 namespace Internal.Codebase.Runtime
 {
     [SelectionBase]
     [DisallowMultipleComponent]
-    public sealed class GeneralAudioHandler : MonoBehaviour
+    public sealed class GeneralAudioHandler : MonoBehaviour, IFuckingSaveLoad
     {
         private const int Off = 0, On = 1;
 
@@ -32,21 +35,63 @@ namespace Internal.Codebase.Runtime
         private float audioValue;
         private IPersistenProgressService persistenProgressService;
 
-        public void Constructor(Storage storage, IPersistenProgressService persistenProgressService)
+        private void Awake()
         {
-            this.storage = storage;
-            this.persistenProgressService = persistenProgressService;
+            if (YandexGame.SDKEnabled)
+                Load();
+
+            YandexGame.GetDataEvent += Load;
+        }
+
+        public void Save()
+        {
+            if (YandexGame.savesData.storage.audioSettings == null)
+            {
+                Debug.Log("NUll audio");
+                Load();
+            }
+
+            if (storage == null || storage.audioSettings == null)
+            {
+                Load();
+                Debug.Log("NUll torage.audioSettings");
+            }
+
+            if (storage != null)
+                YandexGame.savesData.storage.audioSettings = storage.audioSettings;
+        }
+
+        public void Load()
+        {
+            if (YandexGame.savesData.storage.audioSettings == null)
+            {
+                YandexGame.savesData.storage.audioSettings = new AudioSettings();
+                YandexGame.savesData.storage.audioSettings.volume = 0.15f;
+                storage = YandexGame.savesData.storage;
+            }
+            else
+                storage = YandexGame.savesData.storage;
 
             musicSlider.onValueChanged.AddListener(OnMusicSliderValueChanged);
-            // audioSlider.onValueChanged.AddListener(OnAudioSliderValueChanged);
+            musicSlider.value = storage.audioSettings.volume;
+        }
 
-            musicSlider.value = this.storage.audioSettings.volume;
-            // audioSlider.value = audioValue;
+        public void Constructor( /*Storage storage,*/ IPersistenProgressService persistenProgressService)
+        {
+            // this.storage = storage;
+            // this.persistenProgressService = persistenProgressService;
+            //
+            // musicSlider.onValueChanged.AddListener(OnMusicSliderValueChanged);
+            // // audioSlider.onValueChanged.AddListener(OnAudioSliderValueChanged);
+            //
+            // musicSlider.value = this.storage.audioSettings.volume;
+            // // audioSlider.value = audioValue;
         }
 
 
         private void OnDestroy()
         {
+            YandexGame.GetDataEvent -= Load;
             musicSlider.onValueChanged.RemoveListener(OnMusicSliderValueChanged);
             // audioSlider.onValueChanged.RemoveListener(OnAudioSliderValueChanged);
         }
@@ -67,7 +112,8 @@ namespace Internal.Codebase.Runtime
 
         private void OnDisable()
         {
-            persistenProgressService.Save(storage);
+            Save();
+            // persistenProgressService.Save(storage);
         }
 
         // private void OnAudioSliderValueChanged(float value)

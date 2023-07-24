@@ -1,4 +1,5 @@
 ﻿//#define JSON_NET_ENABLED
+
 using UnityEngine;
 using System.Runtime.InteropServices;
 using UnityEngine.Events;
@@ -15,43 +16,60 @@ namespace YG
     public class YandexGame : MonoBehaviour
     {
         public InfoYG infoYG;
-        [Tooltip("Объект YandexGame не будет удаляться при смене сцены. При выборе опции singleton, объект YandexGame необходимо поместить только на одну сцену, которая первая загружается при запуске игры.\n\n •  При выборе опции singleton, полноэкранная реклама не будет автоматически показываться при загрузке новой сцены, даже при выборе параметра Ad When Loading Scene = true в InfoYG.")]
+
+        [Tooltip(
+            "Объект YandexGame не будет удаляться при смене сцены. При выборе опции singleton, объект YandexGame необходимо поместить только на одну сцену, которая первая загружается при запуске игры.\n\n •  При выборе опции singleton, полноэкранная реклама не будет автоматически показываться при загрузке новой сцены, даже при выборе параметра Ad When Loading Scene = true в InfoYG.")]
         public bool singleton;
-        [Space(10)]
-        public UnityEvent ResolvedAuthorization;
+
+        [Space(10)] public UnityEvent ResolvedAuthorization;
         public UnityEvent RejectedAuthorization;
-        [Space(30)]
-        public UnityEvent OpenFullscreenAd;
+        [Space(30)] public UnityEvent OpenFullscreenAd;
         public UnityEvent CloseFullscreenAd;
         public UnityEvent ErrorFullscreenAd;
-        [Space(30)]
-        public UnityEvent OpenVideoAd;
+        [Space(30)] public UnityEvent OpenVideoAd;
         public UnityEvent CloseVideoAd;
         public UnityEvent RewardVideoAd;
         public UnityEvent ErrorVideoAd;
-        [Space(30)]
-        public UnityEvent PurchaseSuccess;
+        [Space(30)] public UnityEvent PurchaseSuccess;
         public UnityEvent PurchaseFailed;
-        [Space(30)]
-        public UnityEvent PromptDo;
+        [Space(30)] public UnityEvent PromptDo;
         public UnityEvent PromptFail;
         public UnityEvent ReviewDo;
 
         #region Data Fields
-        public static bool SDKEnabled { get => _SDKEnabled; }
-        public static bool auth { get => _auth; }
-        public static bool initializedLB { get => _initializedLB; }
+
+        public static bool SDKEnabled
+        {
+            get => _SDKEnabled;
+        }
+
+        public static bool auth
+        {
+            get => _auth;
+        }
+
+        public static bool initializedLB
+        {
+            get => _initializedLB;
+        }
+
         public static string playerName
         {
             get => _playerName;
             set => _playerName = value;
         }
-        public static string playerId { get => _playerId; }
+
+        public static string playerId
+        {
+            get => _playerId;
+        }
+
         public static string playerPhoto
         {
             get => _playerPhoto;
             set => _playerPhoto = value;
         }
+
         public static string photoSize
         {
             get => _photoSize;
@@ -76,9 +94,11 @@ namespace YG
         public static JsonPayments PaymentsData = new JsonPayments();
         public static YandexGame Instance;
         static string pathSaves;
+
         #endregion Data Fields
 
         #region Methods
+
         private void Awake()
         {
             pathSaves = Application.dataPath + "/YandexGame/WorkingData/saveyg.yg";
@@ -137,6 +157,7 @@ namespace YG
         }
 
         #region For ECS
+
 #if UNITY_EDITOR
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void ResetStatic()
@@ -179,11 +200,13 @@ namespace YG
             PromptFailEvent = null;
         }
 #endif
+
         #endregion For ECS
 
         #endregion Methods
 
         #region Player Data
+
         public static Action GetDataEvent;
 
         public static void SaveEditor()
@@ -197,6 +220,7 @@ namespace YG
 
         [DllImport("__Internal")]
         private static extern void SaveToLocalStorage(string key, string value);
+
         public static void SaveLocal()
         {
             Message("Save Local");
@@ -236,6 +260,7 @@ namespace YG
 
         [DllImport("__Internal")]
         private static extern string LoadFromLocalStorage(string key);
+
         public static void LoadLocal()
         {
             Message("Load Local");
@@ -257,6 +282,7 @@ namespace YG
 
         [DllImport("__Internal")]
         private static extern int HasKeyInLocalStorage(string key);
+
         public static bool HasKey(string key)
         {
             try
@@ -268,11 +294,11 @@ namespace YG
                 Debug.LogError(e.Message);
                 return false;
             }
-
         }
 
         [DllImport("__Internal")]
         private static extern void RemoveFromLocalStorage(string key);
+
         public void RemoveLocalSaves() => RemoveFromLocalStorage("savesData");
 
         static void AfterLoading()
@@ -287,6 +313,7 @@ namespace YG
         }
 
         public static Action onResetProgress;
+
         public void _ResetSaveProgress()
         {
             Message("Reset Save Progress");
@@ -295,13 +322,13 @@ namespace YG
 
             if (infoYG.LocalizationEnable &&
                 (infoYG.callingLanguageCheck == InfoYG.CallingLanguageCheck.FirstLaunchOnly ||
-                infoYG.callingLanguageCheck == InfoYG.CallingLanguageCheck.EveryGameLaunch))
+                 infoYG.callingLanguageCheck == InfoYG.CallingLanguageCheck.EveryGameLaunch))
                 LanguageRequest();
 
             GetDataEvent?.Invoke();
             onResetProgress?.Invoke();
-
         }
+
         public static void ResetSaveProgress() => Instance._ResetSaveProgress();
 
         public void _SaveProgress()
@@ -326,6 +353,7 @@ namespace YG
             }
             else Debug.LogError("Данные не могут быть сохранены до инициализации SDK!");
         }
+
         public static void SaveProgress() => Instance._SaveProgress();
 
         public void _LoadProgress()
@@ -340,14 +368,16 @@ namespace YG
             LoadEditor();
 #endif
         }
+
         public static void LoadProgress() => Instance._LoadProgress();
 
-        #endregion Player Data        
+        #endregion Player Data
 
 
         // Sending messages
 
         #region Initialization SDK
+
         [DllImport("__Internal")]
         private static extern void InitSDK_Internal(string playerPhotoSize, bool scopes);
 
@@ -356,12 +386,17 @@ namespace YG
 #if !UNITY_EDITOR
             InitSDK_Internal( _photoSize, infoYG.scopes);
 #else
-            SetInitializationSDK(@"{""playerAuth""" + ": " + @"""resolved""," + @"""playerName""" + ": " + @"""Ivan"", " + @"""playerId""" + ": " + @"""tOpLpSh7i8QG8Voh/SuPbeS4NKTj1OxATCTKQF92H4c="", " + @"""playerPhoto""" + ": " + @"""https://s381vla.storage.yandex.net/rdisk/6abebb2a2211159542df567e57bfd89c1a255305976455254fa0868910ffee57/6411b0ef/MemHQzsnZ2QE1ElANeLrWFkY7msmjkjvvw3wr5Q3giJMw53O6EAdzMrOYQICwbZg-LoS5wxafS5y5wTAMD_Fvg==?uid=325055514&filename=Player1.png&disposition=attachment&hash=&limit=0&content_type=image%2Fpng&owner_uid=325055514&fsize=13889&hid=3e22053d8e718b72893d54dd40d4a9a4&media_type=image&tknv=v2&etag=580b6bd8bc6fece28dc421e843492530&rtoken=FpFeHH6hXRuP&force_default=yes&ycrid=na-9b1d66ffc5d1eb5916adefb0f09568f7-downloader6e&ts=5f6eef20ad9c0&s=18045c1538c3df7e6a7ed187a974d6187e60b38016c6954192293e28d75f6137&pb=U2FsdGVkX1_6u1ORoSa9iHDfKDutmhz2XF4JKGHGS0cFuGWQRGb1QHcsjQ5iIU5jatOlaEy_94BwSLyElTEu-mmPLqkq2KONLzj9yGv2Yes""}");
+            SetInitializationSDK(@"{""playerAuth""" + ": " + @"""resolved""," + @"""playerName""" + ": " +
+                                 @"""Ivan"", " + @"""playerId""" + ": " +
+                                 @"""tOpLpSh7i8QG8Voh/SuPbeS4NKTj1OxATCTKQF92H4c="", " + @"""playerPhoto""" + ": " +
+                                 @"""https://s381vla.storage.yandex.net/rdisk/6abebb2a2211159542df567e57bfd89c1a255305976455254fa0868910ffee57/6411b0ef/MemHQzsnZ2QE1ElANeLrWFkY7msmjkjvvw3wr5Q3giJMw53O6EAdzMrOYQICwbZg-LoS5wxafS5y5wTAMD_Fvg==?uid=325055514&filename=Player1.png&disposition=attachment&hash=&limit=0&content_type=image%2Fpng&owner_uid=325055514&fsize=13889&hid=3e22053d8e718b72893d54dd40d4a9a4&media_type=image&tknv=v2&etag=580b6bd8bc6fece28dc421e843492530&rtoken=FpFeHH6hXRuP&force_default=yes&ycrid=na-9b1d66ffc5d1eb5916adefb0f09568f7-downloader6e&ts=5f6eef20ad9c0&s=18045c1538c3df7e6a7ed187a974d6187e60b38016c6954192293e28d75f6137&pb=U2FsdGVkX1_6u1ORoSa9iHDfKDutmhz2XF4JKGHGS0cFuGWQRGb1QHcsjQ5iIU5jatOlaEy_94BwSLyElTEu-mmPLqkq2KONLzj9yGv2Yes""}");
 #endif
         }
+
         #endregion Initialization SDK
 
         #region Init Leaderboard
+
         [DllImport("__Internal")]
         private static extern void InitLeaderboard();
 
@@ -374,9 +409,11 @@ namespace YG
             Message("Initialization Leaderboards");
 #endif
         }
+
         #endregion Init Leaderboard
 
         #region Open Auth Dialog
+
         [DllImport("__Internal")]
         private static extern void OpenAuthDialog(string playerPhotoSize, bool scopes);
 
@@ -399,9 +436,11 @@ namespace YG
             Message("Open Auth Dialog");
 #endif
         }
+
         #endregion Open Auth Dialog
 
         #region Save end Load Cloud
+
         [DllImport("__Internal")]
         private static extern void SaveYG(string jsonData, bool flush);
 
@@ -423,9 +462,11 @@ namespace YG
             Message("Load Cloud");
             LoadYG();
         }
+
         #endregion Save end Load Cloud
 
         #region Fullscren Ad Show
+
         [DllImport("__Internal")]
         private static extern void FullAdShow();
 
@@ -443,7 +484,9 @@ namespace YG
                 CloseFullAdInEditor();
 #endif
             }
-            else Message($"До запроса к показу Fullscreen рекламы {(infoYG.fullscreenAdInterval - timerShowAd).ToString("00.0")} сек.");
+            else
+                Message(
+                    $"До запроса к показу Fullscreen рекламы {(infoYG.fullscreenAdInterval - timerShowAd).ToString("00.0")} сек.");
         }
 
         public static void FullscreenShow() => Instance._FullscreenShow();
@@ -460,13 +503,16 @@ namespace YG
             errMessage.AddComponent<GraphicRaycaster>();
             errMessage.AddComponent<RawImage>().color = new Color(0, 1, 0, 0.5f);
 
-            Insides.CallingAnEvent call = errMessage.AddComponent(typeof(Insides.CallingAnEvent)) as Insides.CallingAnEvent;
+            Insides.CallingAnEvent call =
+                errMessage.AddComponent(typeof(Insides.CallingAnEvent)) as Insides.CallingAnEvent;
             call.StartCoroutine(call.CallingAd(infoYG.durationOfAdSimulation));
         }
 #endif
+
         #endregion Fullscren Ad Show
 
         #region Rewarded Video Show
+
         [DllImport("__Internal")]
         private static extern void RewardedShow(int id);
 
@@ -500,13 +546,16 @@ namespace YG
             errMessage.AddComponent<RawImage>().color = new Color(0, 0, 1, 0.5f);
             DontDestroyOnLoad(errMessage);
 
-            Insides.CallingAnEvent call = errMessage.AddComponent(typeof(Insides.CallingAnEvent)) as Insides.CallingAnEvent;
+            Insides.CallingAnEvent call =
+                errMessage.AddComponent(typeof(Insides.CallingAnEvent)) as Insides.CallingAnEvent;
             call.StartCoroutine(call.CallingAd(infoYG.durationOfAdSimulation, id));
         }
 #endif
+
         #endregion Rewarded Video Show
 
         #region Language
+
         [DllImport("__Internal")]
         private static extern void LanguageRequestInternal();
 
@@ -518,6 +567,7 @@ namespace YG
             SetLanguage("ru");
 #endif
         }
+
         public static void LanguageRequest() => Instance._LanguageRequest();
 
         public static Action<string> SwitchLangEvent;
@@ -533,9 +583,11 @@ namespace YG
             SwitchLanguage(language);
             SaveProgress();
         }
+
         #endregion Language
 
         #region Requesting Environment Data
+
         [DllImport("__Internal")]
         private static extern void RequestingEnvironmentData();
 
@@ -545,9 +597,11 @@ namespace YG
             RequestingEnvironmentData();
 #endif
         }
+
         #endregion Requesting Environment Data
 
         #region URL
+
         [DllImport("__Internal")]
         private static extern void OpenURL(string url);
 
@@ -559,7 +613,8 @@ namespace YG
             }
             catch (Exception error)
             {
-                Debug.LogError("The first method of following the link failed! Error:\n" + error + "\nInstead of the first method, let's try to call the second method 'Application.OpenURL'");
+                Debug.LogError("The first method of following the link failed! Error:\n" + error +
+                               "\nInstead of the first method, let's try to call the second method 'Application.OpenURL'");
                 Application.OpenURL(url);
             }
         }
@@ -588,9 +643,11 @@ namespace YG
             Application.OpenURL(url);
 #endif
         }
+
         #endregion URL
 
         #region Leaderboard
+
         [DllImport("__Internal")]
         private static extern void SetLeaderboardScores(string nameLB, int score);
 
@@ -631,9 +688,11 @@ namespace YG
         }
 
         [DllImport("__Internal")]
-        private static extern void GetLeaderboardScores(string nameLB, int maxQuantityPlayers, int quantityTop, int quantityAround, string photoSizeLB, bool auth);
+        private static extern void GetLeaderboardScores(string nameLB, int maxQuantityPlayers, int quantityTop,
+            int quantityAround, string photoSizeLB, bool auth);
 
-        public static void GetLeaderboard(string nameLB, int maxQuantityPlayers, int quantityTop, int quantityAround, string photoSizeLB)
+        public static void GetLeaderboard(string nameLB, int maxQuantityPlayers, int quantityTop, int quantityAround,
+            string photoSizeLB)
         {
             int[] rank = new int[3];
             string[] photo = new string[3];
@@ -658,14 +717,23 @@ namespace YG
 #if UNITY_EDITOR
             if (_leaderboardEnable)
             {
-                rank[0] = 1; rank[1] = 2; rank[2] = 3;
+                rank[0] = 1;
+                rank[1] = 2;
+                rank[2] = 3;
                 photo[0] = "nonePhoto";
-                photo[1] = "https://s353vla.storage.yandex.net/rdisk/cb05378ff110cdba2703d685f24c5bcef255f4c9b50be01764b967ee6931af38/6411b05f/MemHQzsnZ2QE1ElANeLrWFyMjEfJYMOv4LLKQNZ7NZh4KtAdJiUJPMJx22gH8N-QCvzNnhyyRKL_r176Lm-ggA==?uid=325055514&filename=Player2.png&disposition=attachment&hash=&limit=0&content_type=image%2Fpng&owner_uid=325055514&fsize=13694&hid=c3ae331c249ea81c7ae7fc88347996d3&media_type=image&tknv=v2&etag=dfa5341ed88e15cc160897c6aa3079e7&rtoken=xN31JKAIMuia&force_default=yes&ycrid=na-89b63a427d140083d6823e719d323d37-downloader6e&ts=5f6eee97595c0&s=fe7a8c4c6c6bc5d2afaeabcc9d0154b858aea3e9578743cfee979c1128c9e478&pb=U2FsdGVkX1_rZbVSnI-xs5_XupMDSqDYDv4FsdMjefn8XrkgopEUDeU7q6yyWZknfWxVP5wx_YPrGKv2AO9h6vy5h7635zN03O7xx9F1Hfs";
-                photo[2] = "https://s274iva.storage.yandex.net/rdisk/788c34c55506ffbcf6bb8b461ad42131c1a9907c0746f183421504fc7ca639f7/6411b07b/MemHQzsnZ2QE1ElANeLrWMmCASB3apr1ON-o8R4hoNetsDiQrcPz4ZFpXANYGMN1TvKvzYr9OvC3Il4-GrZz2A==?uid=325055514&filename=Player3.png&disposition=attachment&hash=&limit=0&content_type=image%2Fpng&owner_uid=325055514&fsize=13589&hid=4562adf31f9dd3bab5cb9ab4a969b514&media_type=image&tknv=v2&etag=d22c9399def88a852cbdb16606eeb599&rtoken=fct0tnJZBzmn&force_default=yes&ycrid=na-62c2544b17f2f422e86012ceb0257166-downloader6e&ts=5f6eeeb20d4c0&s=4bd8f74b1f46f96b7dd07580d791304920f661fa23813ea4835ab1415bd09b64&pb=U2FsdGVkX1_NfTvCiN6sAX0D0qORCZvFQEnZKjYZjRDD7ahYox1KZd4UD_h7jxn900561r6dGVJWhiPJNDNJXg7XIXYUk7fodgP8Tb2_Iq8";
-                playersName[0] = "anonymous"; playersName[1] = "Ivan"; playersName[2] = "Maria";
-                scorePlayers[0] = 23101; scorePlayers[1] = 115202; scorePlayers[2] = 185303;
+                photo[1] =
+                    "https://s353vla.storage.yandex.net/rdisk/cb05378ff110cdba2703d685f24c5bcef255f4c9b50be01764b967ee6931af38/6411b05f/MemHQzsnZ2QE1ElANeLrWFyMjEfJYMOv4LLKQNZ7NZh4KtAdJiUJPMJx22gH8N-QCvzNnhyyRKL_r176Lm-ggA==?uid=325055514&filename=Player2.png&disposition=attachment&hash=&limit=0&content_type=image%2Fpng&owner_uid=325055514&fsize=13694&hid=c3ae331c249ea81c7ae7fc88347996d3&media_type=image&tknv=v2&etag=dfa5341ed88e15cc160897c6aa3079e7&rtoken=xN31JKAIMuia&force_default=yes&ycrid=na-89b63a427d140083d6823e719d323d37-downloader6e&ts=5f6eee97595c0&s=fe7a8c4c6c6bc5d2afaeabcc9d0154b858aea3e9578743cfee979c1128c9e478&pb=U2FsdGVkX1_rZbVSnI-xs5_XupMDSqDYDv4FsdMjefn8XrkgopEUDeU7q6yyWZknfWxVP5wx_YPrGKv2AO9h6vy5h7635zN03O7xx9F1Hfs";
+                photo[2] =
+                    "https://s274iva.storage.yandex.net/rdisk/788c34c55506ffbcf6bb8b461ad42131c1a9907c0746f183421504fc7ca639f7/6411b07b/MemHQzsnZ2QE1ElANeLrWMmCASB3apr1ON-o8R4hoNetsDiQrcPz4ZFpXANYGMN1TvKvzYr9OvC3Il4-GrZz2A==?uid=325055514&filename=Player3.png&disposition=attachment&hash=&limit=0&content_type=image%2Fpng&owner_uid=325055514&fsize=13589&hid=4562adf31f9dd3bab5cb9ab4a969b514&media_type=image&tknv=v2&etag=d22c9399def88a852cbdb16606eeb599&rtoken=fct0tnJZBzmn&force_default=yes&ycrid=na-62c2544b17f2f422e86012ceb0257166-downloader6e&ts=5f6eeeb20d4c0&s=4bd8f74b1f46f96b7dd07580d791304920f661fa23813ea4835ab1415bd09b64&pb=U2FsdGVkX1_NfTvCiN6sAX0D0qORCZvFQEnZKjYZjRDD7ahYox1KZd4UD_h7jxn900561r6dGVJWhiPJNDNJXg7XIXYUk7fodgP8Tb2_Iq8";
+                playersName[0] = "anonymous";
+                playersName[1] = "Ivan";
+                playersName[2] = "Maria";
+                scorePlayers[0] = 23101;
+                scorePlayers[1] = 115202;
+                scorePlayers[2] = 185303;
 
-                UpdateLbEvent?.Invoke(nameLB, $"Test LeaderBoard\nName: {nameLB}\n1. anonymous: 10\n2. Ivan: 15\n3. Maria: 23",
+                UpdateLbEvent?.Invoke(nameLB,
+                    $"Test LeaderBoard\nName: {nameLB}\n1. anonymous: 10\n2. Ivan: 15\n3. Maria: 23",
                     rank, photo, playersName, scorePlayers, true);
             }
             else
@@ -676,12 +744,15 @@ namespace YG
 
                 UpdateLbEvent?.Invoke(nameLB, "No data", rank, photo, playersName, scorePlayers, auth);
             }
+
             Message("Get Leaderboard - " + nameLB);
 #endif
         }
+
         #endregion Leaderboard
 
         #region Payments
+
         [DllImport("__Internal")]
         private static extern void BuyPaymentsInternal(string id);
 
@@ -780,6 +851,7 @@ namespace YG
         #endregion Payments
 
         #region Review Show
+
         [DllImport("__Internal")]
         private static extern void ReviewInternal();
 
@@ -802,9 +874,11 @@ namespace YG
         {
             Instance._ReviewShow(authDialog);
         }
+
         #endregion Review Show
 
         #region Prompt
+
         [DllImport("__Internal")]
         private static extern void PromptShowInternal();
 
@@ -821,10 +895,13 @@ namespace YG
             PromptSuccessEvent?.Invoke();
 #endif
         }
+
         public void _PromptShow() => PromptShow();
+
         #endregion Prompt
 
         #region Sticky Ad
+
         [DllImport("__Internal")]
         private static extern void StickyAdActivityInternal(bool activity);
 
@@ -838,13 +915,16 @@ namespace YG
         }
 
         public void _StickyAdActivity(bool activity) => StickyAdActivity(activity);
+
         #endregion Sticky Ad
 
 
         // Receiving messages
 
         #region Fullscren Ad
+
         public static Action OpenFullAdEvent;
+
         public void OpenFullAd()
         {
             OpenFullscreenAd.Invoke();
@@ -853,6 +933,7 @@ namespace YG
         }
 
         public static Action CloseFullAdEvent;
+
         public void CloseFullAd(string wasShown)
         {
             nowFullAd = false;
@@ -874,6 +955,7 @@ namespace YG
             }
 #endif
         }
+
         public void CloseFullAd() => CloseFullAd("true");
 
         public void ResetTimerFullAd()
@@ -882,15 +964,19 @@ namespace YG
         }
 
         public static Action ErrorFullAdEvent;
+
         public void ErrorFullAd()
         {
             ErrorFullscreenAd.Invoke();
             ErrorFullAdEvent?.Invoke();
         }
+
         #endregion Fullscren Ad
 
         #region Rewarded Video
+
         public static Action OpenVideoEvent;
+
         public void OpenVideo()
         {
             OpenVideoEvent?.Invoke();
@@ -899,6 +985,7 @@ namespace YG
         }
 
         public static Action CloseVideoEvent;
+
         public void CloseVideo()
         {
             nowVideoAd = false;
@@ -908,6 +995,7 @@ namespace YG
         }
 
         public static Action<int> RewardVideoEvent;
+
         public void RewardVideo(int id)
         {
             RewardVideoAd.Invoke();
@@ -915,14 +1003,17 @@ namespace YG
         }
 
         public static Action ErrorVideoEvent;
+
         public void ErrorVideo()
         {
             ErrorVideoAd.Invoke();
             ErrorVideoEvent?.Invoke();
         }
+
         #endregion Rewarded Video
 
         #region Authorization
+
         JsonAuth jsonAuth = new JsonAuth();
 
         public void SetInitializationSDK(string data)
@@ -968,10 +1059,18 @@ namespace YG
 #endif
             }
         }
+
         #endregion Set Authorization
 
         #region Loading progress
-        enum DataState { Exist, NotExist, Broken };
+
+        enum DataState
+        {
+            Exist,
+            NotExist,
+            Broken
+        };
+
         public void SetLoadSaves(string data)
         {
             DataState cloudDataState = DataState.Exist;
@@ -1012,12 +1111,14 @@ namespace YG
                 else
                 {
                     if (cloudDataState == DataState.Broken)
-                        Message("Load Cloud Broken! But we tried to restore and load cloud saves. Local saves are disabled.");
+                        Message(
+                            "Load Cloud Broken! But we tried to restore and load cloud saves. Local saves are disabled.");
                     else Message("Load Cloud Complete! Local saves are disabled.");
 
                     savesData = cloudData;
                     AfterLoading();
                 }
+
                 return;
             }
 
@@ -1043,14 +1144,17 @@ namespace YG
             {
                 if (cloudData.idSave >= localData.idSave)
                 {
-                    Message($"Load Cloud Complete! ID Cloud Save: {cloudData.idSave}, ID Local Save: {localData.idSave}");
+                    Message(
+                        $"Load Cloud Complete! ID Cloud Save: {cloudData.idSave}, ID Local Save: {localData.idSave}");
                     savesData = cloudData;
                 }
                 else
                 {
-                    Message($"Load Local Complete! ID Cloud Save: {cloudData.idSave}, ID Local Save: {localData.idSave}");
+                    Message(
+                        $"Load Local Complete! ID Cloud Save: {cloudData.idSave}, ID Local Save: {localData.idSave}");
                     savesData = localData;
                 }
+
                 AfterLoading();
             }
             else if (cloudDataState == DataState.Exist)
@@ -1066,7 +1170,7 @@ namespace YG
                 AfterLoading();
             }
             else if (cloudDataState == DataState.Broken ||
-                (cloudDataState == DataState.Broken && localDataState == DataState.Broken))
+                     (cloudDataState == DataState.Broken && localDataState == DataState.Broken))
             {
                 Message("Local Saves - " + localDataState);
                 Message("Cloud Saves - Broken! Data Recovering...");
@@ -1098,9 +1202,11 @@ namespace YG
                 ResetSaveProgress();
             }
         }
+
         #endregion Loading progress
 
         #region Language
+
         public void SetLanguage(string language)
         {
             string lang = "en";
@@ -1254,9 +1360,11 @@ namespace YG
             savesData.language = lang;
             SwitchLangEvent?.Invoke(lang);
         }
+
         #endregion Language
 
         #region Environment Data
+
         public void SetEnvironmentData(string data)
         {
 #if JSON_NET_ENABLED
@@ -1265,9 +1373,11 @@ namespace YG
             EnvironmentData = JsonUtility.FromJson<JsonEnvironmentData>(data);
 #endif
         }
+
         #endregion Environment Data
 
         #region Leaderboard
+
         public delegate void UpdateLB(
             string name,
             string description,
@@ -1314,9 +1424,11 @@ namespace YG
             UpdateLbEvent?.Invoke("initialized", "no data", rank, photo, playersName, scorePlayers, _auth);
             _initializedLB = true;
         }
+
         #endregion Leaderboard
 
         #region Payments
+
         public static Action GetPaymentsEvent;
 
         public void PaymentsEntries(string data)
@@ -1344,9 +1456,12 @@ namespace YG
             PaymentsData.description[2] = "Third test purchase";
 
             PaymentsData.imageURI = new string[3];
-            PaymentsData.imageURI[0] = "https://s519sas.storage.yandex.net/rdisk/9f44ec194b4191b7e17617f639b0b76b94cabf1ff143d88b7551feba74cd22db/6411b150/MemHQzsnZ2QE1ElANeLrWNAqG5jmQeoI2Ak8Pjpt9qClu9sXhrYVR9NQDA-ko6qqS_bVF2yaPWSX8joEz5hbFQ==?uid=325055514&filename=Paymant1.png&disposition=attachment&hash=&limit=0&content_type=image%2Fpng&owner_uid=325055514&fsize=9657&hid=aff6f37df525445a57a5a8e275a1343d&media_type=image&tknv=v2&etag=af7e3f011c909f5f23b66a608741f2ae&rtoken=U9I764unsrwy&force_default=yes&ycrid=na-efac5bc05f4425777beb391038334e0e-downloader6e&ts=5f6eef7d2f400&s=53ca12d81af7c952700ec74bee4931847b272f383377c4b1ac35bf606c51d517&pb=U2FsdGVkX19kujHs416E638jZiiiEH2sUj2uX90WjKMqq7rHHXIGYS_ulwS7nEEuRm6jeWsjuM9E55syzcN4bmU_Lsgk403vUYkB-hL710w";
-            PaymentsData.imageURI[1] = "https://s143vlx.storage.yandex.net/rdisk/edb4958fb6d38aa53d6af80344d71984f4cc58bd744d5d92878c8d9f86f49ac6/6411b16e/MemHQzsnZ2QE1ElANeLrWIJ4NLi2iHwXhduvffLTTSMozI334a79BJ2XWalF4iMkt57YzX4yS7aERXVhHM6ByQ==?uid=325055514&filename=Paymant2.png&disposition=attachment&hash=&limit=0&content_type=image%2Fpng&owner_uid=325055514&fsize=8643&hid=af61b500062e3bce82a2af81bc99fd95&media_type=image&tknv=v2&etag=4433a7729fc614eead08d0553f76f241&rtoken=LTZ1Ouw4eewL&force_default=yes&ycrid=na-ac7e228f6d7c127f65042a4caabbcfd0-downloader6e&ts=5f6eef99cb780&s=27721ecbbc706e4f4316c7326b42fb5d60518e0a3ce85f2be8b0540c33fe8bb2&pb=U2FsdGVkX1-8QJy-cHizt1j7iWI_ex5YF9J_CJwzfvRH6SF0XJcOBjIfyJF0ygoNnWno_2Xv1vJIaBX1d2_UUkz81rndk0ejipI6eUttSN8";
-            PaymentsData.imageURI[2] = "https://s40vlx.storage.yandex.net/rdisk/f770a2cfe699d4b8fc1eb02d0f524e85f01c2000988965cde1368786ba9f3a3e/6411b17d/MemHQzsnZ2QE1ElANeLrWMIvA2YN0F2ULGbBMFAzq9tDxNz4G8RQrD5pgvOhY5REdUWGjcB18wx3i7Q9V88o1w==?uid=325055514&filename=Paymant3.png&disposition=attachment&hash=&limit=0&content_type=image%2Fpng&owner_uid=325055514&fsize=11193&hid=29014250d2df1bf630e0f8e1dfde94e0&media_type=image&tknv=v2&etag=95355903dc59e9476ba7d383027f5ee0&rtoken=MP0SXOIaAEmQ&force_default=yes&ycrid=na-8f23fb56f59830778916e63f1dc58240-downloader6e&ts=5f6eefa819940&s=17b5dc5012f8cbc6ce6388af10b46c230df53b3cd8236860e7ed66774e7e9cf3&pb=U2FsdGVkX1_UndYGQNr3RRKceeb-9zcOaPEv7dJ_OB8272AkSSQBlesfVj3frzpWamNbTSb5tIc-6GZOO7L6CigryNZIus8mfm-XtPs7irE";
+            PaymentsData.imageURI[0] =
+                "https://s519sas.storage.yandex.net/rdisk/9f44ec194b4191b7e17617f639b0b76b94cabf1ff143d88b7551feba74cd22db/6411b150/MemHQzsnZ2QE1ElANeLrWNAqG5jmQeoI2Ak8Pjpt9qClu9sXhrYVR9NQDA-ko6qqS_bVF2yaPWSX8joEz5hbFQ==?uid=325055514&filename=Paymant1.png&disposition=attachment&hash=&limit=0&content_type=image%2Fpng&owner_uid=325055514&fsize=9657&hid=aff6f37df525445a57a5a8e275a1343d&media_type=image&tknv=v2&etag=af7e3f011c909f5f23b66a608741f2ae&rtoken=U9I764unsrwy&force_default=yes&ycrid=na-efac5bc05f4425777beb391038334e0e-downloader6e&ts=5f6eef7d2f400&s=53ca12d81af7c952700ec74bee4931847b272f383377c4b1ac35bf606c51d517&pb=U2FsdGVkX19kujHs416E638jZiiiEH2sUj2uX90WjKMqq7rHHXIGYS_ulwS7nEEuRm6jeWsjuM9E55syzcN4bmU_Lsgk403vUYkB-hL710w";
+            PaymentsData.imageURI[1] =
+                "https://s143vlx.storage.yandex.net/rdisk/edb4958fb6d38aa53d6af80344d71984f4cc58bd744d5d92878c8d9f86f49ac6/6411b16e/MemHQzsnZ2QE1ElANeLrWIJ4NLi2iHwXhduvffLTTSMozI334a79BJ2XWalF4iMkt57YzX4yS7aERXVhHM6ByQ==?uid=325055514&filename=Paymant2.png&disposition=attachment&hash=&limit=0&content_type=image%2Fpng&owner_uid=325055514&fsize=8643&hid=af61b500062e3bce82a2af81bc99fd95&media_type=image&tknv=v2&etag=4433a7729fc614eead08d0553f76f241&rtoken=LTZ1Ouw4eewL&force_default=yes&ycrid=na-ac7e228f6d7c127f65042a4caabbcfd0-downloader6e&ts=5f6eef99cb780&s=27721ecbbc706e4f4316c7326b42fb5d60518e0a3ce85f2be8b0540c33fe8bb2&pb=U2FsdGVkX1-8QJy-cHizt1j7iWI_ex5YF9J_CJwzfvRH6SF0XJcOBjIfyJF0ygoNnWno_2Xv1vJIaBX1d2_UUkz81rndk0ejipI6eUttSN8";
+            PaymentsData.imageURI[2] =
+                "https://s40vlx.storage.yandex.net/rdisk/f770a2cfe699d4b8fc1eb02d0f524e85f01c2000988965cde1368786ba9f3a3e/6411b17d/MemHQzsnZ2QE1ElANeLrWMIvA2YN0F2ULGbBMFAzq9tDxNz4G8RQrD5pgvOhY5REdUWGjcB18wx3i7Q9V88o1w==?uid=325055514&filename=Paymant3.png&disposition=attachment&hash=&limit=0&content_type=image%2Fpng&owner_uid=325055514&fsize=11193&hid=29014250d2df1bf630e0f8e1dfde94e0&media_type=image&tknv=v2&etag=95355903dc59e9476ba7d383027f5ee0&rtoken=MP0SXOIaAEmQ&force_default=yes&ycrid=na-8f23fb56f59830778916e63f1dc58240-downloader6e&ts=5f6eefa819940&s=17b5dc5012f8cbc6ce6388af10b46c230df53b3cd8236860e7ed66774e7e9cf3&pb=U2FsdGVkX1_UndYGQNr3RRKceeb-9zcOaPEv7dJ_OB8272AkSSQBlesfVj3frzpWamNbTSb5tIc-6GZOO7L6CigryNZIus8mfm-XtPs7irE";
 
             PaymentsData.priceValue = new string[3];
             PaymentsData.priceValue[0] = "10";
@@ -1359,6 +1474,7 @@ namespace YG
         }
 
         public static Action<string> PurchaseSuccessEvent;
+
         public void OnPurchaseSuccess(string id)
         {
             Purchase purchase = PurchaseByID(id);
@@ -1371,15 +1487,19 @@ namespace YG
         }
 
         public static Action<string> PurchaseFailedEvent;
+
         public void OnPurchaseFailed(string id)
         {
             PurchaseFailed?.Invoke();
             PurchaseFailedEvent?.Invoke(id);
         }
+
         #endregion Payments
 
         #region Review
+
         public static Action<bool> ReviewSentEvent;
+
         public void ReviewSent(string feedbackSent)
         {
             EnvironmentData.reviewCanShow = false;
@@ -1388,11 +1508,14 @@ namespace YG
             ReviewSentEvent?.Invoke(sent);
             if (sent) ReviewDo?.Invoke();
         }
+
         #endregion Review
 
         #region Prompt
+
         public static Action PromptSuccessEvent;
         public static Action PromptFailEvent;
+
         public void OnPromptSuccess()
         {
             savesData.promptDone = true;
@@ -1409,12 +1532,14 @@ namespace YG
             PromptFailEvent?.Invoke();
             EnvironmentData.promptCanShow = false;
         }
+
         #endregion Prompt
 
 
         // The rest
 
         #region Update
+
         int delayFirstCalls = -1;
         static float timerShowAd;
 #if !UNITY_EDITOR
@@ -1440,9 +1565,11 @@ namespace YG
                 timerSaveCloud += Time.unscaledDeltaTime;
 #endif
         }
+
         #endregion Update
 
         #region Json
+
         public class JsonAuth
         {
             public string playerAuth;
@@ -1486,6 +1613,7 @@ namespace YG
             public string[] priceValue;
             public int[] purchased;
         }
+
         #endregion Json
     }
 

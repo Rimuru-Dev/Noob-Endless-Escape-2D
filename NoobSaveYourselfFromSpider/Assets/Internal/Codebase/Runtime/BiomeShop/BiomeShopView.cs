@@ -10,21 +10,23 @@ using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.MainMenu;
+using Internal.Codebase.Runtime.MainMenu.Animation;
 using Internal.Codebase.Runtime.SpriteTextNumberCounterLogic;
 using Internal.Codebase.Runtime.StorageData;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 namespace Internal.Codebase.Runtime.BiomeShop
 {
-    public sealed class BiomeShopView : MonoBehaviour
+    public sealed class BiomeShopView : MonoBehaviour, IFuckingSaveLoad
     {
         private const int BiomePrice = 5;
         private const CurrancyTypeID BiomeCurrancyTypeID = CurrancyTypeID.Fish;
 
         private Storage storage;
-        private IStaticDataService staticData;
-        private IPersistenProgressService persistenProgressService;
+        // private IStaticDataService staticData;
+        // private IPersistenProgressService persistenProgressService;
 
         [field: SerializeField] public Button PlayBiomeForest { get; private set; }
         [field: SerializeField] public Button PlayBiomWinter { get; private set; }
@@ -36,11 +38,54 @@ namespace Internal.Codebase.Runtime.BiomeShop
         [field: SerializeField] public GameObject RootPanel { get; private set; }
         [field: SerializeField] public Button CloseWindow { get; private set; }
 
+        private void Awake()
+        {
+            if (YandexGame.SDKEnabled)
+                Load();
+
+            YandexGame.GetDataEvent += Load;
+        }
+
+        public void Save()
+        {
+            YandexGame.savesData.storage.userBioms = storage.userBioms;
+            YandexGame.savesData.storage.fishCurrancy = storage.fishCurrancy;
+        }
+
+        public void Load()
+        {
+            storage = YandexGame.savesData.storage;
+            var bioms = storage.userBioms;
+
+            if (bioms.biomeData[0].isOpen)
+            {
+            }
+            else
+                Debug.Log("ERRIRRRRR");
+
+            if (bioms.biomeData[1].isOpen)
+            {
+                BuyBiomWinter.gameObject.SetActive(false);
+                LookIcon.gameObject.SetActive(false);
+                NumberVisualizer.gameObject.SetActive(false);
+            }
+            else
+            {
+                PlayBiomWinter.gameObject.SetActive(false);
+
+                BuyBiomWinter.gameObject.SetActive(true);
+                BuyBiomWinter.onClick.AddListener(Buy);
+                LookIcon.gameObject.SetActive(true);
+                NumberVisualizer.gameObject.SetActive(true);
+                //  NumberVisualizer.ShowNumber(BiomePrice);
+            }
+        }
+
         public void Initialize(Storage storage)
         {
             this.storage = storage;
 
-            var bioms = persistenProgressService.GetStoragesData().userBioms;
+            var bioms = storage.userBioms;
 
             if (bioms.biomeData[0].isOpen)
             {
@@ -123,15 +168,15 @@ namespace Internal.Codebase.Runtime.BiomeShop
                 LookIcon.gameObject.SetActive(false);
                 NumberVisualizer.gameObject.SetActive(false);
 
-
-                persistenProgressService.Save(storage);
+                Save();
+                // persistenProgressService.Save(storage);
             }
         }
 
         public void Constructor(IStaticDataService staticData, IPersistenProgressService persistenProgressService)
         {
-            this.staticData = staticData;
-            this.persistenProgressService = persistenProgressService;
+            // this.staticData = staticData;
+            // this.persistenProgressService = persistenProgressService;
         }
 
         private void OnDestroy()

@@ -9,9 +9,9 @@ namespace Internal.Codebase.Infrastructure.Services.PersistenProgress
 {
     public interface IPersistenProgressService
     {
-        public void Init();
-        public Runtime.StorageData.Storage GetStoragesData();
-        public void Save(Runtime.StorageData.Storage storage);
-        public void Load();
+        // public void Init();
+        // // public Runtime.StorageData.Storage GetStoragesData();
+        // public void Save(Runtime.StorageData.Storage storage);
+        // public void Load();
     }
 }

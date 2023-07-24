@@ -23,6 +23,7 @@ using Internal.Codebase.Runtime.GameplayScene;
 using Internal.Codebase.Runtime.Hero;
 using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
+using YG;
 using Zenject;
 using Object = UnityEngine.Object;
 
@@ -79,7 +80,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             hero.transform.position = new Vector3(0, 7f, 0);
 
             var skinDatas = staticData.ForSkins().gameplaySkinDatas;
-            var userSkin = persistenProgressService.GetStoragesData().userSkins;
+            var userSkin = YandexGame.savesData.storage.userSkins;
 
             hero.HeroSpriteRenderer.sprite = skinDatas.FirstOrDefault(x => x.id == userSkin.selectionSkinId)!.icon;
 
@@ -87,7 +88,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             levelGenerator.Prepare();
 
             sceneController = GameObject.FindObjectOfType<SceneController>();
-            sceneController.Container(hero, gameStateMachine, sceneLoader, OnSceneLoaded, levelGenerator,  persistenProgressService.GetStoragesData()); //(() =>
+            sceneController.Container(hero, gameStateMachine, sceneLoader, OnSceneLoaded, levelGenerator,  YandexGame.savesData.storage); //(() =>
             // {
             //     // Перенеси ссылку на стейт машину и лоадер в SceneController!!
             //     sceneLoader.LoadScene(SceneName.Menu, (() => { gameStateMachine.EnterState<LoadMaiMenuState>(); }));

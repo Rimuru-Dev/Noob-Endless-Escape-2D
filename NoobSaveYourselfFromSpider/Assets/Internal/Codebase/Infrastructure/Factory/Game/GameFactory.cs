@@ -11,6 +11,7 @@ using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
+using YG;
 
 namespace Internal.Codebase.Infrastructure.Factory.Game
 {
@@ -34,7 +35,7 @@ namespace Internal.Codebase.Infrastructure.Factory.Game
             var levelGenerationHandler =
                 assetProvider.Instantiate<EndlessLevelGenerationHandler>(AssetPath.LevelGeneratorHandler);
 
-            var config = persistenProgressService.GetStoragesData();
+            var config = YandexGame.savesData.storage;
 
             var selectionBiom = config.userBioms.selectionBiomId;
 
@@ -45,10 +46,7 @@ namespace Internal.Codebase.Infrastructure.Factory.Game
                 _ => staticDataService.GreenPlains
             };
 
-            levelGenerationHandler.Constructor(
-                biom,
-                persistenProgressService.GetStoragesData(),
-                persistenProgressService);
+            levelGenerationHandler.Constructor(biom, YandexGame.savesData.storage, persistenProgressService);
 
             return levelGenerationHandler;
         }
