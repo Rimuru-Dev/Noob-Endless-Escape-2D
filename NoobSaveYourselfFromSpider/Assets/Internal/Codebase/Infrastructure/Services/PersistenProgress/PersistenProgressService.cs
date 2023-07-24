@@ -36,11 +36,17 @@ namespace Internal.Codebase.Infrastructure.Services.PersistenProgress
 
         public void Save(Runtime.StorageData.Storage newStorage)
         {
-            if (newStorage != null)
+            if (YandexGame.SDKEnabled)
             {
-                YandexGame.savesData.storage = newStorage;
-                YandexGame.SaveProgress();
+                Debug.Log("Save Data SDKEnabled = true");
+                if (newStorage != null)
+                {
+                    YandexGame.savesData.storage = newStorage;
+                    YandexGame.SaveProgress();
+                }
             }
+
+            Debug.Log("Save Data SDKEnabled = false");
         }
 
         public void Load()
@@ -49,7 +55,7 @@ namespace Internal.Codebase.Infrastructure.Services.PersistenProgress
 
             if (YandexGame.savesData.storage == null)
             {
-                // Debug.Log("<color=yellow>Load Default</color>");
+                Debug.Log("<color=yellow>Load Default</color>");
                 var newStorage = new Runtime.StorageData.Storage
                 {
                     fishCurrancy = new FishCurrancy(),
@@ -88,8 +94,9 @@ namespace Internal.Codebase.Infrastructure.Services.PersistenProgress
             }
             else
             {
-                // Debug.Log("<color=yellow>Load Old Save</color>");
+                Debug.Log("<color=yellow>Load Old Save</color>");
                 storage = YandexGame.savesData.storage;
+                // YandexGame.LoadProgress();
             }
         }
 

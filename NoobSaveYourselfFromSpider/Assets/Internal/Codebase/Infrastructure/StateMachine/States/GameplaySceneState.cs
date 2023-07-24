@@ -111,7 +111,12 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
                     sceneLoader.LoadScene(SceneName.Menu, (() =>
                     {
                         Debug.Log($"gameStateMachine == null? - {gameStateMachine == null}");
-                        gameStateMachine.EnterState<LoadMaiMenuState>();
+                        if (gameStateMachine != null)
+                            gameStateMachine.EnterState<LoadMaiMenuState>();
+                        else
+                        {
+                            Debug.Log($"Failure loaded LoadMaiMenuState - gameStateMachine == null? - {gameStateMachine == null}");
+                        }
                     }));
                 });
         }

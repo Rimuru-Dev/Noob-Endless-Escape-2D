@@ -57,6 +57,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
         public void Enter()
         {
+            persistenProgressService.Load();
+
             PrepareUI();
 
             // *** Hide Curtain *** //
@@ -145,7 +147,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         {
             curtain.ShowCurtain(true, () =>
             {
-                persistenProgressService.Save(persistenProgressService.GetStoragesData());
+                // persistenProgressService.Save(persistenProgressService.GetStoragesData());
                 sceneLoader.LoadScene(SceneName.Gameplay, () => { gameStateMachine.EnterState<GameplaySceneState>(); });
             });
         }

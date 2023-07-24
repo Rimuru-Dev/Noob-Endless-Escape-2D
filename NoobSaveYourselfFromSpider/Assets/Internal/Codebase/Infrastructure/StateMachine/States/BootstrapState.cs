@@ -13,6 +13,8 @@ using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.Services.Storage;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
 using Internal.Codebase.Utilities.Constants;
+using UnityEngine;
+using YG;
 using Zenject;
 
 namespace Internal.Codebase.Infrastructure.StateMachine.States
@@ -58,6 +60,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
         private void PrepareServices()
         {
+            Debug.Log($"YandexGame.SDKEnabled == {YandexGame.SDKEnabled}");
             // Load Game Save Data
             persistenProgressService.Init();
 
@@ -73,6 +76,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             // ** Curtain ** //
             curtain.Init();
             curtain.ShowCurtain(false);
+
+            Debug.Log($"YandexGame.SDKEnabled == {YandexGame.SDKEnabled}");
         }
 
         private void OnSceneLoaded()
