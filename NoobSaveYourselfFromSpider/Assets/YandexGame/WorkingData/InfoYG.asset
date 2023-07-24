@@ -18,7 +18,7 @@ MonoBehaviour:
   saveCloud: 1
   flush: 0
   localSaveSync: 1
-  saveCloudInterval: 3
+  saveCloudInterval: 5
   metricaEnable: 1
   metricaCounterID: 0
   AdWhenLoadingScene: 1

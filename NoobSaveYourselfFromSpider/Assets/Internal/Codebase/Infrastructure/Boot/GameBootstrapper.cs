@@ -44,7 +44,7 @@ namespace Internal.Codebase.Infrastructure.Boot
         {
             while (true)
             {
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(7f);
 
                 var f = GameObject.FindObjectsOfType<GameObject>(true);
 
