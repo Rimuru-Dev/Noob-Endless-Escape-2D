@@ -11,10 +11,8 @@ using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
-using Internal.Codebase.Runtime;
 using Internal.Codebase.Runtime.BiomeShop;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
-using Internal.Codebase.Runtime.MainMenu;
 using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 using YG;
@@ -30,8 +28,6 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private readonly IStaticDataService staticData;
         private readonly IUIFactory uiFactory;
         private GameStateMachine gameStateMachine;
-
-        // private MainMenuCanvasView mainMenu;
         private BiomeShopView biomeShop;
 
         [Inject]
@@ -61,9 +57,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         // TODO: Added Disposable Service
         public void Exit()
         {
-            biomeShop.PlayBiomeForest.onClick.RemoveListener(PlayForest);
-            biomeShop.PlayBiomWinter.onClick.RemoveListener(PlayWinter);
-            // mainMenu.PlayButton.onClick.RemoveListener(OnSceneLoaded);
+            if (uiFactory.MainMenuUIRoot.MenuCanvasView != null)
+                uiFactory.MainMenuUIRoot.MenuCanvasView.Dispose();
         }
 
         private void PrepareUI()
@@ -73,17 +68,61 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
                 .CreateMainMenuBackgraund()
                 .CreateMainMenu();
 
-            // Setup Biome Panel
             var uiRoot = uiFactory.MainMenuUIRoot;
 
-            biomeShop = uiRoot.MenuCanvasView.BiomeShopView;
-            biomeShop.Constructor(staticData);
+            // Setup Biome Shop View
+            {
+                biomeShop = uiRoot.MenuCanvasView.BiomeShopView;
+                biomeShop.Constructor(saveService);
+                biomeShop.Prepare();
 
-            biomeShop.PlayBiomeForest.onClick.AddListener(PlayForest);
-            biomeShop.PlayBiomWinter.onClick.AddListener(PlayWinter);
+                biomeShop.PlayBiomeForest.onClick.AddListener(PlayForest);
+                biomeShop.PlayBiomWinter.onClick.AddListener(PlayWinter);
+
+                biomeShop.OpenPanel.onClick.AddListener(() => { biomeShop.RootPanel.SetActive(true); });
+                biomeShop.CloseWindow.onClick.AddListener(() => { biomeShop.RootPanel.SetActive(false); });
+            }
 
             // Setup Settings Panel
-            uiRoot.MenuCanvasView.SettingsView.GeneralAudioHandler.Constructor(saveService);
+            {
+                var settingsView = uiRoot.MenuCanvasView.SettingsView;
+
+                settingsView.GeneralAudioHandler.Constructor(saveService);
+                settingsView.GeneralAudioHandler.Prepare();
+                settingsView.OpenPanel.onClick.AddListener(() => settingsView.Panel.SetActive(true));
+                settingsView.ClosePanel.onClick.AddListener(() => settingsView.Panel.SetActive(false));
+            }
+
+            // Adv currency panels
+            {
+                var currencyShopView = uiRoot.MenuCanvasView.CurrencyShopView;
+                var length = currencyShopView.OpenChop.Length;
+
+                for (var i = 0; i < length; i++)
+                    currencyShopView.OpenChop[i].onClick.AddListener(() => currencyShopView.Panel.SetActive(true));
+
+                currencyShopView.CloseChop.onClick.AddListener(() => { currencyShopView.Panel.SetActive(false); });
+            }
+
+            // Currency
+            {
+                uiRoot.MenuCanvasView.CurrancFishView.Constructor(saveService);
+                uiRoot.MenuCanvasView.CurrancFishView.Prepare();
+
+                uiRoot.MenuCanvasView.CurrancEmeraldView.Constructor(saveService);
+                uiRoot.MenuCanvasView.CurrancEmeraldView.Prepare();
+            }
+
+            // BestDistanceView
+            {
+                uiRoot.MenuCanvasView.BestDistanceView.Constuctor(saveService);
+                uiRoot.MenuCanvasView.BestDistanceView.Prepare();
+            }
+
+            // Setup CharacterSwitcherView
+            {
+                
+            }
         }
 
         private void PlayWinter()
