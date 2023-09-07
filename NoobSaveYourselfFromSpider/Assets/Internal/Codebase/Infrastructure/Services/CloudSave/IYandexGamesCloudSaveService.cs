@@ -11,10 +11,11 @@
 // **************************************************************** //
 
 using System;
+using Zenject;
 
 namespace Internal.Codebase.Infrastructure.Services.CloudSave
 {
-    public interface IYandexGamesCloudSaveService : IDisposable
+    public interface IYandexGamesCloudSaveService : IDisposable, ITickable
     {
         public void Init();
         public void Save();

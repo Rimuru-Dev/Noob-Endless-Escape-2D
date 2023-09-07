@@ -21,7 +21,7 @@ namespace Internal.Codebase.Infrastructure.Installers
         private void BindGameStateMachine()
         {
             Container.Bind<BootstrapState>().AsSingle();
-            Container.Bind<LoadMaiMenuState>().AsSingle();
+            Container.Bind<LoadMainMenuState>().AsSingle();
             Container.Bind<GameplaySceneState>().AsSingle();
             Container.Bind<GameOverState>().AsSingle();
 

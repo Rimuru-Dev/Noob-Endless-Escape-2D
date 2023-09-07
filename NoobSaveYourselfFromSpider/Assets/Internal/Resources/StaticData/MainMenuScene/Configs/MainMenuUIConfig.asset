@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <UIRoot>k__BackingField: {fileID: 4977918376609304809, guid: b31041ba56bbf874dae525c85e81aa92, type: 3}
   <BackgroundCanvasView>k__BackingField: {fileID: 1176562760135058854, guid: a5ce94158abbe394199c69ed2739211e, type: 3}
-  <MainMenuCanvasView>k__BackingField: {fileID: 8459347179142736240, guid: 862192811b3318a459d8d9945704e513, type: 3}
+  <MenuCanvasView>k__BackingField: {fileID: 4069969848641640046, guid: 862192811b3318a459d8d9945704e513, type: 3}

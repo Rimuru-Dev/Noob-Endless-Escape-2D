@@ -9,6 +9,8 @@ using System;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Internal.Codebase.Infrastructure.Services;
+using Internal.Codebase.Infrastructure.Services.ActionUpdater;
 using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine;
@@ -24,21 +26,13 @@ namespace Internal.Codebase.Infrastructure.Boot
     public sealed class GameBootstrapper : MonoBehaviour
     {
         private GameStateMachine gameStateMachine;
+        private IActionUpdaterService actionUpdaterService;
 
-        [Inject] public IPersistenProgressService PersistenProgressService;
-        [Inject] public IStaticDataService StaticDataService;
-
-        public static GameBootstrapper Instance;
-
-        private void Awake()
-        {
+        private void Awake() =>
             Initialize();
-        }
 
-        private void Start()
-        {
+        private void Start() =>
             StartCoroutine(AutoSave());
-        }
 
         private IEnumerator AutoSave()
         {
@@ -81,9 +75,10 @@ namespace Internal.Codebase.Infrastructure.Boot
         }
 
         [Inject]
-        public void Constructor(GameStateMachine gameStateMachine)
+        public void Constructor(GameStateMachine gameStateMachine, IActionUpdaterService actionUpdaterService)
         {
             this.gameStateMachine = gameStateMachine;
+            this.actionUpdaterService = actionUpdaterService;
         }
 
         private void Initialize()
@@ -109,7 +104,6 @@ namespace Internal.Codebase.Infrastructure.Boot
         private void ApplyDontDestroyOnLoad()
         {
             transform.SetParent(null);
-            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
 
@@ -117,6 +111,21 @@ namespace Internal.Codebase.Infrastructure.Boot
         {
             gameStateMachine.Init();
             gameStateMachine.EnterState<BootstrapState>();
+        }
+
+        private void FixedUpdate()
+        {
+            actionUpdaterService.FixedUpdate();
+        }
+
+        private void Update()
+        {
+            actionUpdaterService.Update();
+        }
+
+        private void LateUpdate()
+        {
+            actionUpdaterService.LateUpdate();
         }
     }
 }

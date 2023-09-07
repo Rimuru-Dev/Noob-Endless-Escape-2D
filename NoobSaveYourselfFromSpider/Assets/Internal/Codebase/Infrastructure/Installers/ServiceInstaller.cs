@@ -7,6 +7,8 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Internal.Codebase.Infrastructure.AssetManagement;
+using Internal.Codebase.Infrastructure.Services;
+using Internal.Codebase.Infrastructure.Services.ActionUpdater;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Infrastructure.Services.Curtain;
@@ -39,6 +41,8 @@ namespace Internal.Codebase.Infrastructure.Installers
             Container.Bind<IStorageService>().To<JsonToFileStorageService>().AsSingle();
             Container.Bind<IPersistenProgressService>().To<PersistenProgressService>().AsSingle();
             Container.Bind<IResourceLoaderService>().To<ResourceLoaderServiceService>().AsSingle();
+
+            Container.Bind<IActionUpdaterService>().To<ActionUpdaterService>().AsSingle();
 
             BindYandexGamesCloudSaveService();
         }

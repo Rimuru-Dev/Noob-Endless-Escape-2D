@@ -78,6 +78,6 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             sceneLoader.LoadScene(SceneName.Menu, OnSceneLoaded);
 
         private void OnSceneLoaded() =>
-            gameStateMachine.EnterState<LoadMaiMenuState>();
+            gameStateMachine.EnterState<LoadMainMenuState>();
     }
 }

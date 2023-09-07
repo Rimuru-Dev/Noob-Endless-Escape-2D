@@ -80,5 +80,13 @@ namespace Internal.Codebase.Infrastructure.AssetManagement
 
             return Object.Instantiate(prefab, at, rotation);
         }
+
+        public TPrefab Instantiate<TPrefab>(TPrefab prefab, Transform parent = null) where TPrefab : Object
+        {
+            if (prefab == null)
+                throw new ArgumentNullException(nameof(prefab));
+
+            return Object.Instantiate(prefab, parent);
+        }
     }
 }

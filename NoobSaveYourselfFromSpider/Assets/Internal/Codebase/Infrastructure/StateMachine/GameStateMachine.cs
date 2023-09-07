@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
 using Internal.Codebase.Infrastructure.StateMachine.States;
+using UnityEngine;
 using Zenject;
 
 namespace Internal.Codebase.Infrastructure.StateMachine
@@ -25,14 +26,14 @@ namespace Internal.Codebase.Infrastructure.StateMachine
         [Inject]
         public GameStateMachine(
             BootstrapState bootstrapState,
-            LoadMaiMenuState loadMaiMenuState,
+            LoadMainMenuState loadMainMenuState,
             GameplaySceneState gameplaySceneState,
             GameOverState gameOverState)
         {
             states = new Dictionary<Type, IExitableState>
             {
                 [typeof(BootstrapState)] = bootstrapState,
-                [typeof(LoadMaiMenuState)] = loadMaiMenuState,
+                [typeof(LoadMainMenuState)] = loadMainMenuState,
                 [typeof(GameplaySceneState)] = gameplaySceneState,
                 [typeof(GameOverState)] = gameOverState,
             };
@@ -41,7 +42,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine
         public void Init()
         {
             states[typeof(BootstrapState)].Init(this);
-            states[typeof(LoadMaiMenuState)].Init(this);
+            states[typeof(LoadMainMenuState)].Init(this);
             states[typeof(GameplaySceneState)].Init(this);
             states[typeof(GameOverState)].Init(this);
         }

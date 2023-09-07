@@ -17,8 +17,11 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
         public CurtainView CreateCurtain();
         
         public GameObject CreateDynamicCanvas();
+        
+        
         public MainMenuCanvasView CreateMainMenuCanvas();
-        
-        
+        public IUIFactory CreateMainMenuUIRoot();
+        public IUIFactory CreateMainMenuBackgraund();
+        public IUIFactory CreateMainMenu();
     }
 }

@@ -94,5 +94,10 @@ namespace Internal.Codebase.Infrastructure.Services.CloudSave
 
             return storage;
         }
+
+        public void Tick()
+        {
+            Debug.Log("Tick()");
+        }
     }
 }

@@ -74,7 +74,7 @@ namespace Internal.Codebase.Runtime.GameplayScene
             goMainMenuButton.onClick.AddListener(() =>
             {
                 Time.timeScale = 1;
-                //sceneLoader.LoadScene(SceneName.Menu, () => { gameStateMachine.EnterState<LoadMaiMenuState>(); });
+                //sceneLoader.LoadScene(SceneName.Menu, () => { gameStateMachine.EnterState<LoadMainMenuState>(); });
                 endlessLevelGenerationHandler.Pause = true;
                 heroViewController.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 heroViewController.jumpController.IsCanJump = false;
@@ -90,7 +90,7 @@ namespace Internal.Codebase.Runtime.GameplayScene
             home.onClick.AddListener(() =>
             {
                 Time.timeScale = 1;
-                //sceneLoader.LoadScene(SceneName.Menu, () => { gameStateMachine.EnterState<LoadMaiMenuState>(); });
+                //sceneLoader.LoadScene(SceneName.Menu, () => { gameStateMachine.EnterState<LoadMainMenuState>(); });
                 endlessLevelGenerationHandler.Pause = true;
                 heroViewController.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 heroViewController.jumpController.IsCanJump = false;

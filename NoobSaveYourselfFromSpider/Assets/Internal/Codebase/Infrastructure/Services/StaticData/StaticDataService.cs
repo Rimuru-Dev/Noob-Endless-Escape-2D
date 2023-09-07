@@ -13,6 +13,7 @@ using Internal.Codebase.Runtime.Curtain;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.Hero;
 using Internal.Codebase.Runtime.MainMenu.Configs;
+using Internal.Codebase.Runtime.MainMenu.New.Configs;
 using Zenject;
 
 namespace Internal.Codebase.Infrastructure.Services.StaticData
@@ -30,6 +31,8 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
         private EndlessLevelGenerationConfig greenPlains;
         private EndlessLevelGenerationConfig snowyWastelands;
 
+        private MainMenuUIConfig mainMenuUIConfig;
+        
         // private Dictionary<BiomeTypeID, EndlessLevelGenerationConfig> biomes;
 
         [Inject]
@@ -38,6 +41,8 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
 
         public void Initialize()
         {
+            mainMenuUIConfig = resourceLoader.Load<MainMenuUIConfig>(AssetPath.MainMenuUIConfig);
+            
             curtainConfig = resourceLoader.Load<CurtainConfig>(AssetPath.Curtain);
             mainMenuConfig = resourceLoader.Load<MainMenuConfig>(AssetPath.MainMenuConfig);
             heroConfig = resourceLoader.Load<HeroConfig>(AssetPath.HeroConfig);
@@ -71,6 +76,9 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
             get => snowyWastelands;
             set => snowyWastelands = value;
         }
+
+        public MainMenuUIConfig ForMainMenuUI() => 
+            mainMenuUIConfig;
 
         public Skins ForSkins() => skins;
     }

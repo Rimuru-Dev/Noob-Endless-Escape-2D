@@ -22,6 +22,6 @@ namespace Internal.Codebase.Runtime.MainMenu.New.Configs
     {
         [field: SerializeField] public UIRoot UIRoot { get; private set; }
         [field: SerializeField] public BackgroundCanvasView BackgroundCanvasView { get; private set; }
-        [field: SerializeField] public MainMenuCanvasView MainMenuCanvasView { get; private set; }
+        [field: SerializeField] public MenuCanvasView MenuCanvasView { get; private set; }
     }
 }

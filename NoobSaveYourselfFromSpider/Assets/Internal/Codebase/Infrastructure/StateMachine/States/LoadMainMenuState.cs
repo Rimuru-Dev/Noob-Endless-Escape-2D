@@ -22,7 +22,7 @@ using Zenject;
 
 namespace Internal.Codebase.Infrastructure.StateMachine.States
 {
-    public sealed class LoadMaiMenuState : IStateNext
+    public sealed class LoadMainMenuState : IStateNext
     {
         private readonly ICurtainService curtain;
         private readonly ISceneLoaderService sceneLoader;
@@ -35,18 +35,18 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private BiomeShopView biomeShop;
 
         [Inject]
-        public LoadMaiMenuState(
-            IStaticDataService staticData,
-            ICurtainService curtain,
+        public LoadMainMenuState(
             IUIFactory uiFactory,
+            ICurtainService curtain,
+            IStaticDataService staticData,
             ISceneLoaderService sceneLoader,
             IPersistenProgressService persistenProgressService)
         {
-            this.sceneLoader = sceneLoader;
-            this.persistenProgressService = persistenProgressService;
-            this.staticData = staticData;
             this.curtain = curtain;
             this.uiFactory = uiFactory;
+            this.staticData = staticData;
+            this.sceneLoader = sceneLoader;
+            this.persistenProgressService = persistenProgressService;
         }
 
         public void Init(GameStateMachine stateMachine) =>
@@ -85,7 +85,6 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         {
             YandexGame.savesData.storage.userBioms.selectionBiomId = BiomeTypeID.SnowyWastelands;
             OnSceneLoaded();
-            // mainMenu.
         }
 
         private void PlayForest()

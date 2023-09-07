@@ -37,7 +37,6 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private readonly IUIFactory uiFactory;
         private readonly IHeroFactory heroFactory;
         private readonly IGameFactory gameFactory;
-        private readonly IPersistenProgressService persistenProgressService;
         private GameStateMachine gameStateMachine;
 
         [Inject]
@@ -47,8 +46,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             IStaticDataService staticData,
             IUIFactory uiFactory,
             IHeroFactory heroFactory,
-            IGameFactory gameFactory,
-            IPersistenProgressService persistenProgressService)
+            IGameFactory gameFactory
+        )
         {
             this.curtain = curtain;
             this.sceneLoader = sceneLoader;
@@ -56,11 +55,10 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             this.uiFactory = uiFactory;
             this.heroFactory = heroFactory;
             this.gameFactory = gameFactory;
-            this.persistenProgressService = persistenProgressService;
         }
 
         public void Init(GameStateMachine stateMachine) =>
-            this.gameStateMachine = stateMachine;
+            gameStateMachine = stateMachine;
 
         public void Enter()
         {
@@ -88,10 +86,11 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             levelGenerator.Prepare();
 
             sceneController = GameObject.FindObjectOfType<SceneController>();
-            sceneController.Container(hero, gameStateMachine, sceneLoader, OnSceneLoaded, levelGenerator,  YandexGame.savesData.storage); //(() =>
+            sceneController.Container(hero, gameStateMachine, sceneLoader, OnSceneLoaded, levelGenerator,
+                YandexGame.savesData.storage); //(() =>
             // {
             //     // Перенеси ссылку на стейт машину и лоадер в SceneController!!
-            //     sceneLoader.LoadScene(SceneName.Menu, (() => { stateMachine.EnterState<LoadMaiMenuState>(); }));
+            //     sceneLoader.LoadScene(SceneName.Menu, (() => { stateMachine.EnterState<LoadMainMenuState>(); }));
             //     
             // })); //OnSceneLoaded);
         }
@@ -102,7 +101,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private void LoadScene() =>
             sceneLoader.LoadScene(SceneName.Menu, EnterMainMenuState);
 
-        private void EnterMainMenuState() => gameStateMachine.EnterState<LoadMaiMenuState>();
+        private void EnterMainMenuState() => gameStateMachine.EnterState<LoadMainMenuState>();
 
         private void OnSceneLoaded()
         {
@@ -113,10 +112,11 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
                     {
                         Debug.Log($"stateMachine == null? - {gameStateMachine == null}");
                         if (gameStateMachine != null)
-                            gameStateMachine.EnterState<LoadMaiMenuState>();
+                            gameStateMachine.EnterState<LoadMainMenuState>();
                         else
                         {
-                            Debug.Log($"Failure loaded LoadMaiMenuState - stateMachine == null? - {gameStateMachine == null}");
+                            Debug.Log(
+                                $"Failure loaded LoadMainMenuState - stateMachine == null? - {gameStateMachine == null}");
                         }
                     }));
                 });
@@ -124,7 +124,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
         public void Exit()
         {
-            // stateMachine.EnterState<LoadMaiMenuState>();
+            // stateMachine.EnterState<LoadMainMenuState>();
         }
     }
 }

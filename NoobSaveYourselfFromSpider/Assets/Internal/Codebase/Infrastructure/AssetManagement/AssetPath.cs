@@ -14,5 +14,7 @@ namespace Internal.Codebase.Infrastructure.AssetManagement
         public const string HeroConfig = "Hero/Configs/HeroConfig";
         public const string LevelGeneratorHandler = "Biomes/Prefabs/LevelGenerator";
         public const string BiomeConfigs = "Biomes/Configs";
+
+        public const string MainMenuUIConfig = "StaticData/MainMenuScene/Configs/MainMenuUIConfig";
     }
 }
