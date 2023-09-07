@@ -5,14 +5,11 @@
 //
 // **************************************************************** //
 
-using System;
-using Internal.Codebase.Infrastructure.Services.CloudSave;
-using Internal.Codebase.Runtime.MainMenu.Animation;
-using Internal.Codebase.Runtime.StorageData;
+using YG;
 using UnityEngine;
 using UnityEngine.UI;
-using YG;
-using AudioSettings = Internal.Codebase.Runtime.StorageData.AudioSettings;
+using Internal.Codebase.Runtime.StorageData;
+using Internal.Codebase.Infrastructure.Services.CloudSave;
 
 namespace Internal.Codebase.Runtime
 {
@@ -20,20 +17,24 @@ namespace Internal.Codebase.Runtime
     [DisallowMultipleComponent]
     public sealed class GeneralAudioHandler : MonoBehaviour
     {
-        private const int Off = 0;
+        private const int Min = 0, Max = 1;
 
         [SerializeField] private Slider musicSlider;
 
         private Storage storage;
-        private float musicValue;
-        private float audioValue;
         private IYandexSaveService yandexSaveService;
 
-        public void Constructor(IYandexSaveService saveService)
-        {
+        public void Constructor(IYandexSaveService saveService) =>
             yandexSaveService = saveService;
-            storage = yandexSaveService.Load();
-        }
+
+        private void OnDisable() =>
+            Save();
+
+        private void OnDestroy() =>
+            musicSlider.onValueChanged.RemoveListener(OnMusicSliderValueChanged);
+
+        public void Prepare() =>
+            Load();
 
         public void Save()
         {
@@ -43,39 +44,19 @@ namespace Internal.Codebase.Runtime
 
         public void Load()
         {
-            if (YandexGame.savesData.storage.audioSettings == null)
-            {
-                YandexGame.savesData.storage.audioSettings = new AudioSettings();
-                YandexGame.savesData.storage.audioSettings.volume = 0.15f;
-                storage = YandexGame.savesData.storage;
-            }
-            else
-                storage = YandexGame.savesData.storage;
-
+            storage = yandexSaveService.Load();
             musicSlider.onValueChanged.AddListener(OnMusicSliderValueChanged);
             musicSlider.value = storage.audioSettings.volume;
         }
 
 
-        private void OnDestroy()
-        {
-            YandexGame.GetDataEvent -= Load;
-            musicSlider.onValueChanged.RemoveListener(OnMusicSliderValueChanged);
-            // audioSlider.onValueChanged.RemoveListener(OnAudioSliderValueChanged);
-        }
-
-
         private void OnMusicSliderValueChanged(float value)
         {
-            var valueChanged = Mathf.Clamp(value, 0, 1);
+            var valueChanged = Mathf.Clamp(value, Min, Max);
+
             AudioListener.volume = valueChanged;
 
             storage.audioSettings.volume = valueChanged;
-        }
-
-        private void OnDisable()
-        {
-            Save();
         }
     }
 }
