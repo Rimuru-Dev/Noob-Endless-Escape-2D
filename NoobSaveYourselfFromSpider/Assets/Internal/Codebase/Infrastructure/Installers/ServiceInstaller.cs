@@ -7,10 +7,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Internal.Codebase.Infrastructure.AssetManagement;
-using Internal.Codebase.Infrastructure.Factory;
-using Internal.Codebase.Infrastructure.Factory.Game;
-using Internal.Codebase.Infrastructure.Factory.Hero;
-using Internal.Codebase.Infrastructure.Factory.UI;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.PersistenProgress;
@@ -25,11 +21,8 @@ namespace Internal.Codebase.Infrastructure.Installers
     [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeInvocation")]
     public sealed class ServiceInstaller : MonoInstaller, ICoroutineRunner
     {
-        public override void InstallBindings()
-        {
+        public override void InstallBindings() =>
             BindServices();
-            BindFactory();
-        }
 
         private void BindServices()
         {
@@ -41,13 +34,6 @@ namespace Internal.Codebase.Infrastructure.Installers
             Container.Bind<IStorageService>().To<JsonToFileStorageService>().AsSingle();
             Container.Bind<IPersistenProgressService>().To<PersistenProgressService>().AsSingle();
             Container.Bind<IResourceLoaderService>().To<ResourceLoaderServiceService>().AsSingle();
-        }
-
-        private void BindFactory()
-        {
-            Container.Bind<IUIFactory>().To<UIFactory>().AsSingle();
-            Container.Bind<IHeroFactory>().To<HeroFactory>().AsSingle();
-            Container.Bind<IGameFactory>().To<GameFactory>().AsSingle();
         }
     }
 }
