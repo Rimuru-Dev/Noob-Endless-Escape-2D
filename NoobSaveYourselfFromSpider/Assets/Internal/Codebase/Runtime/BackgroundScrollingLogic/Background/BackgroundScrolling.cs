@@ -19,33 +19,21 @@ namespace Internal.Codebase.Runtime.BackgroundScrollingLogic.Background
         [SerializeField] private LoopMode loopMode = LoopMode.Update;
         [SerializeField] private Vector2 scrollPositionXY;
         private RawImage rawImage;
+        private bool isPause;
 
         private void Start() =>
             rawImage = GetComponent<RawImage>();
 
-        private void FixedUpdate()
-        {
-            if (loopMode != LoopMode.FixedUpdate)
-                return;
-
-            SetNewRawImageUV(Time.fixedTime);
-        }
-
         private void Update()
         {
-            if (loopMode != LoopMode.Update)
+            if (loopMode != LoopMode.Update || isPause)
                 return;
 
             SetNewRawImageUV(Time.deltaTime);
         }
 
-        private void LateUpdate()
-        {
-            if (loopMode != LoopMode.LateUpdate)
-                return;
-
-            SetNewRawImageUV(Time.deltaTime);
-        }
+        public void SetBackgroundScrollingPause(bool pause) =>
+            isPause = pause;
 
         private void SetNewRawImageUV(float delta) =>
             rawImage.uvRect = CalculateRectPosition(delta);

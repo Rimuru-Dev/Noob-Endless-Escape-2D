@@ -18,5 +18,7 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
         
         public GameObject CreateDynamicCanvas();
         public MainMenuCanvasView CreateMainMenuCanvas();
+        
+        
     }
 }

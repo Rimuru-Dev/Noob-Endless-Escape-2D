@@ -13,12 +13,10 @@ using Zenject;
 namespace Internal.Codebase.Infrastructure.Installers
 {
     [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeInvocation")]
-    public class GameStateInstaller : MonoInstaller
+    public sealed class GameStateInstaller : MonoInstaller
     {
-        public override void InstallBindings()
-        {
+        public override void InstallBindings() =>
             BindGameStateMachine();
-        }
 
         private void BindGameStateMachine()
         {
