@@ -10,6 +10,7 @@
 //
 // **************************************************************** //
 
+using System;
 using System.Collections.Generic;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.StorageData;
@@ -18,12 +19,12 @@ using YG;
 
 namespace Internal.Codebase.Infrastructure.Services.CloudSave
 {
-    public sealed class YandexGamesCloudSaveService : IYandexGamesCloudSaveService
+    public sealed class YandexSaveService : IYandexSaveService
     {
         private readonly YandexGame yandexGameSDK;
         private Runtime.StorageData.Storage storage;
 
-        public YandexGamesCloudSaveService(YandexGame yandexGameSDK) =>
+        public YandexSaveService(YandexGame yandexGameSDK) =>
             this.yandexGameSDK = yandexGameSDK;
 
         public void Init() =>
@@ -31,6 +32,15 @@ namespace Internal.Codebase.Infrastructure.Services.CloudSave
 
         public void Save() =>
             YandexGame.SaveProgress();
+
+        public void Save(Runtime.StorageData.Storage savedStorage)
+        {
+            if (savedStorage == null)
+                throw new ArgumentNullException(nameof(savedStorage));
+
+            YandexGame.savesData.storage = savedStorage;
+            Save();
+        }
 
         public Runtime.StorageData.Storage Load() =>
             YandexGame.savesData.storage == null

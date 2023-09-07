@@ -24,8 +24,6 @@ namespace Internal.Codebase.Runtime.BiomeShop
         private const CurrancyTypeID BiomeCurrancyTypeID = CurrancyTypeID.Fish;
 
         private Storage storage;
-        // private IStaticDataService staticData;
-        // private IPersistenProgressService persistenProgressService;
 
         [field: SerializeField] public Button PlayBiomeForest { get; private set; }
         [field: SerializeField] public Button PlayBiomWinter { get; private set; }
@@ -76,7 +74,6 @@ namespace Internal.Codebase.Runtime.BiomeShop
                 BuyBiomWinter.onClick.AddListener(Buy);
                 LookIcon.gameObject.SetActive(true);
                 NumberVisualizer.gameObject.SetActive(true);
-                //  NumberVisualizer.ShowNumber(BiomePrice);
             }
         }
 

@@ -79,8 +79,6 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
                 .Instantiate(config.MainMenuCanvas.gameObject, mainMenuRoot)
                 .GetComponent<MainMenuCanvasView>();
 
-            view.Constructor(actionUpdaterService );
-            
             return view;
         }
 

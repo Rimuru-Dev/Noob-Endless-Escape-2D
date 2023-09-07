@@ -1235,7 +1235,7 @@ MonoBehaviour:
   <Panel>k__BackingField: {fileID: 8704360912380435100}
   <OpenPanel>k__BackingField: {fileID: 6000291748677539232}
   <ClosePanel>k__BackingField: {fileID: 1632699687235438897}
-  <AudioSlider>k__BackingField: {fileID: 8479178116340576381}
+  <GeneralAudioHandler>k__BackingField: {fileID: 2095989236017687680}
 --- !u!114 &3615860744757657750
 MonoBehaviour:
   m_ObjectHideFlags: 0

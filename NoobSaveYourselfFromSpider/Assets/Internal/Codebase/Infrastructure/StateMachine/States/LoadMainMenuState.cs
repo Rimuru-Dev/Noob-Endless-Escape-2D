@@ -6,6 +6,7 @@
 // **************************************************************** //
 
 using Internal.Codebase.Infrastructure.Factory.UI;
+using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
@@ -25,11 +26,12 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
     {
         private readonly ICurtainService curtain;
         private readonly ISceneLoaderService sceneLoader;
+        private readonly IYandexSaveService saveService;
         private readonly IStaticDataService staticData;
         private readonly IUIFactory uiFactory;
         private GameStateMachine gameStateMachine;
 
-        private MainMenuCanvasView mainMenu;
+        // private MainMenuCanvasView mainMenu;
         private BiomeShopView biomeShop;
 
         [Inject]
@@ -37,12 +39,14 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             IUIFactory uiFactory,
             ICurtainService curtain,
             IStaticDataService staticData,
-            ISceneLoaderService sceneLoader)
+            ISceneLoaderService sceneLoader,
+            IYandexSaveService saveService)
         {
             this.curtain = curtain;
             this.uiFactory = uiFactory;
             this.staticData = staticData;
             this.sceneLoader = sceneLoader;
+            this.saveService = saveService;
         }
 
         public void Init(GameStateMachine stateMachine) =>
@@ -54,27 +58,32 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             HideCurtain();
         }
 
+        // TODO: Added Disposable Service
         public void Exit()
         {
             biomeShop.PlayBiomeForest.onClick.RemoveListener(PlayForest);
             biomeShop.PlayBiomWinter.onClick.RemoveListener(PlayWinter);
-            mainMenu.PlayButton.onClick.RemoveListener(OnSceneLoaded);
+            // mainMenu.PlayButton.onClick.RemoveListener(OnSceneLoaded);
         }
 
         private void PrepareUI()
         {
-            uiFactory.CreateMainMenuRoot();
-            uiFactory.CreateDynamicCanvas();
+            uiFactory
+                .CreateMainMenuUIRoot()
+                .CreateMainMenuBackgraund()
+                .CreateMainMenu();
 
-            mainMenu = uiFactory.CreateMainMenuCanvas();
-            biomeShop = mainMenu.BiomeShopView;
+            // Setup Biome Panel
+            var uiRoot = uiFactory.MainMenuUIRoot;
 
+            biomeShop = uiRoot.MenuCanvasView.BiomeShopView;
             biomeShop.Constructor(staticData);
 
             biomeShop.PlayBiomeForest.onClick.AddListener(PlayForest);
             biomeShop.PlayBiomWinter.onClick.AddListener(PlayWinter);
 
-            Object.FindObjectOfType<GeneralAudioHandler>(true)?.Constructor();
+            // Setup Settings Panel
+            uiRoot.MenuCanvasView.SettingsView.GeneralAudioHandler.Constructor(saveService);
         }
 
         private void PlayWinter()

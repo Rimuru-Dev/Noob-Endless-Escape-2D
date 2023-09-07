@@ -49,8 +49,8 @@ namespace Internal.Codebase.Infrastructure.Installers
             Container.Bind<YandexGame>().FromInstance(yandexGame).AsSingle();
 
             Container
-                .Bind<IYandexGamesCloudSaveService>()
-                .To<YandexGamesCloudSaveService>()
+                .Bind<IYandexSaveService>()
+                .To<YandexSaveService>()
                 .AsSingle()
                 .WithArguments(yandexGame);
         }

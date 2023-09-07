@@ -22,7 +22,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private readonly ICurtainService curtain;
         private readonly IStaticDataService staticData;
         private readonly ISceneLoaderService sceneLoader;
-        private readonly IYandexGamesCloudSaveService yandexGamesCloudSaveService;
+        private readonly IYandexSaveService yandexSaveService;
         private GameStateMachine gameStateMachine;
 
         [Inject]
@@ -30,12 +30,12 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             ICurtainService curtain,
             IStaticDataService staticData,
             ISceneLoaderService sceneLoader,
-            IYandexGamesCloudSaveService yandexGamesCloudSaveService)
+            IYandexSaveService yandexSaveService)
         {
             this.staticData = staticData;
             this.sceneLoader = sceneLoader;
             this.curtain = curtain;
-            this.yandexGamesCloudSaveService = yandexGamesCloudSaveService;
+            this.yandexSaveService = yandexSaveService;
         }
 
         public void Init(GameStateMachine stateMachine) =>
@@ -55,7 +55,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private void PrepareServices()
         {
             // ** User Data ** //
-            yandexGamesCloudSaveService.Init();
+            yandexSaveService.Init();
 
             // ** Tweens ** //
             DOTween.Init();
