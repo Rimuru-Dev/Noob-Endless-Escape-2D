@@ -428,7 +428,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7744217141438080449
 RectTransform:
   m_ObjectHideFlags: 0
@@ -929,6 +929,7 @@ MonoBehaviour:
   <NumberVisualizer>k__BackingField: {fileID: 2673560137280780163}
   <RootPanel>k__BackingField: {fileID: 529430723034812088}
   <CloseWindow>k__BackingField: {fileID: 8181259989341669085}
+  <OpenPanel>k__BackingField: {fileID: 3909713382052680787}
 --- !u!1 &1363641834360016024
 GameObject:
   m_ObjectHideFlags: 0
@@ -6759,7 +6760,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4606716991168570540, guid: f99aa46ab0c18e7468a713085ba48629, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4606716991168570540, guid: f99aa46ab0c18e7468a713085ba48629, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode

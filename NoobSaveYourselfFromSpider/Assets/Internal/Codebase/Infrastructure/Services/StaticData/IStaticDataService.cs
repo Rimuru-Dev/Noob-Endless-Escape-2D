@@ -17,8 +17,10 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
     public interface IStaticDataService
     {
         public void Initialize();
+
         public CurtainConfig ForCurtain();
-        public MainMenuConfig ForMainMenu();
+
+        // public MainMenuConfig ForMainMenu();
         public HeroConfig ForHero();
         public Skins ForSkins();
         public EndlessLevelGenerationConfig GreenPlains { get; set; }

@@ -26,7 +26,7 @@ using Zenject;
 
 namespace Internal.Codebase.Runtime.GameplayScene
 {
-    public sealed class SceneController : MonoBehaviour, IFuckingSaveLoad
+    public sealed class SceneController : MonoBehaviour
     {
         public Button startPause;
         public Button stopPause;

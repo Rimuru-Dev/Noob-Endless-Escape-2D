@@ -89,10 +89,10 @@ namespace Internal.Codebase.Infrastructure.Services.CloudSave
 
             if (YandexGame.savesData == null)
                 Debug.Log("WARNING! YANDEX GAME EQUALS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
+            
             YandexGame.savesData ??= new SavesYG();
             YandexGame.savesData.storage = newStorage;
-
+            
             storage = YandexGame.savesData.storage;
 
             return storage;

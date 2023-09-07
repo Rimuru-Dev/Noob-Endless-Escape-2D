@@ -13,7 +13,7 @@ using YG;
 
 namespace Internal.Codebase.Runtime
 {
-    public sealed class RewardView : MonoBehaviour, IFuckingSaveLoad
+    public sealed class RewardView : MonoBehaviour
     {
         public int emeraldCurrancyRewardCount = 1;
 

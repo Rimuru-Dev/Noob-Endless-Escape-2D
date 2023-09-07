@@ -14,7 +14,7 @@ using YG;
 
 namespace Internal.Codebase.Runtime
 {
-    public sealed class BuyCurrency : MonoBehaviour, IFuckingSaveLoad
+    public sealed class BuyCurrency : MonoBehaviour
     {
         public Button buyFish;
         public Button buyEmerald;
