@@ -10,7 +10,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.PrefabHelper;
 using Internal.Codebase.Runtime.StorageData;
@@ -30,18 +29,15 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
         private List<Prefab> pool;
         private Prefab lastSpawnedPrefab;
         private Storage storage;
-        private IPersistenProgressService persistenProgressService;
         private bool CanSpawnNextPrefab { get; set; } = true;
         public bool Pause { get; set; }
 
-        public void Constructor(EndlessLevelGenerationConfig endlessLevelGenerationConfig, Storage storage,
-            IPersistenProgressService persistenProgressService)
+        public void Constructor(EndlessLevelGenerationConfig endlessLevelGenerationConfig, Storage storage)
         {
             if (endlessLevelGenerationConfig == null)
                 throw new ArgumentNullException(nameof(endlessLevelGenerationConfig));
 
             this.storage = storage;
-            this.persistenProgressService = persistenProgressService;
             config = endlessLevelGenerationConfig;
         }
 
@@ -60,7 +56,7 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
                 transform);
             
             foreach (var reward in lastSpawnedPrefab.rewardViews.Where(reward => reward != null))
-                reward.Constructor(storage, persistenProgressService);
+                reward.Constructor(storage);
 
             pool.Add(lastSpawnedPrefab);
 
@@ -140,7 +136,7 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
                     lastSpawnedPrefab = nextPrefab;
 
                     foreach (var reward in nextPrefab.rewardViews.Where(reward => reward != null))
-                        reward.Constructor(storage, persistenProgressService);
+                        reward.Constructor(storage);
                 }
 
                 yield return new WaitForSeconds(config.SpawnCooldown);

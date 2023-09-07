@@ -9,19 +9,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Internal.Codebase.Infrastructure.Services.Curtain;
-using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
-using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.PrefabHelper;
 using Internal.Codebase.Runtime.Hero;
 using Internal.Codebase.Runtime.MainMenu.Animation;
 using Internal.Codebase.Runtime.Obstacles;
 using Internal.Codebase.Runtime.SpriteTextNumberCounterLogic;
 using Internal.Codebase.Runtime.StorageData;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using YG;
@@ -44,7 +41,6 @@ namespace Internal.Codebase.Runtime.GameplayScene
         public Button rebirthButton;
         public SpriteRenderer[] parallax;
 
-        [Inject] private IPersistenProgressService persistenProgressService;
         [Inject] private IStaticDataService staticDataService;
         [Inject] private ICurtainService curtainService;
         private GameStateMachine gameStateMachine;

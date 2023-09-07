@@ -6,12 +6,11 @@
 // **************************************************************** //
 
 using System;
+using Zenject;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
 using Internal.Codebase.Infrastructure.StateMachine.States;
-using UnityEngine;
-using Zenject;
 
 namespace Internal.Codebase.Infrastructure.StateMachine
 {

@@ -6,7 +6,6 @@
 // **************************************************************** //
 
 using System;
-using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Runtime.MainMenu.Animation;
 using Internal.Codebase.Runtime.StorageData;
 using UnityEngine;
@@ -46,7 +45,7 @@ namespace Internal.Codebase.Runtime
             storage = YandexGame.savesData.storage;
         }
 
-        public void Constructor(Storage storage, IPersistenProgressService persistenProgressService)
+        public void Constructor(Storage storage)
         {
             //   this.storage = storage;
             //   this.persistenProgressService = persistenProgressService;

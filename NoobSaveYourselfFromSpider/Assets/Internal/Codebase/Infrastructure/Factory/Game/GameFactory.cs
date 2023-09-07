@@ -7,7 +7,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Internal.Codebase.Infrastructure.AssetManagement;
-using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
@@ -20,14 +19,11 @@ namespace Internal.Codebase.Infrastructure.Factory.Game
     {
         private readonly IAssetProvider assetProvider;
         private readonly IStaticDataService staticDataService;
-        private readonly IPersistenProgressService persistenProgressService;
 
-        public GameFactory(IAssetProvider assetProvider, IStaticDataService staticDataService,
-            IPersistenProgressService persistenProgressService)
+        public GameFactory(IAssetProvider assetProvider, IStaticDataService staticDataService)
         {
             this.assetProvider = assetProvider;
             this.staticDataService = staticDataService;
-            this.persistenProgressService = persistenProgressService;
         }
 
         public EndlessLevelGenerationHandler CreateLevelGenerator()
@@ -46,7 +42,7 @@ namespace Internal.Codebase.Infrastructure.Factory.Game
                 _ => staticDataService.GreenPlains
             };
 
-            levelGenerationHandler.Constructor(biom, YandexGame.savesData.storage, persistenProgressService);
+            levelGenerationHandler.Constructor(biom, YandexGame.savesData.storage);
 
             return levelGenerationHandler;
         }

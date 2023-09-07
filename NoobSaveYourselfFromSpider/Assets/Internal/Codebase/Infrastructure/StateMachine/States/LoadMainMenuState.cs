@@ -7,7 +7,6 @@
 
 using Internal.Codebase.Infrastructure.Factory.UI;
 using Internal.Codebase.Infrastructure.Services.Curtain;
-using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
@@ -26,7 +25,6 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
     {
         private readonly ICurtainService curtain;
         private readonly ISceneLoaderService sceneLoader;
-        private readonly IPersistenProgressService persistenProgressService;
         private readonly IStaticDataService staticData;
         private readonly IUIFactory uiFactory;
         private GameStateMachine gameStateMachine;
@@ -39,14 +37,12 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             IUIFactory uiFactory,
             ICurtainService curtain,
             IStaticDataService staticData,
-            ISceneLoaderService sceneLoader,
-            IPersistenProgressService persistenProgressService)
+            ISceneLoaderService sceneLoader)
         {
             this.curtain = curtain;
             this.uiFactory = uiFactory;
             this.staticData = staticData;
             this.sceneLoader = sceneLoader;
-            this.persistenProgressService = persistenProgressService;
         }
 
         public void Init(GameStateMachine stateMachine) =>
@@ -73,12 +69,12 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             mainMenu = uiFactory.CreateMainMenuCanvas();
             biomeShop = mainMenu.BiomeShopView;
 
-            biomeShop.Constructor(staticData, persistenProgressService);
+            biomeShop.Constructor(staticData);
 
             biomeShop.PlayBiomeForest.onClick.AddListener(PlayForest);
             biomeShop.PlayBiomWinter.onClick.AddListener(PlayWinter);
 
-            Object.FindObjectOfType<GeneralAudioHandler>(true)?.Constructor(persistenProgressService);
+            Object.FindObjectOfType<GeneralAudioHandler>(true)?.Constructor();
         }
 
         private void PlayWinter()

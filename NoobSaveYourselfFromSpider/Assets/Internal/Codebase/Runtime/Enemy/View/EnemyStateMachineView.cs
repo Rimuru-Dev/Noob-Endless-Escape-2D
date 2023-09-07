@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
-using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.Enemy.Base;
 using Internal.Codebase.Runtime.Enemy.Configs;
@@ -23,17 +22,14 @@ namespace Internal.Codebase.Runtime.Enemy.View
         private Dictionary<Type, State> states;
 
         private IStaticDataService staticDataService;
-        private IPersistenProgressService persistenProgressService;
         private ICoroutineRunner coroutineRunner;
 
         [Inject]
         public void Constructor(
             IStaticDataService staticDataService,
-            IPersistenProgressService persistenProgressService,
             ICoroutineRunner coroutineRunner)
         {
             this.staticDataService = staticDataService;
-            this.persistenProgressService = persistenProgressService;
             this.coroutineRunner = coroutineRunner;
         }
 

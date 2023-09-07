@@ -6,7 +6,6 @@
 // **************************************************************** //
 
 using System;
-using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Runtime.MainMenu.Animation;
 using Internal.Codebase.Runtime.StorageData;
 using UnityEngine;
@@ -33,7 +32,6 @@ namespace Internal.Codebase.Runtime
 
         private float musicValue;
         private float audioValue;
-        private IPersistenProgressService persistenProgressService;
 
         private void Awake()
         {
@@ -76,7 +74,7 @@ namespace Internal.Codebase.Runtime
             musicSlider.value = storage.audioSettings.volume;
         }
 
-        public void Constructor( /*Storage storage,*/ IPersistenProgressService persistenProgressService)
+        public void Constructor( /*Storage storage,*/)
         {
             // this.storage = storage;
             // this.persistenProgressService = persistenProgressService;

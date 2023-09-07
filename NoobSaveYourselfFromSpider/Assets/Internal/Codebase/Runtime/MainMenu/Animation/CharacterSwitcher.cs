@@ -11,8 +11,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using Internal.Codebase.Infrastructure.Services.PersistenProgress;
-using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.SpriteTextNumberCounterLogic;
 using Internal.Codebase.Runtime.StorageData;
 using YG;
@@ -121,7 +119,7 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
             AnimateCharacter(true, currentActualSkinId);
             UpdateUI(currentActualSkinId);
             buyButton.onClick.AddListener(Buy);
-            
+
             void LoadDefault()
             {
                 YandexGame.savesData.storage.userSkins = new UserSkins();

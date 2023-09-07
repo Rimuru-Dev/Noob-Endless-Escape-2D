@@ -6,7 +6,6 @@
 // **************************************************************** //
 
 using System;
-using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.MainMenu;
@@ -173,10 +172,8 @@ namespace Internal.Codebase.Runtime.BiomeShop
             }
         }
 
-        public void Constructor(IStaticDataService staticData, IPersistenProgressService persistenProgressService)
+        public void Constructor(IStaticDataService staticData)
         {
-            // this.staticData = staticData;
-            // this.persistenProgressService = persistenProgressService;
         }
 
         private void OnDestroy()

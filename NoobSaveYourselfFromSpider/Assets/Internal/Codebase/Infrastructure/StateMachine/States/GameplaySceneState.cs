@@ -5,27 +5,19 @@
 //
 // **************************************************************** //
 
-using System;
 using System.Linq;
-using Cinemachine;
-using Internal.Codebase.Infrastructure.AssetManagement;
-using Internal.Codebase.Infrastructure.Factory;
 using Internal.Codebase.Infrastructure.Factory.Game;
 using Internal.Codebase.Infrastructure.Factory.Hero;
 using Internal.Codebase.Infrastructure.Factory.UI;
 using Internal.Codebase.Infrastructure.Services.Curtain;
-using Internal.Codebase.Infrastructure.Services.PersistenProgress;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
-using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
 using Internal.Codebase.Runtime.GameplayScene;
-using Internal.Codebase.Runtime.Hero;
 using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 using YG;
 using Zenject;
-using Object = UnityEngine.Object;
 
 namespace Internal.Codebase.Infrastructure.StateMachine.States
 {
@@ -38,6 +30,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private readonly IHeroFactory heroFactory;
         private readonly IGameFactory gameFactory;
         private GameStateMachine gameStateMachine;
+        private SceneController sceneController;
 
         [Inject]
         public GameplaySceneState(
@@ -63,13 +56,18 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         public void Enter()
         {
             PrepareScene();
+            HideCurtain();
+        }
 
-            // *** Hide Curtain *** //
+        public void Exit()
+        {
+        }
+
+        private void HideCurtain()
+        {
             var config = staticData.ForCurtain();
             curtain.HideCurtain(config.HideDelay);
         }
-
-        private SceneController sceneController;
 
         private void PrepareScene()
         {
@@ -87,12 +85,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
             sceneController = GameObject.FindObjectOfType<SceneController>();
             sceneController.Container(hero, gameStateMachine, sceneLoader, OnSceneLoaded, levelGenerator,
-                YandexGame.savesData.storage); //(() =>
-            // {
-            //     // Перенеси ссылку на стейт машину и лоадер в SceneController!!
-            //     sceneLoader.LoadScene(SceneName.Menu, (() => { stateMachine.EnterState<LoadMainMenuState>(); }));
-            //     
-            // })); //OnSceneLoaded);
+                YandexGame.savesData.storage);
         }
 
         private void LeaveToMainMenuState() =>
@@ -120,11 +113,6 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
                         }
                     }));
                 });
-        }
-
-        public void Exit()
-        {
-            // stateMachine.EnterState<LoadMainMenuState>();
         }
     }
 }
