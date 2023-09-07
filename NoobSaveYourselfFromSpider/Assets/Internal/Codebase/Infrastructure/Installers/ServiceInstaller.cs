@@ -7,6 +7,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Internal.Codebase.Infrastructure.AssetManagement;
+using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.PersistenProgress;
@@ -14,6 +15,8 @@ using Internal.Codebase.Infrastructure.Services.Resource;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.Services.Storage;
+using UnityEngine;
+using YG;
 using Zenject;
 
 namespace Internal.Codebase.Infrastructure.Installers
@@ -21,6 +24,8 @@ namespace Internal.Codebase.Infrastructure.Installers
     [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeInvocation")]
     public sealed class ServiceInstaller : MonoInstaller, ICoroutineRunner
     {
+        [SerializeField] private YandexGame yandexGame;
+
         public override void InstallBindings() =>
             BindServices();
 
@@ -34,6 +39,19 @@ namespace Internal.Codebase.Infrastructure.Installers
             Container.Bind<IStorageService>().To<JsonToFileStorageService>().AsSingle();
             Container.Bind<IPersistenProgressService>().To<PersistenProgressService>().AsSingle();
             Container.Bind<IResourceLoaderService>().To<ResourceLoaderServiceService>().AsSingle();
+
+            BindYandexGamesCloudSaveService();
+        }
+
+        private void BindYandexGamesCloudSaveService()
+        {
+            Container.Bind<YandexGame>().FromInstance(yandexGame).AsSingle();
+
+            Container
+                .Bind<IYandexGamesCloudSaveService>()
+                .To<YandexGamesCloudSaveService>()
+                .AsSingle()
+                .WithArguments(yandexGame);
         }
     }
 }

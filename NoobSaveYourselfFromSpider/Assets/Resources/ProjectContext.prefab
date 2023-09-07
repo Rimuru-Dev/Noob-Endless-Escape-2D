@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a147025aaee42fcb393a2d347da6b4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  yandexGame: {fileID: 1271172922264933119}
 --- !u!114 &7080371882311737083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,6 +206,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84859b2a7dbf18a4580027118de3dac2, type: 3}
+--- !u!114 &1271172922264933119 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7128407476848024069, guid: 84859b2a7dbf18a4580027118de3dac2, type: 3}
+  m_PrefabInstance: {fileID: 8307221413269440762}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 404d6214ebdd58d43a94c7ed650dc2f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6320885246759417736 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2662021523948945266, guid: 84859b2a7dbf18a4580027118de3dac2, type: 3}

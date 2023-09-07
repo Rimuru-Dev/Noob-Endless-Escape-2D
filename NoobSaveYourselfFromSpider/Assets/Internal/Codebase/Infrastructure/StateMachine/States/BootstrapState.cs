@@ -5,44 +5,37 @@
 //
 // **************************************************************** //
 
-using System.Collections.Generic;
-using DG.Tweening;
-using Internal.Codebase.Infrastructure.Services.Curtain;
-using Internal.Codebase.Infrastructure.Services.PersistenProgress;
-using Internal.Codebase.Infrastructure.Services.SceneLoader;
-using Internal.Codebase.Infrastructure.Services.StaticData;
-using Internal.Codebase.Infrastructure.Services.Storage;
-using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
-using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
-using Internal.Codebase.Runtime.StorageData;
-using Internal.Codebase.Utilities.Constants;
-using UnityEngine;
-using YG;
 using Zenject;
+using DG.Tweening;
+using Internal.Codebase.Runtime.Settings;
+using Internal.Codebase.Utilities.Constants;
+using Internal.Codebase.Infrastructure.Services.Curtain;
+using Internal.Codebase.Infrastructure.Services.CloudSave;
+using Internal.Codebase.Infrastructure.Services.StaticData;
+using Internal.Codebase.Infrastructure.Services.SceneLoader;
+using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
 
 namespace Internal.Codebase.Infrastructure.StateMachine.States
 {
     public sealed class BootstrapState : IStateNext
     {
         private readonly ICurtainService curtain;
-        private readonly ISceneLoaderService sceneLoader;
         private readonly IStaticDataService staticData;
-        private readonly IStorageService storageService;
-        private readonly IPersistenProgressService persistenProgressService;
+        private readonly ISceneLoaderService sceneLoader;
+        private readonly IYandexGamesCloudSaveService yandexGamesCloudSaveService;
         private GameStateMachine gameStateMachine;
 
         [Inject]
         public BootstrapState(
+            ICurtainService curtain,
             IStaticDataService staticData,
             ISceneLoaderService sceneLoader,
-            ICurtainService curtain,
-            IStorageService storageService, IPersistenProgressService persistenProgressService)
+            IYandexGamesCloudSaveService yandexGamesCloudSaveService)
         {
             this.staticData = staticData;
             this.sceneLoader = sceneLoader;
             this.curtain = curtain;
-            this.storageService = storageService;
-            this.persistenProgressService = persistenProgressService;
+            this.yandexGamesCloudSaveService = yandexGamesCloudSaveService;
         }
 
         public void Init(GameStateMachine stateMachine) =>
@@ -50,65 +43,9 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
         public void Enter()
         {
-            if (YandexGame.SDKEnabled)
-                Load();
-
-            YandexGame.GetDataEvent += Load;
-
             PrepareServices();
-
-            sceneLoader.LoadScene(SceneName.Menu, OnSceneLoaded);
-        }
-
-        private void Load()
-        {
-            // Debug.Log("Bootstrup Loaded Start 1!!");
-
-            if (YandexGame.savesData.storage == null)
-            {
-                Debug.Log("Bootstrup Loaded !!");
-                var newStorage = new Storage
-                {
-                    fishCurrancy = new FishCurrancy(),
-                    emeraldCurrancy = new EmeraldCurrancy(),
-                    // audioSettings = new Runtime.StorageData.AudioSettings(),
-                    userBioms = new UserBioms(),
-                    // userSkins = new UserSkins(),
-                    userBestDistance = new UserBestDistance()
-                };
-
-                // newStorage.audioSettings.volume = 0.1f;
-                // Biome
-                // Lol Kek :3 Default biome settings
-                {
-                    newStorage.userBioms.selectionBiomId = BiomeTypeID.GreenPlains;
-
-                    newStorage.userBioms.biomeData = new List<BiomDatas>();
-
-                    var biom1 = new BiomDatas
-                    {
-                        id = BiomeTypeID.GreenPlains,
-                        isOpen = true
-                    };
-                    newStorage.userBioms.biomeData.Add(biom1);
-
-                    var biom2 = new BiomDatas
-                    {
-                        id = BiomeTypeID.SnowyWastelands,
-                        isOpen = false
-                    };
-                    newStorage.userBioms.biomeData.Add(biom2);
-                }
-
-                if (YandexGame.savesData == null)
-                    Debug.Log("WARNING! YANDEX GAME EQUALS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-                YandexGame.savesData.storage = newStorage;
-            }
-            else
-            {
-                Debug.Log("Bootstrup Loaded FAILURE!!! DATA NOT NULL!!!");
-            }
+            AppyGeneralSettings();
+            LoadMainMenuScene();
         }
 
         public void Exit()
@@ -117,6 +54,9 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
         private void PrepareServices()
         {
+            // ** User Data ** //
+            yandexGamesCloudSaveService.Init();
+
             // ** Tweens ** //
             DOTween.Init();
 
@@ -128,9 +68,16 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             curtain.ShowCurtain(false);
         }
 
-        private void OnSceneLoaded()
+        private static void AppyGeneralSettings()
         {
-            gameStateMachine.EnterState<LoadMaiMenuState>();
+            var fps = new FPSSettings();
+            fps.ApplyTargetFrameRate();
         }
+
+        private void LoadMainMenuScene() =>
+            sceneLoader.LoadScene(SceneName.Menu, OnSceneLoaded);
+
+        private void OnSceneLoaded() =>
+            gameStateMachine.EnterState<LoadMaiMenuState>();
     }
 }
