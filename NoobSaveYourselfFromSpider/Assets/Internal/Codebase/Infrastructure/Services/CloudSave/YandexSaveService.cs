@@ -10,12 +10,11 @@
 //
 // **************************************************************** //
 
+using YG;
 using System;
 using System.Collections.Generic;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.StorageData;
-using UnityEngine;
-using YG;
 
 namespace Internal.Codebase.Infrastructure.Services.CloudSave
 {
@@ -30,16 +29,13 @@ namespace Internal.Codebase.Infrastructure.Services.CloudSave
         public void Init() =>
             YandexGame.GetDataEvent += InitializeLoad;
 
-        public void Save() =>
-            YandexGame.SaveProgress();
-
         public void Save(Runtime.StorageData.Storage savedStorage)
         {
             if (savedStorage == null)
                 throw new ArgumentNullException(nameof(savedStorage));
 
             YandexGame.savesData.storage = savedStorage;
-            Save();
+            YandexGame.SaveProgress();
         }
 
         public Runtime.StorageData.Storage Load() =>
@@ -55,18 +51,15 @@ namespace Internal.Codebase.Infrastructure.Services.CloudSave
 
         private Runtime.StorageData.Storage LoadDefaultStorage()
         {
-            Debug.Log("Bootstrup Loaded !!");
-
             var newStorage = new Runtime.StorageData.Storage
             {
                 fishCurrancy = new FishCurrancy(),
                 emeraldCurrancy = new EmeraldCurrancy(),
-                // audioSettings = new Runtime.StorageData.AudioSettings(),
                 userBioms = new UserBioms(),
-                // userSkins = new UserSkins(),
                 userBestDistance = new UserBestDistance()
             };
 
+            // Biome
             {
                 newStorage.userBioms.selectionBiomId = BiomeTypeID.GreenPlains;
 
@@ -87,12 +80,9 @@ namespace Internal.Codebase.Infrastructure.Services.CloudSave
                 newStorage.userBioms.biomeData.Add(biom2);
             }
 
-            if (YandexGame.savesData == null)
-                Debug.Log("WARNING! YANDEX GAME EQUALS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            
             YandexGame.savesData ??= new SavesYG();
             YandexGame.savesData.storage = newStorage;
-            
+
             storage = YandexGame.savesData.storage;
 
             return storage;
@@ -103,11 +93,6 @@ namespace Internal.Codebase.Infrastructure.Services.CloudSave
             storage = YandexGame.savesData.storage;
 
             return storage;
-        }
-
-        public void Tick()
-        {
-            Debug.Log("Tick()");
         }
     }
 }

@@ -11,14 +11,12 @@
 // **************************************************************** //
 
 using System;
-using Zenject;
 
 namespace Internal.Codebase.Infrastructure.Services.CloudSave
 {
-    public interface IYandexSaveService : IDisposable, ITickable
+    public interface IYandexSaveService : IDisposable
     {
         public void Init();
-        public void Save();
         public void Save(Runtime.StorageData.Storage savedStorage);
         public Runtime.StorageData.Storage Load();
     }

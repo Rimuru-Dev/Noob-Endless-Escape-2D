@@ -1,7 +1,6 @@
 ﻿using System;
 using Internal.Codebase.Runtime.BiomeShop;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Internal.Codebase.Runtime.MainMenu.New.View
 {
@@ -27,7 +26,7 @@ namespace Internal.Codebase.Runtime.MainMenu.New.View
             foreach (var button in CurrencyShopView.OpenChop)
                 button.onClick.RemoveAllListeners();
             CurrencyShopView.CloseChop.onClick.RemoveAllListeners();
-            
+
             SettingsView.OpenPanel.onClick.RemoveAllListeners();
             SettingsView.ClosePanel.onClick.RemoveAllListeners();
             BiomeShopView.OpenPanel.onClick.RemoveAllListeners();

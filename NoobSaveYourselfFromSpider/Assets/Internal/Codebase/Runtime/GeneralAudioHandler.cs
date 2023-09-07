@@ -33,22 +33,15 @@ namespace Internal.Codebase.Runtime
         private void OnDestroy() =>
             musicSlider.onValueChanged.RemoveListener(OnMusicSliderValueChanged);
 
-        public void Prepare() =>
-            Load();
-
-        public void Save()
-        {
-            YandexGame.savesData.storage.audioSettings = storage.audioSettings;
-            yandexSaveService.Save();
-        }
-
-        public void Load()
+        public void Prepare()
         {
             storage = yandexSaveService.Load();
             musicSlider.onValueChanged.AddListener(OnMusicSliderValueChanged);
             musicSlider.value = storage.audioSettings.volume;
         }
 
+        private void Save() =>
+            yandexSaveService.Save(storage);
 
         private void OnMusicSliderValueChanged(float value)
         {
