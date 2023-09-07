@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 8351572089118370838}
   - component: {fileID: 8305526584007575048}
   m_Layer: 0
-  m_Name: DynamicCanvas
+  m_Name: BackgroundCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -200,7 +200,7 @@ Transform:
   - {fileID: 7225233323242056628}
   - {fileID: 8204695549022826542}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8305526584007575048
 MonoBehaviour:
