@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using NaughtyAttributes;
 using UnityEngine.UI;
 #if JSON_NET_ENABLED
 using Newtonsoft.Json;
@@ -15,7 +16,7 @@ namespace YG
 {
     public class YandexGame : MonoBehaviour
     {
-        public InfoYG infoYG;
+        [Expandable] public InfoYG infoYG;
 
         [Tooltip(
             "Объект YandexGame не будет удаляться при смене сцены. При выборе опции singleton, объект YandexGame необходимо поместить только на одну сцену, которая первая загружается при запуске игры.\n\n •  При выборе опции singleton, полноэкранная реклама не будет автоматически показываться при загрузке новой сцены, даже при выборе параметра Ad When Loading Scene = true в InfoYG.")]

@@ -24,16 +24,6 @@ namespace Internal.Codebase.Runtime.DevelopLogic
 
             if (Input.GetKeyDown(KeyCode.R))
                 YandexGame.ResetSaveProgress();
-
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                var data = YandexGame.savesData.storage;
-
-                data.EmeraldCurrancy = 50;
-                data.FishCurrancy = 45;
-                data.BestDistance = 10;
-                //     YandexGame.SaveProgress();
-            }
         }
 #endif
     }
