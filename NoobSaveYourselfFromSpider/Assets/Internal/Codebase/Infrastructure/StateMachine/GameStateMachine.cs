@@ -38,6 +38,14 @@ namespace Internal.Codebase.Infrastructure.StateMachine
             };
         }
 
+        public void Init()
+        {
+            states[typeof(BootstrapState)].Init(this);
+            states[typeof(LoadMaiMenuState)].Init(this);
+            states[typeof(GameplaySceneState)].Init(this);
+            states[typeof(GameOverState)].Init(this);
+        }
+
         public void EnterState<TState>() where TState : IExitableState
         {
             currentState?.Exit();
@@ -58,14 +66,6 @@ namespace Internal.Codebase.Infrastructure.StateMachine
             (state as IStateWithArgument<TArgs>)?.Enter(args);
 
             currentState = state;
-        }
-
-        public void Init()
-        {
-            states[typeof(BootstrapState)].Init(this);
-            states[typeof(LoadMaiMenuState)].Init(this);
-            states[typeof(GameplaySceneState)].Init(this);
-            states[typeof(GameOverState)].Init(this);
         }
     }
 }

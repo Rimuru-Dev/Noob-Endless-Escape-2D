@@ -19,7 +19,6 @@ using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 using YG;
 using Zenject;
-using AudioSettings = UnityEngine.AudioSettings;
 
 namespace Internal.Codebase.Infrastructure.StateMachine.States
 {
@@ -46,10 +45,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             this.persistenProgressService = persistenProgressService;
         }
 
-        public void Init(GameStateMachine gameStateMachine)
-        {
-            this.gameStateMachine = gameStateMachine;
-        }
+        public void Init(GameStateMachine stateMachine) =>
+            gameStateMachine = stateMachine;
 
         public void Enter()
         {
@@ -120,13 +117,6 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
         private void PrepareServices()
         {
-            // Debug.Log($"YandexGame.SDKEnabled == {YandexGame.SDKEnabled}");
-            // Load Game Save Data
-            // persistenProgressService.Init();
-
-            // ** Localozation ** //
-            // LocalizationManager.Read();
-
             // ** Tweens ** //
             DOTween.Init();
 
@@ -136,8 +126,6 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             // ** Curtain ** //
             curtain.Init();
             curtain.ShowCurtain(false);
-
-            // Debug.Log($"YandexGame.SDKEnabled == {YandexGame.SDKEnabled}");
         }
 
         private void OnSceneLoaded()

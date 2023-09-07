@@ -59,8 +59,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             this.persistenProgressService = persistenProgressService;
         }
 
-        public void Init(GameStateMachine gameStateMachine) =>
-            this.gameStateMachine = gameStateMachine;
+        public void Init(GameStateMachine stateMachine) =>
+            this.gameStateMachine = stateMachine;
 
         public void Enter()
         {
@@ -91,7 +91,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             sceneController.Container(hero, gameStateMachine, sceneLoader, OnSceneLoaded, levelGenerator,  YandexGame.savesData.storage); //(() =>
             // {
             //     // Перенеси ссылку на стейт машину и лоадер в SceneController!!
-            //     sceneLoader.LoadScene(SceneName.Menu, (() => { gameStateMachine.EnterState<LoadMaiMenuState>(); }));
+            //     sceneLoader.LoadScene(SceneName.Menu, (() => { stateMachine.EnterState<LoadMaiMenuState>(); }));
             //     
             // })); //OnSceneLoaded);
         }
@@ -111,12 +111,12 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
                 {
                     sceneLoader.LoadScene(SceneName.Menu, (() =>
                     {
-                        Debug.Log($"gameStateMachine == null? - {gameStateMachine == null}");
+                        Debug.Log($"stateMachine == null? - {gameStateMachine == null}");
                         if (gameStateMachine != null)
                             gameStateMachine.EnterState<LoadMaiMenuState>();
                         else
                         {
-                            Debug.Log($"Failure loaded LoadMaiMenuState - gameStateMachine == null? - {gameStateMachine == null}");
+                            Debug.Log($"Failure loaded LoadMaiMenuState - stateMachine == null? - {gameStateMachine == null}");
                         }
                     }));
                 });
@@ -124,7 +124,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
         public void Exit()
         {
-            // gameStateMachine.EnterState<LoadMaiMenuState>();
+            // stateMachine.EnterState<LoadMaiMenuState>();
         }
     }
 }

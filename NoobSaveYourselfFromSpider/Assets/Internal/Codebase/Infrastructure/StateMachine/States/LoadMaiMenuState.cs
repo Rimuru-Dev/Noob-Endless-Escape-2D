@@ -15,10 +15,8 @@ using Internal.Codebase.Runtime;
 using Internal.Codebase.Runtime.BiomeShop;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.MainMenu;
-using Internal.Codebase.Runtime.MainMenu.Animation;
 using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
-using UnityEngine.UI;
 using YG;
 using Zenject;
 
@@ -51,20 +49,20 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             this.uiFactory = uiFactory;
         }
 
-        public void Init(GameStateMachine gameStateMachine)
-        {
-            this.gameStateMachine = gameStateMachine;
-        }
+        public void Init(GameStateMachine stateMachine) =>
+            gameStateMachine = stateMachine;
 
         public void Enter()
         {
-            // persistenProgressService.Load();
-
             PrepareUI();
+            HideCurtain();
+        }
 
-            // *** Hide Curtain *** //
-            var config = staticData.ForCurtain();
-            curtain.HideCurtain(config.HideDelay);
+        public void Exit()
+        {
+            biomeShop.PlayBiomeForest.onClick.RemoveListener(PlayForest);
+            biomeShop.PlayBiomWinter.onClick.RemoveListener(PlayWinter);
+            mainMenu.PlayButton.onClick.RemoveListener(OnSceneLoaded);
         }
 
         private void PrepareUI()
@@ -75,47 +73,12 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             mainMenu = uiFactory.CreateMainMenuCanvas();
             biomeShop = mainMenu.BiomeShopView;
 
-            // var storage = persistenProgressService.GetStoragesData();
-
-            // mainMenu.Emerald.Initialize(storage);
-            // mainMenu.Fish.Initialize(storage);
-            // mainMenu.BestDistance.Initialize(storage);
-
-
-            // mainMenu.BuyCurrencyView.Constructor(storage, persistenProgressService);
-            // mainMenu.BuyCurrencyViewShortPanel.Constructor(storage, persistenProgressService);
-
-            // storage.Refresh();
-
-            //   mainMenu.PlayButton.onClick.AddListener(OnSceneLoaded);
-
-            // Biom ! Transition in Biomhandler.cs
-            {
-                // var bioms = persistenProgressService.GetStoragesData().userBioms;
-                //
-                // foreach (var biomsData in bioms.biomeData)
-                // {
-                //     if (biomsData.isOpen)
-                //     {
-                //     }
-                //     else
-                //     {
-                //         // Вынеси в отдельный контроллер и канфиги кешируй в Boot ! А не уже в гей-мплей сцене
-                //         biomeShop.BuyBiomWinter.gameObject.SetActive(false);
-                //         biomeShop.LookIcon.gameObject.SetActive(true);
-                //         // biomeShop.NumberVisualizer.gameObject.SetActive(false);
-                //     }
-                // }
-            }
-            //  mainMenu.gameObject.GetComponent<CharacterSwitcher>().Initialize(storage, persistenProgressService);
-
             biomeShop.Constructor(staticData, persistenProgressService);
-            // biomeShop.Initialize(storage);
 
             biomeShop.PlayBiomeForest.onClick.AddListener(PlayForest);
             biomeShop.PlayBiomWinter.onClick.AddListener(PlayWinter);
 
-            GameObject.FindObjectOfType<GeneralAudioHandler>(true)?.Constructor( /*storage,*/ persistenProgressService);
+            Object.FindObjectOfType<GeneralAudioHandler>(true)?.Constructor(persistenProgressService);
         }
 
         private void PlayWinter()
@@ -131,24 +94,19 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             OnSceneLoaded();
         }
 
-
-        public void Exit()
+        private void HideCurtain()
         {
-            biomeShop.PlayBiomeForest.onClick.RemoveListener(PlayForest);
-            biomeShop.PlayBiomWinter.onClick.RemoveListener(PlayWinter);
-            mainMenu.PlayButton.onClick.RemoveListener(OnSceneLoaded);
-            // mainMenu = null;
-            // biomeShop = null;
-            // persistenProgressService.Save(persistenProgressService.GetStoragesData());
+            var config = staticData.ForCurtain();
+            curtain.HideCurtain(config.HideDelay);
         }
 
-        private void OnSceneLoaded()
-        {
-            curtain.ShowCurtain(true, () =>
-            {
-                // persistenProgressService.Save(persistenProgressService.GetStoragesData());
-                sceneLoader.LoadScene(SceneName.Gameplay, () => { gameStateMachine.EnterState<GameplaySceneState>(); });
-            });
-        }
+        private void OnSceneLoaded() =>
+            curtain.ShowCurtain(true, LoadGameplayScene);
+
+        private void LoadGameplayScene() =>
+            sceneLoader.LoadScene(SceneName.Gameplay, EnterGameplayState);
+
+        private void EnterGameplayState() =>
+            gameStateMachine.EnterState<GameplaySceneState>();
     }
 }
