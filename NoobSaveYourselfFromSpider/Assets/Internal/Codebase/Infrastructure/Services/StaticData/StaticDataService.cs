@@ -23,8 +23,10 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
         private readonly IResourceLoaderService resourceLoader;
 
         private CurtainConfig curtainConfig;
-        private MainMenuConfig mainMenuConfig;
+        // private MainMenuConfig mainMenuConfig;
+
         private HeroConfig heroConfig;
+
         //private EndlessLevelGenerationConfig levelGenerationConfig;
         private Skins skins;
 
@@ -32,7 +34,7 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
         private EndlessLevelGenerationConfig snowyWastelands;
 
         private MainMenuUIConfig mainMenuUIConfig;
-        
+
         // private Dictionary<BiomeTypeID, EndlessLevelGenerationConfig> biomes;
 
         [Inject]
@@ -42,25 +44,21 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
         public void Initialize()
         {
             mainMenuUIConfig = resourceLoader.Load<MainMenuUIConfig>(AssetPath.MainMenuUIConfig);
-            
+
             curtainConfig = resourceLoader.Load<CurtainConfig>(AssetPath.Curtain);
-            mainMenuConfig = resourceLoader.Load<MainMenuConfig>(AssetPath.MainMenuConfig);
+            // mainMenuConfig = resourceLoader.Load<MainMenuConfig>(AssetPath.MainMenuConfig);
             heroConfig = resourceLoader.Load<HeroConfig>(AssetPath.HeroConfig);
 
             greenPlains = resourceLoader.Load<EndlessLevelGenerationConfig>("Biomes/Configs/GreenPlains");
             snowyWastelands = resourceLoader.Load<EndlessLevelGenerationConfig>("Biomes/Configs/SnowyWastelands");
             skins = resourceLoader.Load<Skins>("Skins/Skins");
-
-
-            // levelGenerationConfig =
-            //     resourceLoader.LoadAll<EndlessLevelGenerationConfig>(AssetPath.BiomeConfigs);
         }
 
         public CurtainConfig ForCurtain() =>
             curtainConfig;
 
-        public MainMenuConfig ForMainMenu() =>
-            mainMenuConfig;
+        // public MainMenuConfig ForMainMenu() =>
+        //     mainMenuConfig;
 
         public HeroConfig ForHero() =>
             heroConfig;
@@ -70,14 +68,14 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
             get => greenPlains;
             set => greenPlains = value;
         }
-        
+
         public EndlessLevelGenerationConfig SnowyWastelands
         {
             get => snowyWastelands;
             set => snowyWastelands = value;
         }
 
-        public MainMenuUIConfig ForMainMenuUI() => 
+        public MainMenuUIConfig ForMainMenuUI() =>
             mainMenuUIConfig;
 
         public Skins ForSkins() => skins;
