@@ -5,71 +5,42 @@
 //
 // **************************************************************** //
 
-using System;
-using Internal.Codebase.Runtime.MainMenu.Animation;
+using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Runtime.StorageData;
+using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
-using YG;
 
 namespace Internal.Codebase.Runtime
 {
     public sealed class RewardView : MonoBehaviour
     {
-        public int emeraldCurrancyRewardCount = 1;
+        [SerializeField] private int emeraldCurrancyRewardCount = 1;
 
         private Storage storage;
-
-        // private IPersistenProgressService persistenProgressService;
         private bool isCollectRewarded;
+        private IYandexSaveService saveService;
 
-        private void Awake()
-        {
-            if (YandexGame.SDKEnabled)
-                Load();
+        public void Constructor(IYandexSaveService yandexSaveService) =>
+            saveService = yandexSaveService;
 
-            YandexGame.GetDataEvent += Load;
-        }
+        public void Prepare() =>
+            storage = saveService.Load();
 
-        public void Save()
-        {
-            if (storage == null)
-            {
-                Load();
-            }
-
-            YandexGame.savesData.storage.emeraldCurrancy = storage.emeraldCurrancy;
-        }
-
-        public void Load()
-        {
-            storage = YandexGame.savesData.storage;
-        }
-
-        public void Constructor(Storage storage)
-        {
-            //   this.storage = storage;
-            //   this.persistenProgressService = persistenProgressService;
-        }
+        private void OnDestroy() =>
+            saveService.Save(storage);
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (!other.transform.CompareTag("Player"))
-                return;
-
-            if (isCollectRewarded)
+            if (IsForbiddenToCollect(other))
                 return;
 
             isCollectRewarded = true;
             storage.EmeraldCurrancy = emeraldCurrancyRewardCount;
-            // persistenProgressService.Save(storage);
 
             Destroy(gameObject);
         }
 
-        private void OnDestroy()
-        {
-            Save();
-            YandexGame.GetDataEvent -= Load;
-        }
+        private bool IsForbiddenToCollect(Collision2D other) =>
+            !other.transform.CompareTag(Tag.Player) || isCollectRewarded;
     }
 }
