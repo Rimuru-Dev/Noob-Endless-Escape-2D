@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.PrefabHelper;
 using Internal.Codebase.Runtime.StorageData;
@@ -29,15 +30,16 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
         private List<Prefab> pool;
         private Prefab lastSpawnedPrefab;
         private Storage storage;
+        private IYandexSaveService saveService;
         private bool CanSpawnNextPrefab { get; set; } = true;
         public bool Pause { get; set; }
 
-        public void Constructor(EndlessLevelGenerationConfig endlessLevelGenerationConfig, Storage storage)
+        public void Constructor(EndlessLevelGenerationConfig endlessLevelGenerationConfig, IYandexSaveService yandexSaveService)
         {
             if (endlessLevelGenerationConfig == null)
                 throw new ArgumentNullException(nameof(endlessLevelGenerationConfig));
 
-            this.storage = storage;
+            saveService = yandexSaveService;
             config = endlessLevelGenerationConfig;
         }
 
@@ -54,9 +56,12 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
 
             lastSpawnedPrefab = Instantiate(config.LaunchingPlatform, config.StartSpawnPoint, Quaternion.identity,
                 transform);
-            
+
             foreach (var reward in lastSpawnedPrefab.rewardViews.Where(reward => reward != null))
-                reward.Constructor(storage);
+            {
+                reward.Constructor(saveService);
+                reward.Prepare();
+            }
 
             pool.Add(lastSpawnedPrefab);
 
@@ -136,7 +141,10 @@ namespace Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers
                     lastSpawnedPrefab = nextPrefab;
 
                     foreach (var reward in nextPrefab.rewardViews.Where(reward => reward != null))
-                        reward.Constructor(storage);
+                    {
+                        reward.Constructor(saveService);
+                        reward.Prepare();
+                    }
                 }
 
                 yield return new WaitForSeconds(config.SpawnCooldown);
