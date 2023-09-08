@@ -13,6 +13,7 @@ using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
 using Internal.Codebase.Runtime.BiomeShop;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
+using Internal.Codebase.Runtime.MainMenu.Animation;
 using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 using YG;
@@ -119,9 +120,20 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
                 uiRoot.MenuCanvasView.BestDistanceView.Prepare();
             }
 
+            // Buy Currency by AD
+            {
+                uiRoot.MenuCanvasView.BuyCurrencyShort.Constructor(saveService);
+                uiRoot.MenuCanvasView.BuyCurrencyShort.Prepare();
+
+                uiRoot.MenuCanvasView.BuyCurrencyPanel.Constructor(saveService);
+                uiRoot.MenuCanvasView.BuyCurrencyPanel.Prepare();
+            }
+
             // Setup CharacterSwitcherView
             {
-                
+                var temp = uiRoot.MenuCanvasView.GetComponentInChildren<CharacterSwitcher>();
+                temp.Constructor(saveService);
+                temp.Prepape();
             }
         }
 

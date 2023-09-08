@@ -13,6 +13,8 @@ namespace Internal.Codebase.Runtime.MainMenu.New.View
         [field: SerializeField] public SettingsView SettingsView { get; private set; }
         [field: SerializeField] public CurrencyShopView CurrencyShopView { get; private set; }
         [field: SerializeField] public BestDistanceUIView BestDistanceView { get; private set; }
+        [field: SerializeField] public BuyCurrency BuyCurrencyShort { get; private set; }
+        [field: SerializeField] public BuyCurrency BuyCurrencyPanel { get; private set; }
         [field: SerializeField] public QuickAccessBuyCurrencyView QuickAccessBuyCurrencyView { get; private set; }
         [field: SerializeField] public CharacterSwitcherView CharacterSwitcherView { get; private set; }
         [field: SerializeField] public BiomeShopView BiomeShopView { get; private set; }

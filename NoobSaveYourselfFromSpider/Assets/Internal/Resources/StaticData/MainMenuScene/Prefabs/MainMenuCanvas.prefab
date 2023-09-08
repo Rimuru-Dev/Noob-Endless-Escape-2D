@@ -1070,21 +1070,6 @@ MonoBehaviour:
     currancyTypeID: 0
   - icon: {fileID: 1301073082, guid: b2e896807fa1beb4897ddd691bb2c72d, type: 3}
     currancyTypeID: 1
-  storage:
-    fishCurrancy:
-      fishs: 0
-    emeraldCurrancy:
-      emeralds: 0
-    userBestDistance:
-      bestDistance: 0
-    userSkins:
-      selectionSkinId: 0
-      SkinDatas: []
-    userBioms:
-      selectionBiomId: 0
-      biomeData: []
-    audioSettings:
-      volume: 0
 --- !u!114 &4069969848641640046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1102,6 +1087,8 @@ MonoBehaviour:
   <SettingsView>k__BackingField: {fileID: 4414008609649513478}
   <CurrencyShopView>k__BackingField: {fileID: 5410401509306043711}
   <BestDistanceView>k__BackingField: {fileID: 8736221692866209937}
+  <BuyCurrencyShort>k__BackingField: {fileID: 5947266779738943404}
+  <BuyCurrencyPanel>k__BackingField: {fileID: 6600272401004541506}
   <QuickAccessBuyCurrencyView>k__BackingField: {fileID: 3379626255446842628}
   <CharacterSwitcherView>k__BackingField: {fileID: 5195995646046649890}
   <BiomeShopView>k__BackingField: {fileID: 4988230876410566107}

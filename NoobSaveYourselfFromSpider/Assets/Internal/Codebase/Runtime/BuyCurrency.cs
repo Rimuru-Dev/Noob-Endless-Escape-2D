@@ -5,8 +5,7 @@
 //
 // **************************************************************** //
 
-using System;
-using Internal.Codebase.Runtime.MainMenu.Animation;
+using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Runtime.StorageData;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,52 +19,30 @@ namespace Internal.Codebase.Runtime
         public Button buyEmerald;
         public YandexGame yandexGameSDK;
 
+        // TODO: Add Config
         public int rewardFish = 10;
         public int rewardEmerald = 20;
 
         private Storage storage;
-        // private IPersistenProgressService persistenProgressService;
+        private IYandexSaveService yandexSaveService;
 
-        private void Awake()
+        public void Constructor(IYandexSaveService saveService) =>
+            yandexSaveService = saveService;
+
+        public void Prepare()
         {
-            if (YandexGame.SDKEnabled)
-                Load();
+            storage = yandexSaveService.Load();
 
-            YandexGame.GetDataEvent += Load;
-        }
-
-        private void Start()
-        {
             buyFish.onClick.AddListener(BuyFish);
             buyEmerald.onClick.AddListener(BuyEmerald);
             yandexGameSDK = FindObjectOfType<YandexGame>(true);
         }
 
-        public void Save()
-        {
-            YandexGame.savesData.storage.fishCurrancy = storage.fishCurrancy;
-            YandexGame.savesData.storage.emeraldCurrancy = storage.emeraldCurrancy;
-        }
-
-        public void Load()
-        {
-            storage = YandexGame.savesData.storage;
-        }
-
-        public void Constructor(Storage storage)
-        {
-            // this.storage = storage;
-            // this.persistenProgressService = persistenProgressService;
-        }
-
         private void OnDestroy()
         {
-            // Save();
-            YandexGame.GetDataEvent -= Load;
             buyFish.onClick.RemoveListener(BuyFish);
             buyEmerald.onClick.RemoveListener(BuyEmerald);
         }
-
 
         private void OnEnable() =>
             YandexGame.RewardVideoEvent += Rewarded;
@@ -76,38 +53,21 @@ namespace Internal.Codebase.Runtime
         private void Rewarded(int id)
         {
             if (id == rewardFish)
-            {
-                AudioListener.volume = storage.audioSettings?.volume ?? 1.15f;
                 storage.FishCurrancy = 1;
-                // persistenProgressService.Save(storage);
-            }
 
             if (id == rewardEmerald)
-            {
-                AudioListener.volume = storage.audioSettings?.volume ?? 1.15f;
-
                 storage.EmeraldCurrancy = 9;
-                // persistenProgressService.Save(storage);
-            }
 
-            Save();
-            // persistenProgressService.Save(storage);
+            yandexSaveService.Save(storage);
         }
 
-        private void ShowAdvButton(int id)
-        {
-            AudioListener.volume = 0;
+        private void ShowAdvButton(int id) =>
             yandexGameSDK._RewardedShow(id);
-        }
 
-        private void BuyEmerald()
-        {
+        private void BuyEmerald() =>
             ShowAdvButton(rewardEmerald);
-        }
 
-        private void BuyFish()
-        {
+        private void BuyFish() =>
             ShowAdvButton(rewardFish);
-        }
     }
 }
