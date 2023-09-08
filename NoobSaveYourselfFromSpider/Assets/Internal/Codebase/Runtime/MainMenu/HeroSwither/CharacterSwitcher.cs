@@ -8,60 +8,38 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
-using Internal.Codebase.Runtime.SpriteTextNumberCounterLogic;
+using Internal.Codebase.Runtime.MainMenu.New.View;
 using Internal.Codebase.Runtime.StorageData;
-using YG;
+using UnityEngine;
 
-namespace Internal.Codebase.Runtime.MainMenu.Animation
+namespace Internal.Codebase.Runtime.MainMenu.HeroSwither
 {
-    [Serializable]
-    public sealed class SkinShopData
+    public sealed class CharacterSwitcher : IDisposable
     {
-        public int id;
-
-        [NaughtyAttributes.ShowAssetPreview(256, 256)]
-        public Sprite icon;
-
-        public CurrancyTypeID priceType;
-        public int price;
-        public bool isOpen;
-    }
-
-    [Serializable]
-    public sealed class CurrancyIcons
-    {
-        public Sprite icon;
-        public CurrancyTypeID currancyTypeID;
-    }
-
-
-    // TODO: Remove MonoBehaviour
-    public sealed class CharacterSwitcher : MonoBehaviour
-    {
-        public Image characterImage;
-        public List<SkinShopData> skins;
-        public Button buyButton;
-        public GameObject selectSkin;
-        public Image cyrrancy;
-        public NumberVisualizer numberVisualizer;
-        public List<CurrancyIcons> currancyIcons;
-
-        private RectTransform characterTransform;
         private int currentIndex;
         private bool isSwitching;
-        private int currentActualSkinId;
         private int selectionSkinID;
-        private Storage storage;
-        private IYandexSaveService saveService;
+        private int currentActualSkinId;
+        private RectTransform characterTransform;
 
-        public void Constructor(IYandexSaveService yandexSaveService) =>
+        private Storage storage;
+        private readonly IYandexSaveService saveService;
+        private readonly CharacterSwitcherView view;
+
+        public CharacterSwitcher(CharacterSwitcherView characterSwitcherView, IYandexSaveService yandexSaveService)
+        {
+            view = characterSwitcherView;
             saveService = yandexSaveService;
 
-        public void Prepape()
+            Prepape();
+        }
+
+        ~CharacterSwitcher() =>
+            Dispose();
+
+        private void Prepape()
         {
             storage = saveService.Load();
 
@@ -72,16 +50,17 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
 
             Refrash();
 
-            Save();
+            view.leftButton.onClick.AddListener(() => { SwitchCharacter(true); });
+            view.rightButton.onClick.AddListener(() => { SwitchCharacter(false); });
 
             void Refrash()
             {
                 currentActualSkinId = storage.userSkins.selectionSkinId;
-                characterTransform = characterImage.GetComponent<RectTransform>();
+                characterTransform = view.characterImage.GetComponent<RectTransform>();
                 characterTransform.localScale = Vector3.zero;
                 AnimateCharacter(true, currentActualSkinId);
                 UpdateUI(currentActualSkinId);
-                buyButton.onClick.AddListener(Buy);
+                view.buyButton.onClick.AddListener(Buy);
             }
 
             void LoadDefault()
@@ -91,7 +70,7 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
                     SkinDatas = new List<SkinData>()
                 };
 
-                foreach (var skin in skins)
+                foreach (var skin in view.skins)
                 {
                     var skinData = new SkinData();
                     skinData.ID = skin.id;
@@ -108,21 +87,25 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
             {
                 foreach (var userSkin in storage.userSkins.SkinDatas)
                 {
-                    foreach (var skin in skins.Where(skin => userSkin.ID == skin.id))
+                    foreach (var skin in view.skins.Where(skin => userSkin.ID == skin.id))
                         skin.isOpen = userSkin.IsOpen;
                 }
             }
         }
 
-        private void OnDestroy() =>
-            buyButton.onClick.RemoveListener(Buy);
+        public void Dispose()
+        {
+            view.leftButton.onClick.RemoveAllListeners();
+            view.rightButton.onClick.RemoveAllListeners();
+            view.buyButton.onClick.RemoveAllListeners();
+        }
 
         private void Save() =>
             saveService.Save(storage);
 
         private void Buy()
         {
-            var skin = skins[selectionSkinID];
+            var skin = view.skins[selectionSkinID];
 
             if (skin.isOpen)
                 return;
@@ -140,9 +123,9 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
 
                         storage.EmeraldCurrancy = -skin.price;
 
-                        selectSkin.SetActive(true);
-                        numberVisualizer.gameObject.SetActive(false);
-                        cyrrancy.gameObject.SetActive(false);
+                        view.selectSkin.SetActive(true);
+                        view.numberVisualizer.gameObject.SetActive(false);
+                        view.cyrrancy.gameObject.SetActive(false);
 
                         Save();
                     }
@@ -159,9 +142,9 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
 
                         storage.FishCurrancy = -skin.price;
 
-                        selectSkin.SetActive(true);
-                        numberVisualizer.gameObject.SetActive(false);
-                        cyrrancy.gameObject.SetActive(false);
+                        view.selectSkin.SetActive(true);
+                        view.numberVisualizer.gameObject.SetActive(false);
+                        view.cyrrancy.gameObject.SetActive(false);
 
                         Save();
                     }
@@ -172,7 +155,7 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
             }
         }
 
-        public void SwitchCharacter(bool isRight)
+        private void SwitchCharacter(bool isRight)
         {
             if (isSwitching)
                 return;
@@ -183,7 +166,7 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
             {
                 newIndex = currentIndex + 1;
 
-                if (newIndex >= skins.Count)
+                if (newIndex >= view.skins.Count)
                     newIndex = 0;
             }
             else
@@ -191,7 +174,7 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
                 newIndex = currentIndex - 1;
 
                 if (newIndex < 0)
-                    newIndex = skins.Count - 1;
+                    newIndex = view.skins.Count - 1;
             }
 
             selectionSkinID = newIndex;
@@ -213,7 +196,7 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
                 {
                     if (newIndex != -1)
                     {
-                        characterImage.sprite = skins[newIndex].icon;
+                        view.characterImage.sprite = view.skins[newIndex].icon;
                         currentIndex = newIndex;
                     }
 
@@ -231,26 +214,27 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
 
         private void UpdateUI(int id)
         {
-            var skin = skins[id];
+            var skin = view.skins[id];
 
             if (!skin.isOpen)
             {
-                selectSkin.SetActive(false);
+                view.selectSkin.SetActive(false);
 
-                numberVisualizer.gameObject.SetActive(true);
-                numberVisualizer.ShowNumber(skin.price);
+                view.numberVisualizer.gameObject.SetActive(true);
+                view.numberVisualizer.ShowNumber(skin.price);
 
-                cyrrancy.gameObject.SetActive(true);
-                cyrrancy.sprite = currancyIcons.FirstOrDefault(icon => icon.currancyTypeID == skin.priceType)!.icon;
+                view.cyrrancy.gameObject.SetActive(true);
+                view.cyrrancy.sprite = view.currancyIcons.FirstOrDefault(icon => icon.currancyTypeID == skin.priceType)!
+                    .icon;
             }
             else
             {
                 currentActualSkinId = id;
                 storage.userSkins.selectionSkinId = id;
 
-                selectSkin.SetActive(true);
-                numberVisualizer.gameObject.SetActive(false);
-                cyrrancy.gameObject.SetActive(false);
+                view.selectSkin.SetActive(true);
+                view.numberVisualizer.gameObject.SetActive(false);
+                view.cyrrancy.gameObject.SetActive(false);
             }
         }
     }

@@ -13,9 +13,8 @@ using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
 using Internal.Codebase.Runtime.BiomeShop;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
-using Internal.Codebase.Runtime.MainMenu.Animation;
+using Internal.Codebase.Runtime.MainMenu.HeroSwither;
 using Internal.Codebase.Utilities.Constants;
-using UnityEngine;
 using YG;
 using Zenject;
 
@@ -30,6 +29,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private readonly IUIFactory uiFactory;
         private GameStateMachine gameStateMachine;
         private BiomeShopView biomeShop;
+        private CharacterSwitcher characterSwitcher;
 
         [Inject]
         public LoadMainMenuState(
@@ -60,6 +60,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         {
             if (uiFactory.MainMenuUIRoot.MenuCanvasView != null)
                 uiFactory.MainMenuUIRoot.MenuCanvasView.Dispose();
+
+            characterSwitcher?.Dispose();
         }
 
         private void PrepareUI()
@@ -131,9 +133,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
             // Setup CharacterSwitcherView
             {
-                var temp = uiRoot.MenuCanvasView.GetComponentInChildren<CharacterSwitcher>();
-                temp.Constructor(saveService);
-                temp.Prepape();
+                characterSwitcher = new CharacterSwitcher(uiRoot.MenuCanvasView.CharacterSwitcherView, saveService);
             }
         }
 

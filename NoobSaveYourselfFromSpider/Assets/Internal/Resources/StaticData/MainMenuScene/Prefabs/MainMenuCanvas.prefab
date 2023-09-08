@@ -941,7 +941,6 @@ GameObject:
   - component: {fileID: 4653860086342935399}
   - component: {fileID: 6687015793371931365}
   - component: {fileID: 8459347179142736240}
-  - component: {fileID: 7446573271255190521}
   - component: {fileID: 4069969848641640046}
   m_Layer: 0
   m_Name: MainMenuCanvas
@@ -999,77 +998,9 @@ MonoBehaviour:
   <Settings>k__BackingField: {fileID: 9042544002465396829}
   <BestDistance>k__BackingField: {fileID: 8736221692866209937}
   <PlayButton>k__BackingField: {fileID: 3909713382052680787}
-  <BiomeShopView>k__BackingField: {fileID: 0}
+  <BiomeShopView>k__BackingField: {fileID: 4988230876410566107}
   BuyCurrencyView: {fileID: 6600272401004541506}
   BuyCurrencyViewShortPanel: {fileID: 5947266779738943404}
---- !u!114 &7446573271255190521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1363641834360016024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc75b8a856694a9293fc630caed54632, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterImage: {fileID: 163922991917402242}
-  skins:
-  - id: 0
-    icon: {fileID: -1377419032, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
-    priceType: 0
-    price: 0
-    isOpen: 1
-  - id: 1
-    icon: {fileID: -197256452, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
-    priceType: 0
-    price: 10
-    isOpen: 0
-  - id: 2
-    icon: {fileID: -686344964, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
-    priceType: 0
-    price: 50
-    isOpen: 0
-  - id: 3
-    icon: {fileID: 1937092506, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
-    priceType: 0
-    price: 150
-    isOpen: 0
-  - id: 4
-    icon: {fileID: -391973836, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
-    priceType: 1
-    price: 2
-    isOpen: 0
-  - id: 5
-    icon: {fileID: -63669742, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
-    priceType: 1
-    price: 4
-    isOpen: 0
-  - id: 6
-    icon: {fileID: 467396367, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
-    priceType: 0
-    price: 300
-    isOpen: 0
-  - id: 7
-    icon: {fileID: 1815338135, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
-    priceType: 1
-    price: 3
-    isOpen: 0
-  - id: 8
-    icon: {fileID: -419450692, guid: 2ef4719b7bae9044ab6af17e56bfc183, type: 3}
-    priceType: 1
-    price: 7
-    isOpen: 0
-  buyButton: {fileID: 398535201957002618}
-  selectSkin: {fileID: 2357315360834772966}
-  cyrrancy: {fileID: 7818577755578471940}
-  numberVisualizer: {fileID: 8289867177267392899}
-  currancyIcons:
-  - icon: {fileID: 557182303, guid: 35e8df9dc7ead2549bc5f860088974b7, type: 3}
-    currancyTypeID: 0
-  - icon: {fileID: 1301073082, guid: b2e896807fa1beb4897ddd691bb2c72d, type: 3}
-    currancyTypeID: 1
 --- !u!114 &4069969848641640046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3200,20 +3131,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 102843364705947405}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7446573271255190521}
-        m_TargetAssemblyTypeName: Internal.Codebase.Runtime.MainMenu.Animation.CharacterSwitcher,
-          Assembly-CSharp
-        m_MethodName: SwitchCharacter
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &4504906673017860487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5488,20 +5406,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3206214958266996252}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7446573271255190521}
-        m_TargetAssemblyTypeName: Internal.Codebase.Runtime.MainMenu.Animation.CharacterSwitcher,
-          Assembly-CSharp
-        m_MethodName: SwitchCharacter
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &3215901634565057416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5855,6 +5760,8 @@ MonoBehaviour:
     price: 7
     isOpen: 0
   buyButton: {fileID: 398535201957002618}
+  leftButton: {fileID: 5002343600160176711}
+  rightButton: {fileID: 5494541120491394795}
   selectSkin: {fileID: 2357315360834772966}
   cyrrancy: {fileID: 7818577755578471940}
   numberVisualizer: {fileID: 8289867177267392899}
@@ -6984,7 +6891,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6206224429979331380, guid: 5909a7d2b5440ce4a88469325837c569, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6206224429979331380, guid: 5909a7d2b5440ce4a88469325837c569, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -8065,7 +7972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6206224429979331380, guid: 845bcbe43dafe9c47bbac8217020c31d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6206224429979331380, guid: 845bcbe43dafe9c47bbac8217020c31d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
