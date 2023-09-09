@@ -93,7 +93,7 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
             hero.HeroSpriteRenderer.sprite = skinDatas.FirstOrDefault(x => x.id == userSkin.selectionSkinId)!.icon;
 
             levelGenerator = gameFactory.CreateLevelGenerator();
-            levelGenerator.Prepare();
+            levelGenerator.StartEndlessLevelGeneration();
 
             sceneController = Object.FindObjectOfType<SceneController>();
 

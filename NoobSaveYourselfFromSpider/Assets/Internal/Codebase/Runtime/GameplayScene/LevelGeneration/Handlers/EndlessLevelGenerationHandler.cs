@@ -32,7 +32,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
 
         private List<Prefab> pool;
         private Prefab lastSpawnedPrefab;
-        private bool canSpawnNextPrefab = true;
+        private bool canSpawnNextPrefab = false;
         private bool pause;
 
         public EndlessLevelGenerationHandler(
@@ -65,8 +65,6 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
             }
 
             pool.Add(lastSpawnedPrefab);
-
-            StartEndlessLevelGeneration();
 
             updaterService.Subscribe(Update, UpdateType.Update);
         }
