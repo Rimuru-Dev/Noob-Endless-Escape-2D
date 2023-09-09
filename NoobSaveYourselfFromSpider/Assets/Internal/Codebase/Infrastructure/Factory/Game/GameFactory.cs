@@ -9,6 +9,7 @@ using System.Diagnostics.CodeAnalysis;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.ActionUpdater;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
+using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers;
@@ -23,26 +24,25 @@ namespace Internal.Codebase.Infrastructure.Factory.Game
         private readonly IStaticDataService staticDataService;
         private readonly IYandexSaveService yandexSaveService;
         private readonly IActionUpdaterService actionUpdaterService;
+        private readonly ICoroutineRunner coroutineRunner;
 
         public GameFactory(
             IAssetProvider assetProvider,
             IStaticDataService staticDataService,
             IYandexSaveService yandexSaveService,
-            IActionUpdaterService actionUpdaterService)
+            IActionUpdaterService actionUpdaterService,
+            ICoroutineRunner coroutineRunner)
         {
             this.assetProvider = assetProvider;
             this.staticDataService = staticDataService;
             this.yandexSaveService = yandexSaveService;
             this.actionUpdaterService = actionUpdaterService;
+            this.coroutineRunner = coroutineRunner;
         }
 
         public EndlessLevelGenerationHandler CreateLevelGenerator()
         {
-            var levelGenerationHandler =
-                assetProvider.Instantiate<EndlessLevelGenerationHandler>(AssetPath.LevelGeneratorHandler);
-
-            var config = YandexGame.savesData.storage;
-
+            var config = yandexSaveService.Load();
             var selectionBiom = config.userBioms.selectionBiomId;
 
             var biom = selectionBiom switch
@@ -52,8 +52,13 @@ namespace Internal.Codebase.Infrastructure.Factory.Game
                 _ => staticDataService.GreenPlains
             };
 
-            levelGenerationHandler.Constructor(yandexSaveService, actionUpdaterService, biom);
-            levelGenerationHandler.Perform();
+            var levelGenerationHandler = new EndlessLevelGenerationHandler(
+                coroutineRunner,
+                yandexSaveService,
+                actionUpdaterService,
+                biom);
+
+            levelGenerationHandler.Prepare();
 
             return levelGenerationHandler;
         }

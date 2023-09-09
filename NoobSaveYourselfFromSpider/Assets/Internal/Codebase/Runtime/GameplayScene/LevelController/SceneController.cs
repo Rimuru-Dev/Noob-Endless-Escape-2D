@@ -65,7 +65,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
             {
                 Time.timeScale = 1;
                 //sceneLoaderService.LoadScene(SceneName.Menu, () => { stateMachine.EnterState<LoadMainMenuState>(); });
-                levelGeneration.Pause = true;
+                levelGeneration.StopEndlessLevelGeneration(); 
                 heroView.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 heroView.JumpController.IsCanJump = false;
                 action?.Invoke();
@@ -81,7 +81,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
             {
                 Time.timeScale = 1;
                 //sceneLoaderService.LoadScene(SceneName.Menu, () => { stateMachine.EnterState<LoadMainMenuState>(); });
-                levelGeneration.Pause = true;
+                levelGeneration.StopEndlessLevelGeneration();
                 heroView.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 heroView.JumpController.IsCanJump = false;
                 action?.Invoke();
@@ -111,7 +111,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
 
         private void EndTimer()
         {
-            endlessLevelGenerationHandler.Pause = false;
+            endlessLevelGenerationHandler.StartEndlessLevelGeneration();
             Rebirth();
         }
 
@@ -135,7 +135,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
             if (id == 50)
             {
                 AudioListener.volume = storage.audioSettings.volume;
-                endlessLevelGenerationHandler.Pause = true;
+                endlessLevelGenerationHandler.StopEndlessLevelGeneration();
                 Time.timeScale = 1;
                 popup.SetActive(false);
                 advTimer.StartCountdown();

@@ -15,6 +15,7 @@ using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.GameplayScene.LevelController;
+using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers;
 using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 using YG;
@@ -70,6 +71,8 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
             curtain.HideCurtain(config.HideDelay);
         }
 
+        private EndlessLevelGenerationHandler levelGenerator;
+
         private void PrepareScene()
         {
             // 1. Spawn Level Generator.
@@ -78,7 +81,7 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
             // 4. Starting the timer to prepare for the game.
             // 4. Let is notify everyone of the start of the game.
             // 5. Play game.
-            
+
             // 1
             var hero = heroFactory.CreateHero();
             heroFactory.CreateHeroCamera();
@@ -89,7 +92,7 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
 
             hero.HeroSpriteRenderer.sprite = skinDatas.FirstOrDefault(x => x.id == userSkin.selectionSkinId)!.icon;
 
-            var levelGenerator = gameFactory.CreateLevelGenerator();
+            levelGenerator = gameFactory.CreateLevelGenerator();
             levelGenerator.Prepare();
 
             sceneController = Object.FindObjectOfType<SceneController>();
@@ -109,11 +112,12 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
                     sceneLoader.LoadScene(SceneName.Menu, (() =>
                     {
                         Debug.Log($"stateMachine == null? - {gameStateMachine == null}");
-                        
+
                         if (gameStateMachine != null)
                             gameStateMachine.EnterState<LoadMainMenuState>();
                         else
-                            Debug.Log($"Failure loaded LoadMainMenuState - stateMachine == null? - {gameStateMachine == null}");
+                            Debug.Log(
+                                $"Failure loaded LoadMainMenuState - stateMachine == null? - {gameStateMachine == null}");
                     }));
                 });
         }

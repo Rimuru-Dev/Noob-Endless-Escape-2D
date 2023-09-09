@@ -12,66 +12,51 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Internal.Codebase.Infrastructure.Services.ActionUpdater;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
+using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.PrefabHelper;
-using Internal.Codebase.Runtime.General.StorageData;
-using NaughtyAttributes;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
 {
-    [SelectionBase]
-    [DisallowMultipleComponent]
     [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeNullComparison")]
-    public sealed class EndlessLevelGenerationHandler : MonoBehaviour, IEndlessLevelGenerationHandler
+    public sealed class EndlessLevelGenerationHandler : IEndlessLevelGenerationHandler, IDisposable
     {
-        [SerializeField, Expandable] private EndlessLevelGenerationConfig config;
-        [SerializeField] private bool useStart = false;
+        private readonly ICoroutineRunner coroutineRunner;
+        private readonly IYandexSaveService saveService;
+        private readonly IActionUpdaterService updaterService;
+        private readonly EndlessLevelGenerationConfig levelGeneration;
+        private readonly Transform Root = new GameObject("Root").transform;
 
         private List<Prefab> pool;
         private Prefab lastSpawnedPrefab;
-        private Storage storage;
-        private IYandexSaveService saveService;
-        private IActionUpdaterService updater;
-        private bool CanSpawnNextPrefab { get; set; } = true;
-        public bool Pause { get; set; }
+        private bool canSpawnNextPrefab = true;
+        private bool pause;
 
-        public void Constructor(
-            IYandexSaveService yandexSaveService,
-            IActionUpdaterService actionUpdaterService,
-            EndlessLevelGenerationConfig endlessLevelGenerationConfig)
+        public EndlessLevelGenerationHandler(
+            ICoroutineRunner coroutineRunner,
+            IYandexSaveService saveService,
+            IActionUpdaterService updaterService,
+            EndlessLevelGenerationConfig levelGeneration)
         {
-            saveService = yandexSaveService ?? throw new ArgumentNullException(nameof(yandexSaveService));
-            updater = actionUpdaterService ?? throw new ArgumentNullException(nameof(actionUpdaterService));
-            config = endlessLevelGenerationConfig
-                ? endlessLevelGenerationConfig
-                : throw new ArgumentNullException(nameof(endlessLevelGenerationConfig));
+            this.coroutineRunner = coroutineRunner;
+            this.saveService = saveService;
+            this.updaterService = updaterService;
+            this.levelGeneration = levelGeneration;
         }
 
-        public void Perform()
-        {
-            updater.Subscribe(MyUdate, UpdateType.Update);
-        }
-
-        private void MyUdate()
-        {
-            print("MyUdate()");
-        }
-
-        private void Start()
-        {
-            if (useStart)
-                Prepare();
-        }
-
-        // TODO: Start in Infrastructure. And Remove MonoBehaviour or Spawn This Object on scene in LevelFactory.
         public void Prepare()
         {
-            pool = new List<Prefab>(config.MaxBlockCount);
+            pool = new List<Prefab>(levelGeneration.MaxBlockCount);
 
-            lastSpawnedPrefab = Instantiate(config.LaunchingPlatform, config.StartSpawnPoint, Quaternion.identity,
-                transform);
+            lastSpawnedPrefab =
+                Object.Instantiate(
+                    levelGeneration.LaunchingPlatform,
+                    levelGeneration.StartSpawnPoint,
+                    Quaternion.identity,
+                    Root);
 
             foreach (var reward in lastSpawnedPrefab.rewardViews.Where(reward => reward != null))
             {
@@ -82,16 +67,13 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
             pool.Add(lastSpawnedPrefab);
 
             StartEndlessLevelGeneration();
+
+            updaterService.Subscribe(Update, UpdateType.Update);
         }
 
         private void Update()
         {
-            print("Unity Update()");
-
-            if (Input.GetKeyDown(KeyCode.K)) updater.Pause(true);
-            if (Input.GetKeyDown(KeyCode.L)) updater.Pause(false);
-
-            if (Pause)
+            if (pause)
                 return;
 
             if (IsCanLevelScrolling())
@@ -107,51 +89,48 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
                 }
 
                 var position = block.transform.position;
-                var targetPosition = position + Vector3.left * (config.LevelScrollingSpeed * Time.deltaTime);
+                var targetPosition = position + Vector3.left * (levelGeneration.LevelScrollingSpeed * Time.deltaTime);
 
                 block.transform.Translate(targetPosition - position);
 
-                if (position.x < -config.DespawnOffset)
+                if (position.x < -levelGeneration.DespawnOffset)
                     DespawnBlock(block);
             }
         }
 
-        private void OnDestroy()
-        {
-            updater.Unsubscribe(MyUdate, UpdateType.Update);
-            StopEndlessLevelGeneration();
-
-            pool.Clear();
-            pool = null;
-        }
-
         public void StartEndlessLevelGeneration()
         {
-            CanSpawnNextPrefab = true;
-            StartCoroutine(SpawnNextPrefab());
+            canSpawnNextPrefab = true;
+            coroutineRunner.StartCoroutine(SpawnNextPrefab());
         }
 
         public void StopEndlessLevelGeneration()
         {
-            CanSpawnNextPrefab = false;
-            StopCoroutine(SpawnNextPrefab());
+            canSpawnNextPrefab = false;
+            coroutineRunner.StopAllCoroutines();
+        }
+
+        public void Dispose()
+        {
+            pool.Clear();
+            updaterService.Unsubscribe(Update, UpdateType.Update);
         }
 
         private IEnumerator SpawnNextPrefab()
         {
-            while (CanSpawnNextPrefab)
+            while (canSpawnNextPrefab)
             {
-                if (Pause)
-                    yield return new WaitForSeconds(config.SpawnCooldown);
+                if (pause)
+                    yield return new WaitForSeconds(levelGeneration.SpawnCooldown);
 
                 var rightConnectPoint = lastSpawnedPrefab.rightEdge.transform;
-                var nextPrefabIndex = Random.Range(0, config.Prefabs.Length);
+                var nextPrefabIndex = Random.Range(0, levelGeneration.Prefabs.Length);
 
-                if (pool.Count < config.MaxBlockCount)
+                if (pool.Count < levelGeneration.MaxBlockCount)
                 {
                     var position = rightConnectPoint.position;
-                    var nextPrefab = Instantiate(config.Prefabs[nextPrefabIndex], position, Quaternion.identity,
-                        transform);
+                    var nextPrefab = Object.Instantiate(levelGeneration.Prefabs[nextPrefabIndex], position, Quaternion.identity,
+                        Root);
 
                     pool.Add(nextPrefab);
 
@@ -169,12 +148,12 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
                     }
                 }
 
-                yield return new WaitForSeconds(config.SpawnCooldown);
+                yield return new WaitForSeconds(levelGeneration.SpawnCooldown);
             }
         }
 
         private bool IsCanLevelScrolling() =>
-            pool == null || pool.Count == 0 || !CanSpawnNextPrefab;
+            pool == null || pool.Count == 0 || !canSpawnNextPrefab;
 
         private void DespawnBlock(Prefab block)
         {
@@ -182,7 +161,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
                 pool.Remove(block);
 
             if (block != null)
-                Destroy(block.gameObject);
+                Object.Destroy(block.gameObject);
         }
     }
 }
