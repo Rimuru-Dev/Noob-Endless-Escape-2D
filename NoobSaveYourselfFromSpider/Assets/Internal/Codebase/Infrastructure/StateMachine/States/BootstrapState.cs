@@ -54,16 +54,12 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
         private void PrepareServices()
         {
-            // ** User Data ** //
             yandexSaveService.Init();
 
-            // ** Tweens ** //
             DOTween.Init();
 
-            // ** Static Data ** //
             staticData.Initialize();
 
-            // ** Curtain ** //
             curtain.Init();
             curtain.ShowCurtain(false);
         }
