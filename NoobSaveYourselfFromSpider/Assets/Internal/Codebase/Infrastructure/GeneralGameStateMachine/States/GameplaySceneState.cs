@@ -14,6 +14,7 @@ using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
+using Internal.Codebase.Runtime.GameplayScene.Hero.View;
 using Internal.Codebase.Runtime.GameplayScene.LevelController;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers;
 using Internal.Codebase.Runtime.GameplayScene.Timer;
@@ -61,7 +62,7 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
         {
             PrepareScene();
             HideCurtain();
-            gt.StartCountdown();
+            gameTimer.StartCountdown();
         }
 
         public void Exit()
@@ -72,44 +73,48 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
             curtain.HideCurtain();
 
         private EndlessLevelGenerationHandler levelGenerator;
-        private GameTimer gt;
+        private GameTimer gameTimer;
 
         private void PrepareScene()
         {
-            // 1. Spawn Level Generator.
-            // 2. Spawn Hero and Camera.
-            // 3. Spawn UI.
-            // 4. Starting the timer to prepare for the game.
-            // 4. Let is notify everyone of the start of the game.
-            // 5. Play game.
-
-            // 1
-            var hero = heroFactory.CreateHero();
-            heroFactory.CreateHeroCamera();
-
-            var skinDatas = staticData.ForSkins().gameplaySkinDatas;
-            var userSkin = YandexGame.savesData.storage.userSkins;
-
-            hero.HeroSpriteRenderer.sprite = skinDatas.FirstOrDefault(x => x.id == userSkin.selectionSkinId)!.icon;
-
-            levelGenerator = gameFactory.CreateLevelGenerator();
-            gt = Object.FindObjectOfType<GameTimer>();
-            gt.OnTimerOff += ActivateELG;
+            PrepareLevelGeneration();
+            var hero = PrepareHero();
 
             sceneController = Object.FindObjectOfType<SceneController>();
-            
+
             sceneController.Container(
                 hero,
                 OnSceneLoaded,
                 levelGenerator,
                 saveService);
+
+            void PrepareLevelGeneration()
+            {
+                levelGenerator = gameFactory.CreateLevelGenerator();
+                gameTimer = Object.FindObjectOfType<GameTimer>();
+                gameTimer.OnTimerOff += ActivateELG;
+            }
+
+            HeroViewController PrepareHero()
+            {
+                var heroViewController = heroFactory.CreateHero();
+                heroFactory.CreateHeroCamera();
+
+                var skinDatas = staticData.ForSkins().gameplaySkinDatas;
+                var userSkin = saveService.Load().userSkins;
+
+                heroViewController.HeroSpriteRenderer.sprite =
+                    skinDatas.FirstOrDefault(x => x.id == userSkin.selectionSkinId)!.icon;
+
+                return heroViewController;
+            }
         }
 
         private void ActivateELG()
         {
             levelGenerator.StartEndlessLevelGeneration();
             Object.FindObjectOfType<NumberVisualizer>().StartAutoVisualizeText();
-            gt.OnTimerOff -= ActivateELG;
+            gameTimer.OnTimerOff -= ActivateELG;
         }
 
         private void OnSceneLoaded()
