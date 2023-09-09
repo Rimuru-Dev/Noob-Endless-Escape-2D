@@ -13,23 +13,21 @@ namespace Internal.Codebase.Runtime.GameplayScene.Hero.Input
     [DisallowMultipleComponent]
     public sealed class JumpController : MonoBehaviour
     {
+        public Transform heroTransform;
         public float jumpForce = 5f;
         public float rotationAngle = 90f;
         public float rotationSpeed = 5f;
         public bool useMouseClick = true;
         public bool IsCanJump { get; set; } = true;
 
-        private Rigidbody2D rb;
+        public Rigidbody2D rb;
         private bool isJumping;
         private Quaternion targetRotation;
         private Vector3 initialPosition;
         private bool IsCanReturnToInitialPosition { get; set; } = true;
 
-        private void Start()
-        {
-            rb = GetComponent<Rigidbody2D>();
+        private void Start() =>
             initialPosition = transform.position;
-        }
 
         private void Update()
         {
@@ -50,7 +48,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.Hero.Input
 
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
-            targetRotation = Quaternion.Euler(0f, 0f, transform.eulerAngles.z + rotationAngle);
+            targetRotation = Quaternion.Euler(0f, 0f, heroTransform.eulerAngles.z + rotationAngle);
         }
 
         private void FixedUpdate()
@@ -61,10 +59,10 @@ namespace Internal.Codebase.Runtime.GameplayScene.Hero.Input
 
         private void Rotate()
         {
-            transform.rotation =
-                Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+            heroTransform.rotation =
+                Quaternion.Lerp(heroTransform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
 
-            if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
+            if (Quaternion.Angle(heroTransform.rotation, targetRotation) < 0.1f)
                 isJumping = false;
         }
 
@@ -73,13 +71,13 @@ namespace Internal.Codebase.Runtime.GameplayScene.Hero.Input
             if (!IsCanReturnToInitialPosition)
                 return;
 
-            var position = transform.position;
+            var position = heroTransform.position;
 
             var targetPosition = new Vector3(initialPosition.x, position.y, position.z);
 
             position = Vector3.Lerp(position, targetPosition, rotationSpeed * Time.deltaTime);
 
-            transform.position = position;
+            heroTransform.position = position;
         }
 
         // ReSharper disable once UnusedParameter.Local

@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &704993327471650759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2371620374673882792}
+  - component: {fileID: 293977727911980755}
+  m_Layer: 8
+  m_Name: Death
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2371620374673882792
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704993327471650759}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 201328368784681977}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &293977727911980755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704993327471650759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd340f118a074606bdb67750c1cd5089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4415182669802362458
 GameObject:
   m_ObjectHideFlags: 0
@@ -84,37 +128,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &5216133920575527936
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5038999288144383400}
-  m_Layer: 8
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5038999288144383400
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5216133920575527936}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.249, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 201328368784681977}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9088350657408522445
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +141,6 @@ GameObject:
   - component: {fileID: 507205313234098931}
   - component: {fileID: 2261558872126293109}
   - component: {fileID: 5486645235183081572}
-  - component: {fileID: -3516122880135011127}
   m_Layer: 8
   m_Name: Hero
   m_TagString: Player
@@ -149,7 +161,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 452925312391639836}
-  - {fileID: 5038999288144383400}
+  - {fileID: 2371620374673882792}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -238,8 +250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <HeroSpriteRenderer>k__BackingField: {fileID: 3684189127273395468}
-  jumpController: {fileID: 5486645235183081572}
-  heroDie: {fileID: -3516122880135011127}
+  <JumpController>k__BackingField: {fileID: 5486645235183081572}
+  <HeroDie>k__BackingField: {fileID: 293977727911980755}
 --- !u!114 &5486645235183081572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,19 +264,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d68a96843394466ebd1e7db0cd40f94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heroTransform: {fileID: 201328368784681977}
   jumpForce: 5.2
   rotationAngle: -90
   rotationSpeed: 5
   useMouseClick: 1
---- !u!114 &-3516122880135011127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9088350657408522445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd340f118a074606bdb67750c1cd5089, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  rb: {fileID: 507205313234098931}

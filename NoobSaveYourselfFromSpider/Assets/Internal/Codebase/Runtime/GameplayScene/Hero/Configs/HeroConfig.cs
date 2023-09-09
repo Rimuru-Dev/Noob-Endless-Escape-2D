@@ -6,7 +6,7 @@
 // **************************************************************** //
 
 using Cinemachine;
-using Internal.Codebase.Runtime.GameplayScene.Hero.Controller;
+using Internal.Codebase.Runtime.GameplayScene.Hero.View;
 using UnityEngine;
 
 namespace Internal.Codebase.Runtime.GameplayScene.Hero.Configs

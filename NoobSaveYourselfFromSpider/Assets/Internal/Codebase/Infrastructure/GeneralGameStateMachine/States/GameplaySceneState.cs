@@ -72,6 +72,14 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
 
         private void PrepareScene()
         {
+            // 1. Spawn Level Generator.
+            // 2. Spawn Hero and Camera.
+            // 3. Spawn UI.
+            // 4. Starting the timer to prepare for the game.
+            // 4. Let is notify everyone of the start of the game.
+            // 5. Play game.
+            
+            // 1
             var hero = heroFactory.CreateHero();
             heroFactory.CreateHeroCamera();
             hero.transform.position = new Vector3(0, 7f, 0);

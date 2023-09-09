@@ -22,7 +22,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.Obstacles
             if (!other.transform.CompareTag(Tag.Player))
                 return;
 
-            var die = other.transform.GetComponent<HeroDie>();
+            var die = other.transform.GetComponentInChildren<HeroDie>();
 
             if (die != null)
                 die.ApplyHeroDie();

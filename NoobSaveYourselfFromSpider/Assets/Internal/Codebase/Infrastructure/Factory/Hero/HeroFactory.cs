@@ -9,7 +9,7 @@ using Cinemachine;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.GameplayScene.Hero;
-using Internal.Codebase.Runtime.GameplayScene.Hero.Controller;
+using Internal.Codebase.Runtime.GameplayScene.Hero.View;
 using UnityEngine;
 using Zenject;
 

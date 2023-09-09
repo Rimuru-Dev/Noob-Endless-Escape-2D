@@ -9,13 +9,17 @@ namespace Internal.Codebase.Infrastructure.AssetManagement
 {
     public readonly struct AssetPath
     {
-        public const string Curtain = "Curtain/Config/CurtainConfig";
-        public const string HeroConfig = "Hero/Configs/HeroConfig";
-        public const string LevelGeneratorHandler = "Biomes/Prefabs/LevelGenerator";
+        // General - Static Data
+        public const string Curtain = "StaticData/Curtain/Config/CurtainConfig";
 
+        // Gameplay Scene - Static Data
+        public const string HeroConfig = "StaticData/GameplayScene/Hero/Configs/HeroConfig";
+        public const string GreenPlains = "StaticData/GameplayScene/Biomes/Configs/GreenPlains";
+        public const string SnowyWastelands = "StaticData/GameplayScene/Biomes/Configs/SnowyWastelands";
+
+        // Main Menu Scene - Static Data
+        public const string Skins = "StaticData/MainMenuScene/Skins/Skins";
         public const string MainMenuUIConfig = "StaticData/MainMenuScene/Configs/MainMenuUIConfig";
-        public const string GreenPlains = "Biomes/Configs/GreenPlains";
-        public const string SnowyWastelands = "Biomes/Configs/SnowyWastelands";
-        public const string Skins = "Skins/Skins";
+        public const string LevelGeneratorHandler = "StaticData/GameplayScene/Biomes/Prefabs/LevelGenerator";
     }
 }

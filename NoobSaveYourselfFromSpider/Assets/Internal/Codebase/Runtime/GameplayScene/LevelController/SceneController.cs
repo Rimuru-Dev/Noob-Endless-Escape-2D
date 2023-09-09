@@ -11,7 +11,7 @@ using System.Linq;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.GameplayScene.Hero;
-using Internal.Codebase.Runtime.GameplayScene.Hero.Controller;
+using Internal.Codebase.Runtime.GameplayScene.Hero.View;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers;
 using Internal.Codebase.Runtime.GameplayScene.Obstacles;
@@ -55,7 +55,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
 
             endlessLevelGenerationHandler = levelGeneration;
             heroViewController = heroView;
-            heroViewController.heroDie.OnDie += Die;
+            heroViewController.HeroDie.OnDie += Die;
 
             Load();
 
@@ -67,7 +67,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
                 //sceneLoaderService.LoadScene(SceneName.Menu, () => { stateMachine.EnterState<LoadMainMenuState>(); });
                 levelGeneration.Pause = true;
                 heroView.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-                heroView.jumpController.IsCanJump = false;
+                heroView.JumpController.IsCanJump = false;
                 action?.Invoke();
             });
 
@@ -83,7 +83,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
                 //sceneLoaderService.LoadScene(SceneName.Menu, () => { stateMachine.EnterState<LoadMainMenuState>(); });
                 levelGeneration.Pause = true;
                 heroView.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-                heroView.jumpController.IsCanJump = false;
+                heroView.JumpController.IsCanJump = false;
                 action?.Invoke();
             });
 
@@ -164,7 +164,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
             heroViewController.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             heroViewController.HeroSpriteRenderer.color = Color.red;
             numberVisualizer.IsPause = true;
-            heroViewController.jumpController.IsCanJump = false;
+            heroViewController.JumpController.IsCanJump = false;
 
             var bestDistance = storage.BestDistance;
             var currentDistance = numberVisualizer.currentNumber;
@@ -195,7 +195,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
             obstacles.Clear();
             heroViewController.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             heroViewController.HeroSpriteRenderer.color = Color.white;
-            heroViewController.jumpController.IsCanJump = true;
+            heroViewController.JumpController.IsCanJump = true;
             numberVisualizer.IsPause = false;
 
             heroViewController.transform.position = new Vector3(0, 6f, 0);
@@ -213,7 +213,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
             rebirthButton.onClick.RemoveAllListeners();
 
             if (heroViewController != null)
-                heroViewController.heroDie.OnDie -= Die;
+                heroViewController.HeroDie.OnDie -= Die;
 
             startPause.onClick.RemoveAllListeners();
             stopPause.onClick.RemoveAllListeners();
