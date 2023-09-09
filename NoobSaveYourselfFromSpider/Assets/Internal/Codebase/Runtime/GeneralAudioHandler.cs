@@ -5,7 +5,6 @@
 //
 // **************************************************************** //
 
-using YG;
 using UnityEngine;
 using UnityEngine.UI;
 using Internal.Codebase.Runtime.StorageData;

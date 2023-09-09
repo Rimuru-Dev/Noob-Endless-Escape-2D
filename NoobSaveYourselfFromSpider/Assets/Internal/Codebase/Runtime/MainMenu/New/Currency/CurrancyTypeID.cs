@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Internal.Codebase.Runtime.MainMenu
+namespace Internal.Codebase.Runtime.MainMenu.New.Currency
 {
     [Serializable]
     public enum CurrancyTypeID

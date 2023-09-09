@@ -10,21 +10,17 @@
 //
 // **************************************************************** //
 
-using YG;
 using System;
 using System.Collections.Generic;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.StorageData;
+using YG;
 
 namespace Internal.Codebase.Infrastructure.Services.CloudSave
 {
     public sealed class YandexSaveService : IYandexSaveService
     {
-        private readonly YandexGame yandexGameSDK;
         private Runtime.StorageData.Storage storage;
-
-        public YandexSaveService(YandexGame yandexGameSDK) =>
-            this.yandexGameSDK = yandexGameSDK;
 
         public void Init() =>
             YandexGame.GetDataEvent += InitializeLoad;

@@ -5,8 +5,11 @@
 //
 // **************************************************************** //
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace Internal.Codebase.Infrastructure.StateMachine.Interfaces
 {
+    [SuppressMessage("ReSharper", "UnusedTypeParameter")]
     public interface IStateWithArgument<T>
     {
         public void Enter<TArgs>(TArgs args);

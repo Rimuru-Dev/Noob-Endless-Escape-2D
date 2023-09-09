@@ -8,7 +8,7 @@ namespace Internal.Codebase.Runtime
     {
         public int id;
 
-        [NaughtyAttributes.ShowAssetPreview(64, 64)]
+        [NaughtyAttributes.ShowAssetPreview()]
         public Sprite icon;
     }
 }

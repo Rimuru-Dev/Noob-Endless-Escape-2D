@@ -5,11 +5,9 @@
 //
 // **************************************************************** //
 
-using System;
 using Cinemachine;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.StaticData;
-using Internal.Codebase.Infrastructure.Services.Storage;
 using UnityEngine;
 using Zenject;
 
@@ -19,16 +17,14 @@ namespace Internal.Codebase.Infrastructure.Factory.Hero
     {
         private readonly IAssetProvider assetProvider;
         private readonly IStaticDataService staticData;
-        private readonly IStorageService storageService;
 
         public GameObject Hero { get; private set; }
 
         [Inject]
-        public HeroFactory(IAssetProvider assetProvider, IStaticDataService staticData, IStorageService storageService)
+        public HeroFactory(IAssetProvider assetProvider, IStaticDataService staticData)
         {
             this.assetProvider = assetProvider;
             this.staticData = staticData;
-            this.storageService = storageService;
         }
 
         public Runtime.Hero.HeroViewController CreateHero()

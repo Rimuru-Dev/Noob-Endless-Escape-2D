@@ -82,6 +82,7 @@ namespace Internal.Codebase.Runtime.Hero
             transform.position = position;
         }
 
+        // ReSharper disable once UnusedParameter.Local
         private void OnCollisionEnter2D(Collision2D collision) =>
             isJumping = false;
     }

@@ -4,7 +4,7 @@ using Internal.Codebase.Runtime.SpriteTextNumberCounterLogic;
 using Internal.Codebase.Runtime.StorageData;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.MainMenu
+namespace Internal.Codebase.Runtime.MainMenu.New.Currency
 {
     [DisallowMultipleComponent]
     public sealed class CurrancyUIView : MonoBehaviour

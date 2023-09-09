@@ -5,8 +5,11 @@
 //
 // **************************************************************** //
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace Internal.Codebase.Utilities.Constants
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public readonly struct Tag
     {
         public const string Untagged = nameof(Untagged);

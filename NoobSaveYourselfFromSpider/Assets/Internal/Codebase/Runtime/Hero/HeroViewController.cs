@@ -5,7 +5,6 @@
 //
 // **************************************************************** //
 
-using System;
 using UnityEngine;
 
 namespace Internal.Codebase.Runtime.Hero

@@ -16,9 +16,9 @@ namespace Internal.Codebase.Runtime.Curtain
         [SerializeField] private CanvasGroup canvasGroup;
         private float animationDuration;
 
-        public void Constructor(float animationDuration)
+        public void Constructor(float duration)
         {
-            this.animationDuration = animationDuration;
+            animationDuration = duration;
 
             DontDestroyOnLoad(this);
         }

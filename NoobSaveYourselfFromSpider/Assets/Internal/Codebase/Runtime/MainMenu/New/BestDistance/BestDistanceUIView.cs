@@ -10,7 +10,7 @@ using Internal.Codebase.Runtime.SpriteTextNumberCounterLogic;
 using Internal.Codebase.Runtime.StorageData;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.MainMenu
+namespace Internal.Codebase.Runtime.MainMenu.New.BestDistance
 {
     [DisallowMultipleComponent]
     public sealed class BestDistanceUIView : MonoBehaviour

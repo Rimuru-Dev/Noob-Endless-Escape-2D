@@ -35,7 +35,7 @@ namespace Internal.Codebase.Infrastructure.AssetManagement
             return Object.Instantiate(prefab);
         }
 
-        public T Instantiate<T>(string path, Transform parent = null) where T : UnityEngine.Object
+        public T Instantiate<T>(string path, Transform parent = null) where T : Object
         {
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentException(path);

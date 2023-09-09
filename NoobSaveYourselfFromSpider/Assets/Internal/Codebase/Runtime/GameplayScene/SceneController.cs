@@ -9,10 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
-using Internal.Codebase.Infrastructure.Services.Curtain;
-using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
-using Internal.Codebase.Infrastructure.StateMachine;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
 using Internal.Codebase.Runtime.Hero;
@@ -42,17 +39,12 @@ namespace Internal.Codebase.Runtime.GameplayScene
         public SpriteRenderer[] parallax;
 
         [Inject] private IStaticDataService staticDataService;
-        [Inject] private ICurtainService curtainService;
-        private GameStateMachine gameStateMachine;
-        private Hero.HeroViewController heroViewController;
-        private ISceneLoaderService sceneLoader;
+        private HeroViewController heroViewController;
         public List<DeadlyObstacle> obstacles = new();
         private EndlessLevelGenerationHandler endlessLevelGenerationHandler;
 
         public void Container(
             HeroViewController heroView,
-            GameStateMachine stateMachine,
-            ISceneLoaderService sceneLoaderService,
             Action action,
             EndlessLevelGenerationHandler levelGeneration,
             IYandexSaveService yandexSaveService)
@@ -60,10 +52,8 @@ namespace Internal.Codebase.Runtime.GameplayScene
             saveService = yandexSaveService;
 
             endlessLevelGenerationHandler = levelGeneration;
-            gameStateMachine = stateMachine;
             heroViewController = heroView;
             heroViewController.heroDie.OnDie += Die;
-            sceneLoader = sceneLoaderService;
 
             Load();
 
@@ -125,10 +115,10 @@ namespace Internal.Codebase.Runtime.GameplayScene
 
         public YandexGame yandexGameSDK;
 
-        public void Save() =>
+        private void Save() =>
             saveService.Save(storage);
 
-        public void Load() =>
+        private void Load() =>
             storage = saveService.Load();
 
         private void OnEnable() =>
@@ -162,7 +152,7 @@ namespace Internal.Codebase.Runtime.GameplayScene
         private void Reb() =>
             ShowAdvButton(50);
 
-        public void Die()
+        private void Die()
         {
             home.gameObject.SetActive(false);
             stopPause.gameObject.SetActive(false);
@@ -174,7 +164,6 @@ namespace Internal.Codebase.Runtime.GameplayScene
             numberVisualizer.IsPause = true;
             heroViewController.jumpController.IsCanJump = false;
 
-            var storage = YandexGame.savesData.storage;
             var bestDistance = storage.BestDistance;
             var currentDistance = numberVisualizer.currentNumber;
 
@@ -196,7 +185,7 @@ namespace Internal.Codebase.Runtime.GameplayScene
             Time.timeScale = 0;
         }
 
-        public void Rebirth()
+        private void Rebirth()
         {
             foreach (var obstacle in obstacles.Where(obstacle => obstacle != null))
                 obstacle.transform.parent.gameObject.SetActive(false);

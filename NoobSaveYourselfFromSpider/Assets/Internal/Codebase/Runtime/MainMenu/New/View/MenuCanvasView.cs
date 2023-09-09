@@ -1,6 +1,8 @@
 ﻿using System;
 using Internal.Codebase.Runtime.BiomeShop;
 using Internal.Codebase.Runtime.MainMenu.HeroSwither.View;
+using Internal.Codebase.Runtime.MainMenu.New.BestDistance;
+using Internal.Codebase.Runtime.MainMenu.New.Currency;
 using UnityEngine;
 
 namespace Internal.Codebase.Runtime.MainMenu.New.View

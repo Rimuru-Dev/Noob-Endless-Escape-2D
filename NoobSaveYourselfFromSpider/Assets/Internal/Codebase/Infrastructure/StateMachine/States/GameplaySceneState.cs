@@ -8,7 +8,6 @@
 using System.Linq;
 using Internal.Codebase.Infrastructure.Factory.Game;
 using Internal.Codebase.Infrastructure.Factory.Hero;
-using Internal.Codebase.Infrastructure.Factory.UI;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
@@ -27,7 +26,6 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private readonly ICurtainService curtain;
         private readonly ISceneLoaderService sceneLoader;
         private readonly IStaticDataService staticData;
-        private readonly IUIFactory uiFactory;
         private readonly IHeroFactory heroFactory;
         private readonly IGameFactory gameFactory;
         private readonly IYandexSaveService saveService;
@@ -39,7 +37,6 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             ICurtainService curtain,
             ISceneLoaderService sceneLoader,
             IStaticDataService staticData,
-            IUIFactory uiFactory,
             IHeroFactory heroFactory,
             IGameFactory gameFactory,
             IYandexSaveService saveService
@@ -48,7 +45,6 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             this.curtain = curtain;
             this.sceneLoader = sceneLoader;
             this.staticData = staticData;
-            this.uiFactory = uiFactory;
             this.heroFactory = heroFactory;
             this.gameFactory = gameFactory;
             this.saveService = saveService;
@@ -91,20 +87,10 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
             sceneController.Container(
                 hero,
-                gameStateMachine,
-                sceneLoader,
                 OnSceneLoaded,
                 levelGenerator,
                 saveService);
         }
-
-        private void LeaveToMainMenuState() =>
-            curtain.ShowCurtain(true, LoadScene);
-
-        private void LoadScene() =>
-            sceneLoader.LoadScene(SceneName.Menu, EnterMainMenuState);
-
-        private void EnterMainMenuState() => gameStateMachine.EnterState<LoadMainMenuState>();
 
         private void OnSceneLoaded()
         {
