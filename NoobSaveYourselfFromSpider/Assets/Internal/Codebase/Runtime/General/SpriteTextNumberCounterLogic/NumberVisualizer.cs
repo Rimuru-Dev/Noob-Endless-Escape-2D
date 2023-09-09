@@ -13,7 +13,7 @@ namespace Internal.Codebase.Runtime.General.SpriteTextNumberCounterLogic
     // TODO: Refactoring on NumberVisualizerService : INumberVisualizerService
     public sealed class NumberVisualizer : MonoBehaviour
     {
-        public bool IsStartCounter; // TODO: Refactoring this!
+        public bool IsStartCounter = false; // TODO: Refactoring this!
         public Sprite[] numberSprites;
         public Image[] numberImages;
 
@@ -52,7 +52,7 @@ namespace Internal.Codebase.Runtime.General.SpriteTextNumberCounterLogic
 
                 // if (i > numberImages.Length)
                 //     continue;
-                
+
                 var image = numberImages[i];
                 // if (image == null)
                 //     continue;
@@ -87,14 +87,36 @@ namespace Internal.Codebase.Runtime.General.SpriteTextNumberCounterLogic
         {
             if (IsStartCounter)
                 InvokeRepeating(nameof(UpdateNumber), 1f, .5f);
+
+            InitVisualizeText();
         }
 
+        private void InitVisualizeText()
+        {
+            var numberString = currentNumber.ToString("0000");
+
+            for (var i = 0; i < numberString.Length; i++)
+            {
+                var digitChar = numberString[i];
+                var digit = digitChar - '0';
+
+                if (digit >= 0 && digit < numberSprites.Length)
+                {
+                    numberImages[i].sprite = numberSprites[digit];
+                }
+            }
+        }
+
+        public void StartAutoVisualizeText() =>
+            InvokeRepeating(nameof(UpdateNumber), 1f, .5f);
+
         public bool IsPause { get; set; }
+
         private void UpdateNumber()
         {
             if (IsPause)
                 return;
-            
+
             currentNumber++;
             var numberString = currentNumber.ToString("0000");
 

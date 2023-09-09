@@ -45,6 +45,8 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
         public List<DeadlyObstacle> obstacles = new();
         private EndlessLevelGenerationHandler endlessLevelGenerationHandler;
 
+        private bool isShitCode;
+
         public void Container(
             HeroViewController heroView,
             Action action,
@@ -58,14 +60,21 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
             heroViewController.HeroDie.OnDie += Die;
 
             Load();
+            heroView.HeroDie.OnDie += delegate
+            {
+                if (isShitCode)
+                    return;
 
-            advTimer.OnTimerOn += StartTimer;
-            advTimer.OnTimerOff += EndTimer;
+                isShitCode = true;
+                advTimer.OnTimerOff += EndTimer;
+            };
+            // advTimer.OnTimerOn += StartTimer;
+            // advTimer.OnTimerOff += EndTimer;
             goMainMenuButton.onClick.AddListener(() =>
             {
                 Time.timeScale = 1;
                 //sceneLoaderService.LoadScene(SceneName.Menu, () => { stateMachine.EnterState<LoadMainMenuState>(); });
-                levelGeneration.StopEndlessLevelGeneration(); 
+                levelGeneration.StopEndlessLevelGeneration();
                 heroView.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 heroView.JumpController.IsCanJump = false;
                 action?.Invoke();
@@ -118,10 +127,10 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
         public YandexGame yandexGameSDK;
 
         private void Save() =>
-            saveService.Save(storage);
+            saveService?.Save(storage);
 
         private void Load() =>
-            storage = saveService.Load();
+            storage = saveService?.Load();
 
         private void OnEnable() =>
             YandexGame.RewardVideoEvent += Rewarded;

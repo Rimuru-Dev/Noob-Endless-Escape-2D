@@ -16,6 +16,8 @@ using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.GameplayScene.LevelController;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers;
+using Internal.Codebase.Runtime.GameplayScene.Timer;
+using Internal.Codebase.Runtime.General.SpriteTextNumberCounterLogic;
 using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 using YG;
@@ -59,6 +61,7 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
         {
             PrepareScene();
             HideCurtain();
+            gt.StartCountdown();
         }
 
         public void Exit()
@@ -69,6 +72,7 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
             curtain.HideCurtain();
 
         private EndlessLevelGenerationHandler levelGenerator;
+        private GameTimer gt;
 
         private void PrepareScene()
         {
@@ -82,7 +86,6 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
             // 1
             var hero = heroFactory.CreateHero();
             heroFactory.CreateHeroCamera();
-            hero.transform.position = new Vector3(0, 7f, 0);
 
             var skinDatas = staticData.ForSkins().gameplaySkinDatas;
             var userSkin = YandexGame.savesData.storage.userSkins;
@@ -90,15 +93,23 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
             hero.HeroSpriteRenderer.sprite = skinDatas.FirstOrDefault(x => x.id == userSkin.selectionSkinId)!.icon;
 
             levelGenerator = gameFactory.CreateLevelGenerator();
-            levelGenerator.StartEndlessLevelGeneration();
+            gt = Object.FindObjectOfType<GameTimer>();
+            gt.OnTimerOff += ActivateELG;
 
             sceneController = Object.FindObjectOfType<SceneController>();
-
+            
             sceneController.Container(
                 hero,
                 OnSceneLoaded,
                 levelGenerator,
                 saveService);
+        }
+
+        private void ActivateELG()
+        {
+            levelGenerator.StartEndlessLevelGeneration();
+            Object.FindObjectOfType<NumberVisualizer>().StartAutoVisualizeText();
+            gt.OnTimerOff -= ActivateELG;
         }
 
         private void OnSceneLoaded()
