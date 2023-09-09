@@ -5,7 +5,9 @@
 //
 // **************************************************************** //
 
-namespace Internal.Codebase.Infrastructure.StateMachine.Interfaces
+using Internal.Codebase.Infrastructure.GeneralGameStateMachine.StateMachine;
+
+namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.Interfaces
 {
     public interface IInitGameStateMachine
     {

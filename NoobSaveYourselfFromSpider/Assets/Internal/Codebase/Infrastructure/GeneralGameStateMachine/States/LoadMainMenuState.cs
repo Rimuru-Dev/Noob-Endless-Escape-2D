@@ -6,11 +6,12 @@
 // **************************************************************** //
 
 using Internal.Codebase.Infrastructure.Factory.UI;
+using Internal.Codebase.Infrastructure.GeneralGameStateMachine.Interfaces;
+using Internal.Codebase.Infrastructure.GeneralGameStateMachine.StateMachine;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
-using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
 using Internal.Codebase.Runtime.MainMenu.BiomeShop;
 using Internal.Codebase.Runtime.MainMenu.HeroSwither.Controller;
@@ -18,7 +19,7 @@ using Internal.Codebase.Utilities.Constants;
 using YG;
 using Zenject;
 
-namespace Internal.Codebase.Infrastructure.StateMachine.States
+namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
 {
     public sealed class LoadMainMenuState : IStateNext
     {

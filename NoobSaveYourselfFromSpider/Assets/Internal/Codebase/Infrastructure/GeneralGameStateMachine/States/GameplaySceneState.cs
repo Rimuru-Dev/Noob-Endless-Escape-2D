@@ -8,19 +8,19 @@
 using System.Linq;
 using Internal.Codebase.Infrastructure.Factory.Game;
 using Internal.Codebase.Infrastructure.Factory.Hero;
+using Internal.Codebase.Infrastructure.GeneralGameStateMachine.Interfaces;
+using Internal.Codebase.Infrastructure.GeneralGameStateMachine.StateMachine;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
-using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
-using Internal.Codebase.Runtime.GameplayScene;
 using Internal.Codebase.Runtime.GameplayScene.LevelController;
 using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 using YG;
 using Zenject;
 
-namespace Internal.Codebase.Infrastructure.StateMachine.States
+namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
 {
     public sealed class GameplaySceneState : IStateNext
     {

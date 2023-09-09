@@ -8,8 +8,8 @@
 using Zenject;
 using UnityEngine;
 using System.Diagnostics.CodeAnalysis;
-using Internal.Codebase.Infrastructure.StateMachine;
-using Internal.Codebase.Infrastructure.StateMachine.States;
+using Internal.Codebase.Infrastructure.GeneralGameStateMachine.StateMachine;
+using Internal.Codebase.Infrastructure.GeneralGameStateMachine.States;
 using Internal.Codebase.Infrastructure.Services.ActionUpdater;
 
 namespace Internal.Codebase.Infrastructure.Boot

@@ -5,7 +5,7 @@
 //
 // **************************************************************** //
 
-namespace Internal.Codebase.Infrastructure.StateMachine.Interfaces
+namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.Interfaces
 {
     public interface IExitableState : IInitGameStateMachine
     {

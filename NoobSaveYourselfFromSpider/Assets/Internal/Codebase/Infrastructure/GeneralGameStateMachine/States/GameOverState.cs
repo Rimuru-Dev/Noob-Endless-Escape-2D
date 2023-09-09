@@ -5,9 +5,10 @@
 //
 // **************************************************************** //
 
-using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
+using Internal.Codebase.Infrastructure.GeneralGameStateMachine.Interfaces;
+using Internal.Codebase.Infrastructure.GeneralGameStateMachine.StateMachine;
 
-namespace Internal.Codebase.Infrastructure.StateMachine.States
+namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
 {
     public sealed class GameOverState : IStateNext
     {

@@ -6,13 +6,13 @@
 // **************************************************************** //
 
 using System;
-using Zenject;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
-using Internal.Codebase.Infrastructure.StateMachine.States;
+using Internal.Codebase.Infrastructure.GeneralGameStateMachine.Interfaces;
+using Internal.Codebase.Infrastructure.GeneralGameStateMachine.States;
+using Zenject;
 
-namespace Internal.Codebase.Infrastructure.StateMachine
+namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.StateMachine
 {
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
     [SuppressMessage("ReSharper", "SuspiciousTypeConversion.Global")]

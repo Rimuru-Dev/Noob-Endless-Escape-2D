@@ -6,8 +6,8 @@
 // **************************************************************** //
 
 using System.Diagnostics.CodeAnalysis;
-using Internal.Codebase.Infrastructure.StateMachine;
-using Internal.Codebase.Infrastructure.StateMachine.States;
+using Internal.Codebase.Infrastructure.GeneralGameStateMachine.StateMachine;
+using Internal.Codebase.Infrastructure.GeneralGameStateMachine.States;
 using Zenject;
 
 namespace Internal.Codebase.Infrastructure.Installers

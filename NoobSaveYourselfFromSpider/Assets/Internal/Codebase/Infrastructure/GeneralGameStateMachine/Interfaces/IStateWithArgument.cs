@@ -7,7 +7,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace Internal.Codebase.Infrastructure.StateMachine.Interfaces
+namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.Interfaces
 {
     [SuppressMessage("ReSharper", "UnusedTypeParameter")]
     public interface IStateWithArgument<T>
