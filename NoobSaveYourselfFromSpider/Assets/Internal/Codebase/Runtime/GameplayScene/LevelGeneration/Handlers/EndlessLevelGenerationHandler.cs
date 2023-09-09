@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Internal.Codebase.Infrastructure.Services.ActionUpdater;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.PrefabHelper;
@@ -32,16 +33,30 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
         private Prefab lastSpawnedPrefab;
         private Storage storage;
         private IYandexSaveService saveService;
+        private IActionUpdaterService updater;
         private bool CanSpawnNextPrefab { get; set; } = true;
         public bool Pause { get; set; }
 
-        public void Constructor(EndlessLevelGenerationConfig endlessLevelGenerationConfig, IYandexSaveService yandexSaveService)
+        public void Constructor(
+            IYandexSaveService yandexSaveService,
+            IActionUpdaterService actionUpdaterService,
+            EndlessLevelGenerationConfig endlessLevelGenerationConfig)
         {
-            if (endlessLevelGenerationConfig == null)
-                throw new ArgumentNullException(nameof(endlessLevelGenerationConfig));
+            saveService = yandexSaveService ?? throw new ArgumentNullException(nameof(yandexSaveService));
+            updater = actionUpdaterService ?? throw new ArgumentNullException(nameof(actionUpdaterService));
+            config = endlessLevelGenerationConfig
+                ? endlessLevelGenerationConfig
+                : throw new ArgumentNullException(nameof(endlessLevelGenerationConfig));
+        }
 
-            saveService = yandexSaveService;
-            config = endlessLevelGenerationConfig;
+        public void Perform()
+        {
+            updater.Subscribe(MyUdate, UpdateType.Update);
+        }
+
+        private void MyUdate()
+        {
+            print("MyUdate()");
         }
 
         private void Start()
@@ -71,6 +86,8 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
 
         private void Update()
         {
+            print("Unity Update()");
+
             if (Pause)
                 return;
 
@@ -98,6 +115,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
 
         private void OnDestroy()
         {
+            updater.Unsubscribe(MyUdate, UpdateType.Update);
             StopEndlessLevelGeneration();
 
             pool.Clear();

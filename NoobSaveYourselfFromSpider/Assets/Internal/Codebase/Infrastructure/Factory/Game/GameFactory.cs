@@ -7,6 +7,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Internal.Codebase.Infrastructure.AssetManagement;
+using Internal.Codebase.Infrastructure.Services.ActionUpdater;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
@@ -21,13 +22,18 @@ namespace Internal.Codebase.Infrastructure.Factory.Game
         private readonly IAssetProvider assetProvider;
         private readonly IStaticDataService staticDataService;
         private readonly IYandexSaveService yandexSaveService;
+        private readonly IActionUpdaterService actionUpdaterService;
 
-        public GameFactory(IAssetProvider assetProvider, IStaticDataService staticDataService,
-            IYandexSaveService yandexSaveService)
+        public GameFactory(
+            IAssetProvider assetProvider,
+            IStaticDataService staticDataService,
+            IYandexSaveService yandexSaveService,
+            IActionUpdaterService actionUpdaterService)
         {
             this.assetProvider = assetProvider;
             this.staticDataService = staticDataService;
             this.yandexSaveService = yandexSaveService;
+            this.actionUpdaterService = actionUpdaterService;
         }
 
         public EndlessLevelGenerationHandler CreateLevelGenerator()
@@ -46,7 +52,8 @@ namespace Internal.Codebase.Infrastructure.Factory.Game
                 _ => staticDataService.GreenPlains
             };
 
-            levelGenerationHandler.Constructor(biom, yandexSaveService);
+            levelGenerationHandler.Constructor(yandexSaveService, actionUpdaterService, biom);
+            levelGenerationHandler.Perform();
 
             return levelGenerationHandler;
         }

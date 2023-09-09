@@ -37,20 +37,20 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.PrefabHelper
             var activeRewardsCount = Random.Range(minActiveRewards, maxActiveRewards + 1);
 
             EnableRandomObstacles();
-
-            bool spawnRewards = ShouldSpawnRewards(); // Проверка, будут ли награды активированы
-
-            if (spawnRewards)
-            {
-                EnableRandomRewards();
-            }
-
+            EnableAllRandomRewards();
             DisableRandomObstacles();
+
+            void EnableAllRandomRewards()
+            {
+                var spawnRewards = ShouldSpawnRewards();
+
+                if (spawnRewards)
+                    EnableRandomRewards();
+            }
 
             bool ShouldSpawnRewards()
             {
-                // Генерируем случайное число и сравниваем его с вероятностью спавна
-                float randomNum = Random.value;
+                var randomNum = Random.value;
 
                 return randomNum < spawnChance;
             }
@@ -71,16 +71,16 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.PrefabHelper
             {
                 for (var i = 0; i < activeRewardsCount; i++)
                 {
-                    if (rewardViews.Count > 0)
-                    {
-                        var randomIndex = Random.Range(0, rewardViews.Count);
+                    if (rewardViews.Count <= 0)
+                        continue;
 
-                        if (rewardViews[randomIndex] == null)
-                            continue;
+                    var randomIndex = Random.Range(0, rewardViews.Count);
 
-                        rewardViews[randomIndex].gameObject.SetActive(true);
-                        rewardViews.RemoveAt(randomIndex);
-                    }
+                    if (rewardViews[randomIndex] == null)
+                        continue;
+
+                    rewardViews[randomIndex].gameObject.SetActive(true);
+                    rewardViews.RemoveAt(randomIndex);
                 }
             }
 
