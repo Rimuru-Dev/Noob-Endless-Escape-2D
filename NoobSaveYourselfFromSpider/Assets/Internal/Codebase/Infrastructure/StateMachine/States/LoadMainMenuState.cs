@@ -13,7 +13,6 @@ using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
 using Internal.Codebase.Runtime.BiomeShop;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
-using Internal.Codebase.Runtime.MainMenu.HeroSwither;
 using Internal.Codebase.Runtime.MainMenu.HeroSwither.Controller;
 using Internal.Codebase.Utilities.Constants;
 using YG;

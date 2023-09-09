@@ -940,7 +940,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4653860086342935399}
   - component: {fileID: 6687015793371931365}
-  - component: {fileID: 8459347179142736240}
   - component: {fileID: 4069969848641640046}
   m_Layer: 0
   m_Name: MainMenuCanvas
@@ -981,26 +980,6 @@ MonoBehaviour:
   flattenMode: 0
   flattenSpace: 0
   destroyAfterFlatten: 1
---- !u!114 &8459347179142736240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1363641834360016024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 152e9bc93f924dadb2da4dbe458c0c23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Emerald>k__BackingField: {fileID: 4812494147398272761}
-  <Fish>k__BackingField: {fileID: 4966475562426124713}
-  <Settings>k__BackingField: {fileID: 9042544002465396829}
-  <BestDistance>k__BackingField: {fileID: 8736221692866209937}
-  <PlayButton>k__BackingField: {fileID: 3909713382052680787}
-  <BiomeShopView>k__BackingField: {fileID: 4988230876410566107}
-  BuyCurrencyView: {fileID: 6600272401004541506}
-  BuyCurrencyViewShortPanel: {fileID: 5947266779738943404}
 --- !u!114 &4069969848641640046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7378,17 +7357,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &9042544002465396829 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3514424330066756828, guid: 38a45b1b59f3c51468628fc50884e28b, type: 3}
-  m_PrefabInstance: {fileID: 5600278443084708993}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fec09b3f0e5459db5b8f7547ef981c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &7086578283388497464

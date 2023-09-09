@@ -5,37 +5,28 @@
 //
 // **************************************************************** //
 
-using System.Collections.Generic;
+using System;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.Resource;
 using Internal.Codebase.Runtime;
 using Internal.Codebase.Runtime.Curtain;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.Hero;
-using Internal.Codebase.Runtime.MainMenu.Configs;
 using Internal.Codebase.Runtime.MainMenu.New.Configs;
 using Zenject;
 
 namespace Internal.Codebase.Infrastructure.Services.StaticData
 {
-    public sealed class StaticDataService : IStaticDataService
+    public sealed class StaticDataService : IStaticDataService, IDisposable
     {
         private readonly IResourceLoaderService resourceLoader;
 
-        private CurtainConfig curtainConfig;
-        // private MainMenuConfig mainMenuConfig;
-
-        private HeroConfig heroConfig;
-
-        //private EndlessLevelGenerationConfig levelGenerationConfig;
         private Skins skins;
-
+        private HeroConfig heroConfig;
+        private CurtainConfig curtainConfig;
+        private MainMenuUIConfig mainMenuUIConfig;
         private EndlessLevelGenerationConfig greenPlains;
         private EndlessLevelGenerationConfig snowyWastelands;
-
-        private MainMenuUIConfig mainMenuUIConfig;
-
-        // private Dictionary<BiomeTypeID, EndlessLevelGenerationConfig> biomes;
 
         [Inject]
         public StaticDataService(IResourceLoaderService resourceLoader) =>
@@ -44,24 +35,22 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
         public void Initialize()
         {
             mainMenuUIConfig = resourceLoader.Load<MainMenuUIConfig>(AssetPath.MainMenuUIConfig);
-
             curtainConfig = resourceLoader.Load<CurtainConfig>(AssetPath.Curtain);
-            // mainMenuConfig = resourceLoader.Load<MainMenuConfig>(AssetPath.MainMenuConfig);
             heroConfig = resourceLoader.Load<HeroConfig>(AssetPath.HeroConfig);
-
-            greenPlains = resourceLoader.Load<EndlessLevelGenerationConfig>("Biomes/Configs/GreenPlains");
-            snowyWastelands = resourceLoader.Load<EndlessLevelGenerationConfig>("Biomes/Configs/SnowyWastelands");
-            skins = resourceLoader.Load<Skins>("Skins/Skins");
+            greenPlains = resourceLoader.Load<EndlessLevelGenerationConfig>(AssetPath.GreenPlains);
+            snowyWastelands = resourceLoader.Load<EndlessLevelGenerationConfig>(AssetPath.SnowyWastelands);
+            skins = resourceLoader.Load<Skins>(AssetPath.Skins);
         }
 
-        public CurtainConfig ForCurtain() =>
-            curtainConfig;
-
-        // public MainMenuConfig ForMainMenu() =>
-        //     mainMenuConfig;
-
-        public HeroConfig ForHero() =>
-            heroConfig;
+        public void Dispose()
+        {
+            skins = null;
+            heroConfig = null;
+            curtainConfig = null;
+            mainMenuUIConfig = null;
+            GreenPlains = null;
+            SnowyWastelands = null;
+        }
 
         public EndlessLevelGenerationConfig GreenPlains
         {
@@ -75,9 +64,17 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
             set => snowyWastelands = value;
         }
 
+
+        public CurtainConfig ForCurtain() =>
+            curtainConfig;
+
+        public HeroConfig ForHero() =>
+            heroConfig;
+
         public MainMenuUIConfig ForMainMenuUI() =>
             mainMenuUIConfig;
 
-        public Skins ForSkins() => skins;
+        public Skins ForSkins() =>
+            skins;
     }
 }
