@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using YG;
 
-namespace Internal.Codebase.Runtime.MainMenu
+namespace Internal.Codebase.Runtime.MainMenu.Currency
 {
     public sealed class BuyCurrency : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.MainMenu
+namespace Internal.Codebase.Runtime.General.StorageData
 {
     [Serializable]
     public sealed class GameplaySkinData

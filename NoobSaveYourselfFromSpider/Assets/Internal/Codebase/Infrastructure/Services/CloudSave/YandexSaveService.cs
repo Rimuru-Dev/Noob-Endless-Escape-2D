@@ -76,6 +76,11 @@ namespace Internal.Codebase.Infrastructure.Services.CloudSave
                 newStorage.userBioms.biomeData.Add(biom2);
             }
 
+            // Audio
+            {
+                newStorage.audioSettings = new AudioSettings();
+            }
+
             YandexGame.savesData ??= new SavesYG();
             YandexGame.savesData.storage = newStorage;
 

@@ -12,6 +12,7 @@ using Internal.Codebase.Runtime;
 using Internal.Codebase.Runtime.GameplayScene.Hero;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
 using Internal.Codebase.Runtime.General.Curtain;
+using Internal.Codebase.Runtime.General.StorageData;
 using Internal.Codebase.Runtime.MainMenu;
 using Internal.Codebase.Runtime.MainMenu.Configs;
 using Zenject;

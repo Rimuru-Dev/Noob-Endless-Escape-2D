@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.MainMenu
+namespace Internal.Codebase.Runtime.General.StorageData
 {
     [CreateAssetMenu(menuName = "Configs/Create " + nameof(Skins), fileName = nameof(Skins), order = 0)]
     public sealed class Skins : ScriptableObject
