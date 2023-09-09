@@ -8,6 +8,7 @@
 using System.Linq;
 using Internal.Codebase.Infrastructure.Factory.Game;
 using Internal.Codebase.Infrastructure.Factory.Hero;
+using Internal.Codebase.Infrastructure.Factory.UI;
 using Internal.Codebase.Infrastructure.GeneralGameStateMachine.Interfaces;
 using Internal.Codebase.Infrastructure.GeneralGameStateMachine.StateMachine;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
@@ -34,8 +35,10 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
         private readonly IHeroFactory heroFactory;
         private readonly IGameFactory gameFactory;
         private readonly IYandexSaveService saveService;
+        private readonly IUIFactory uiFactory;
         private GameStateMachine gameStateMachine;
         private SceneController sceneController;
+        private EndlessLevelGenerationHandler levelGenerator;
 
         [Inject]
         public GameplaySceneState(
@@ -44,7 +47,8 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
             IStaticDataService staticData,
             IHeroFactory heroFactory,
             IGameFactory gameFactory,
-            IYandexSaveService saveService
+            IYandexSaveService saveService,
+            IUIFactory uiFactory
         )
         {
             this.curtain = curtain;
@@ -53,6 +57,7 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
             this.heroFactory = heroFactory;
             this.gameFactory = gameFactory;
             this.saveService = saveService;
+            this.uiFactory = uiFactory;
         }
 
         public void Init(GameStateMachine stateMachine) =>
@@ -62,7 +67,7 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
         {
             PrepareScene();
             HideCurtain();
-            gameTimer.StartCountdown();
+            StartLevelTimer();
         }
 
         public void Exit()
@@ -72,11 +77,12 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
         private void HideCurtain() =>
             curtain.HideCurtain();
 
-        private EndlessLevelGenerationHandler levelGenerator;
-        private GameTimer gameTimer;
-
         private void PrepareScene()
         {
+            uiFactory
+                .CreateGameplayUIRoot()
+                .CreateGameplayCanvas();
+            
             PrepareLevelGeneration();
             var hero = PrepareHero();
 
@@ -91,8 +97,9 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
             void PrepareLevelGeneration()
             {
                 levelGenerator = gameFactory.CreateLevelGenerator();
-                gameTimer = Object.FindObjectOfType<GameTimer>();
-                gameTimer.OnTimerOff += ActivateELG;
+
+                var startLevelTimer = uiFactory.GameplayUIRoot.GameplayCanvasView.StartLevelTimerView;
+                startLevelTimer.Timer.OnTimerOff += ActivateEndlessLevelGeneration;
             }
 
             HeroViewController PrepareHero()
@@ -110,11 +117,19 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
             }
         }
 
-        private void ActivateELG()
+        private void StartLevelTimer()
+        {
+            var startLevelTimer = uiFactory.GameplayUIRoot.GameplayCanvasView.StartLevelTimerView;
+            startLevelTimer.Timer.StartCountdown();
+        }
+
+        private void ActivateEndlessLevelGeneration()
         {
             levelGenerator.StartEndlessLevelGeneration();
-            Object.FindObjectOfType<NumberVisualizer>().StartAutoVisualizeText();
-            gameTimer.OnTimerOff -= ActivateELG;
+
+            var startLevelTimer = uiFactory.GameplayUIRoot.GameplayCanvasView.StartLevelTimerView;
+            startLevelTimer.TimeToPlayVisualizer.StartAutoVisualizeText();
+            startLevelTimer.Timer.OnTimerOff -= ActivateEndlessLevelGeneration;
         }
 
         private void OnSceneLoaded()

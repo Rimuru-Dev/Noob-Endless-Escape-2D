@@ -12,10 +12,14 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
 {
     public interface IUIFactory
     {
-        public CurtainView CreateCurtain();
         public UIRoot MainMenuUIRoot { get; }
+        public CurtainView CreateCurtain();
         public IUIFactory CreateMainMenuUIRoot();
         public IUIFactory CreateMainMenuBackgraund();
         public IUIFactory CreateMainMenu();
+
+        public Runtime.GameplayScene.UI.View.UIRoot GameplayUIRoot { get; }
+        public IUIFactory CreateGameplayUIRoot();
+        public IUIFactory CreateGameplayCanvas();
     }
 }

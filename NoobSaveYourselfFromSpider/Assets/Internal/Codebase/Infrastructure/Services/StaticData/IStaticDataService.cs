@@ -5,18 +5,17 @@
 //
 // **************************************************************** //
 
-using Internal.Codebase.Runtime;
-using Internal.Codebase.Runtime.GameplayScene.Hero;
+using System;
 using Internal.Codebase.Runtime.GameplayScene.Hero.Configs;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
+using Internal.Codebase.Runtime.GameplayScene.UI.Configs;
 using Internal.Codebase.Runtime.General.Curtain;
 using Internal.Codebase.Runtime.General.StorageData;
-using Internal.Codebase.Runtime.MainMenu;
 using Internal.Codebase.Runtime.MainMenu.Configs;
 
 namespace Internal.Codebase.Infrastructure.Services.StaticData
 {
-    public interface IStaticDataService
+    public interface IStaticDataService : IDisposable
     {
         public void Initialize();
         public CurtainConfig ForCurtain();
@@ -25,5 +24,6 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
         public EndlessLevelGenerationConfig GreenPlains { get; set; }
         public EndlessLevelGenerationConfig SnowyWastelands { get; set; }
         public MainMenuUIConfig ForMainMenuUI();
+        public GameplaySceneUIConfig ForGameplaySceneUI();
     }
 }

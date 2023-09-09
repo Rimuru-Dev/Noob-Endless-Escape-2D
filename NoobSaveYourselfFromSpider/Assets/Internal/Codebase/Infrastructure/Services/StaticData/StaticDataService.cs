@@ -5,22 +5,19 @@
 //
 // **************************************************************** //
 
-using System;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.Resource;
-using Internal.Codebase.Runtime;
-using Internal.Codebase.Runtime.GameplayScene.Hero;
 using Internal.Codebase.Runtime.GameplayScene.Hero.Configs;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
+using Internal.Codebase.Runtime.GameplayScene.UI.Configs;
 using Internal.Codebase.Runtime.General.Curtain;
 using Internal.Codebase.Runtime.General.StorageData;
-using Internal.Codebase.Runtime.MainMenu;
 using Internal.Codebase.Runtime.MainMenu.Configs;
 using Zenject;
 
 namespace Internal.Codebase.Infrastructure.Services.StaticData
 {
-    public sealed class StaticDataService : IStaticDataService, IDisposable
+    public sealed class StaticDataService : IStaticDataService
     {
         private readonly IResourceLoaderService resourceLoader;
 
@@ -30,6 +27,7 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
         private MainMenuUIConfig mainMenuUIConfig;
         private EndlessLevelGenerationConfig greenPlains;
         private EndlessLevelGenerationConfig snowyWastelands;
+        private GameplaySceneUIConfig gameplaySceneUIConfig;
 
         [Inject]
         public StaticDataService(IResourceLoaderService resourceLoader) =>
@@ -37,6 +35,7 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
 
         public void Initialize()
         {
+            gameplaySceneUIConfig = resourceLoader.Load<GameplaySceneUIConfig>(AssetPath.GameplaySceneUIConfig);
             mainMenuUIConfig = resourceLoader.Load<MainMenuUIConfig>(AssetPath.MainMenuUIConfig);
             curtainConfig = resourceLoader.Load<CurtainConfig>(AssetPath.Curtain);
             heroConfig = resourceLoader.Load<HeroConfig>(AssetPath.HeroConfig);
@@ -53,6 +52,7 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
             mainMenuUIConfig = null;
             GreenPlains = null;
             SnowyWastelands = null;
+            gameplaySceneUIConfig = null;
         }
 
         public EndlessLevelGenerationConfig GreenPlains
@@ -67,15 +67,17 @@ namespace Internal.Codebase.Infrastructure.Services.StaticData
             set => snowyWastelands = value;
         }
 
-
         public CurtainConfig ForCurtain() =>
             curtainConfig;
 
-        public HeroConfig ForHero() =>
-            heroConfig;
-
         public MainMenuUIConfig ForMainMenuUI() =>
             mainMenuUIConfig;
+
+        public GameplaySceneUIConfig ForGameplaySceneUI() =>
+            gameplaySceneUIConfig;
+
+        public HeroConfig ForHero() =>
+            heroConfig;
 
         public Skins ForSkins() =>
             skins;

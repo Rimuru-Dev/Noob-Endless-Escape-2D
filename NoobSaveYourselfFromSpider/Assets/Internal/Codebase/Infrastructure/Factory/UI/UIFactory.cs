@@ -7,9 +7,10 @@
 
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.StaticData;
+using Internal.Codebase.Runtime.GameplayScene.UI.View;
 using Internal.Codebase.Runtime.General.Curtain;
-using Internal.Codebase.Runtime.MainMenu.View;
 using Zenject;
+using UIRoot = Internal.Codebase.Runtime.MainMenu.View.UIRoot;
 
 namespace Internal.Codebase.Infrastructure.Factory.UI
 {
@@ -18,6 +19,7 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
         private readonly IAssetProvider assetProvider;
         private readonly IStaticDataService staticData;
         private UIRoot mainMenuUIRoot;
+        private Runtime.GameplayScene.UI.View.UIRoot gameplayUIRoot;
 
         public UIRoot MainMenuUIRoot
         {
@@ -32,6 +34,22 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
             {
                 if (mainMenuUIRoot == null && value != null)
                     mainMenuUIRoot = value;
+            }
+        }
+
+        public Runtime.GameplayScene.UI.View.UIRoot GameplayUIRoot
+        {
+            get
+            {
+                if (gameplayUIRoot == null)
+                    CreateGameplayUIRoot();
+
+                return gameplayUIRoot;
+            }
+            private set
+            {
+                if (gameplayUIRoot == null && value != null)
+                    gameplayUIRoot = value;
             }
         }
 
@@ -83,6 +101,28 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
 
             MainMenuUIRoot.MenuCanvasView = canvasView;
 
+            return this;
+        }
+
+        public IUIFactory CreateGameplayUIRoot()
+        {
+            var config = staticData.ForGameplaySceneUI();
+
+            var root = assetProvider.Instantiate(config.UIRoot);
+
+            GameplayUIRoot = root;
+
+            return this;
+        }
+
+        public IUIFactory CreateGameplayCanvas()
+        {
+            var config = staticData.ForGameplaySceneUI();
+
+            var gameplayCanvas = assetProvider.Instantiate(config.GameplayCanvas, GameplayUIRoot.transform);
+
+            GameplayUIRoot.GameplayCanvasView = gameplayCanvas;
+            
             return this;
         }
     }
