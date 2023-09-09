@@ -10,7 +10,6 @@
 //
 // **************************************************************** //
 
-using Internal.Codebase.Runtime.MainMenu.UI;
 using Internal.Codebase.Runtime.MainMenu.View;
 using UnityEngine;
 

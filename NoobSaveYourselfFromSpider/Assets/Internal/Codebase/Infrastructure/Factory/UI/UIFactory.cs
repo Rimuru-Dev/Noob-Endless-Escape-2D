@@ -8,7 +8,7 @@
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.General.Curtain;
-using Internal.Codebase.Runtime.MainMenu.UI;
+using Internal.Codebase.Runtime.MainMenu.View;
 using Zenject;
 
 namespace Internal.Codebase.Infrastructure.Factory.UI

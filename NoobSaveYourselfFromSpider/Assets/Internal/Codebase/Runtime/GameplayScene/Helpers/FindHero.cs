@@ -5,9 +5,9 @@
 //
 // **************************************************************** //
 
-using System.Collections;
 using Cinemachine;
 using UnityEngine;
+using System.Collections;
 
 namespace Internal.Codebase.Runtime.GameplayScene.Helpers
 {
@@ -37,7 +37,6 @@ namespace Internal.Codebase.Runtime.GameplayScene.Helpers
 
             while (hero == null)
             {
-                Debug.Log("FIND");
                 hero = GameObject.FindGameObjectWithTag(Player);
 
                 yield return new WaitForSeconds(Cooldown);

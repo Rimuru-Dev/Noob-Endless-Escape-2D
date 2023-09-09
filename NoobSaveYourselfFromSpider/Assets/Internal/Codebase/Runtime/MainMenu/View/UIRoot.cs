@@ -9,10 +9,9 @@
 //
 // **************************************************************** //
 
-using Internal.Codebase.Runtime.MainMenu.View;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.MainMenu.UI
+namespace Internal.Codebase.Runtime.MainMenu.View
 {
     [SelectionBase]
     [DisallowMultipleComponent]

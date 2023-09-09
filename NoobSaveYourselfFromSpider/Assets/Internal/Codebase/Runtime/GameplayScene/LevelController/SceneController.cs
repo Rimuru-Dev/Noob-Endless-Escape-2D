@@ -11,6 +11,7 @@ using System.Linq;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Runtime.GameplayScene.Hero;
+using Internal.Codebase.Runtime.GameplayScene.Hero.Controller;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers;
 using Internal.Codebase.Runtime.GameplayScene.Obstacles;

@@ -10,6 +10,7 @@ using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.Resource;
 using Internal.Codebase.Runtime;
 using Internal.Codebase.Runtime.GameplayScene.Hero;
+using Internal.Codebase.Runtime.GameplayScene.Hero.Configs;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
 using Internal.Codebase.Runtime.General.Curtain;
 using Internal.Codebase.Runtime.General.StorageData;

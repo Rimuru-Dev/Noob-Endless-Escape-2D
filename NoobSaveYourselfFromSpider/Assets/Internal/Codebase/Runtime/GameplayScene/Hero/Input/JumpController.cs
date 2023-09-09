@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.GameplayScene.Hero
+namespace Internal.Codebase.Runtime.GameplayScene.Hero.Input
 {
     [SelectionBase]
     [DisallowMultipleComponent]
@@ -36,8 +36,8 @@ namespace Internal.Codebase.Runtime.GameplayScene.Hero
             if (!IsCanJump)
                 return;
 
-            if (useMouseClick && Input.GetMouseButtonDown(0) && !isJumping ||
-                (Input.GetKeyDown(KeyCode.Space) && !isJumping))
+            if (useMouseClick && UnityEngine.Input.GetMouseButtonDown(0) && !isJumping ||
+                (UnityEngine.Input.GetKeyDown(KeyCode.Space) && !isJumping))
                 Jump();
 
             if (Mathf.Abs(transform.position.x) > 0f)

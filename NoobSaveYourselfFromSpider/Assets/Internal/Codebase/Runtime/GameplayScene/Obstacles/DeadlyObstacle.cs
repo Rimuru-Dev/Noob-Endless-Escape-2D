@@ -6,6 +6,7 @@
 // **************************************************************** //
 
 using Internal.Codebase.Runtime.GameplayScene.Hero;
+using Internal.Codebase.Runtime.GameplayScene.Hero.Death;
 using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 

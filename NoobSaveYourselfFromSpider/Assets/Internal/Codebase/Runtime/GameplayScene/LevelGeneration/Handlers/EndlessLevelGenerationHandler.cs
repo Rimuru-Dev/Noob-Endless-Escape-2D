@@ -14,6 +14,7 @@ using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.PrefabHelper;
 using Internal.Codebase.Runtime.General.StorageData;
+using NaughtyAttributes;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -24,7 +25,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
     [SuppressMessage("ReSharper", "Unity.PerformanceCriticalCodeNullComparison")]
     public sealed class EndlessLevelGenerationHandler : MonoBehaviour, IEndlessLevelGenerationHandler
     {
-        [SerializeField] private EndlessLevelGenerationConfig config;
+        [SerializeField, Expandable] private EndlessLevelGenerationConfig config;
         [SerializeField] private bool useStart = false;
 
         private List<Prefab> pool;

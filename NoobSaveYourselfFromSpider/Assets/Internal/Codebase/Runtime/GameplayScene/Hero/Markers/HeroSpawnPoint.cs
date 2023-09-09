@@ -5,21 +5,12 @@
 //
 // **************************************************************** //
 
-using System;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.GameplayScene.Hero
+namespace Internal.Codebase.Runtime.GameplayScene.Hero.Markers
 {
     [DisallowMultipleComponent]
-    public sealed class HeroDie : MonoBehaviour
+    public sealed class HeroSpawnPoint : MonoBehaviour
     {
-        public Action OnDie;
-
-        public void ApplyHeroDie()
-        {
-            Debug.Log("Hero Die");
-            
-            OnDie?.Invoke();
-        }
     }
 }

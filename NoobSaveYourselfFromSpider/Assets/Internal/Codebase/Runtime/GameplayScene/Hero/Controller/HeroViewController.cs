@@ -5,9 +5,11 @@
 //
 // **************************************************************** //
 
+using Internal.Codebase.Runtime.GameplayScene.Hero.Death;
+using Internal.Codebase.Runtime.GameplayScene.Hero.Input;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.GameplayScene.Hero
+namespace Internal.Codebase.Runtime.GameplayScene.Hero.Controller
 {
     [SelectionBase]
     [DisallowMultipleComponent]

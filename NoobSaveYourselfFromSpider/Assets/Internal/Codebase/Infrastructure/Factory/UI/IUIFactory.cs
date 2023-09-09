@@ -6,7 +6,7 @@
 // **************************************************************** //
 
 using Internal.Codebase.Runtime.General.Curtain;
-using Internal.Codebase.Runtime.MainMenu.UI;
+using Internal.Codebase.Runtime.MainMenu.View;
 
 namespace Internal.Codebase.Infrastructure.Factory.UI
 {

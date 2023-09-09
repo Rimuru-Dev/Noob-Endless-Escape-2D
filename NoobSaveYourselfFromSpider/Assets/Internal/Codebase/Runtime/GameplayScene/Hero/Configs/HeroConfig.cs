@@ -6,9 +6,10 @@
 // **************************************************************** //
 
 using Cinemachine;
+using Internal.Codebase.Runtime.GameplayScene.Hero.Controller;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.GameplayScene.Hero
+namespace Internal.Codebase.Runtime.GameplayScene.Hero.Configs
 {
     [CreateAssetMenu(menuName = "Configs/Create " + nameof(HeroConfig), fileName = nameof(HeroConfig), order = 0)]
     public sealed class HeroConfig : ScriptableObject

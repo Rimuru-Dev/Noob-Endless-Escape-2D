@@ -6,6 +6,7 @@
 // **************************************************************** //
 
 using Internal.Codebase.Runtime.GameplayScene.Hero;
+using Internal.Codebase.Runtime.GameplayScene.Hero.Controller;
 using UnityEngine;
 
 namespace Internal.Codebase.Infrastructure.Factory.Hero
