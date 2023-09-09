@@ -65,11 +65,8 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
         {
         }
 
-        private void HideCurtain()
-        {
-            var config = staticData.ForCurtain();
-            curtain.HideCurtain(config.HideDelay);
-        }
+        private void HideCurtain() =>
+            curtain.HideCurtain();
 
         private EndlessLevelGenerationHandler levelGenerator;
 
