@@ -7,13 +7,13 @@
 
 using Zenject;
 using DG.Tweening;
-using Internal.Codebase.Runtime.Settings;
 using Internal.Codebase.Utilities.Constants;
 using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
+using Internal.Codebase.Runtime.General.Settings;
 
 namespace Internal.Codebase.Infrastructure.StateMachine.States
 {

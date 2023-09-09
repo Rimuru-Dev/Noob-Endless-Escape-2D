@@ -9,10 +9,11 @@ using System;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.Resource;
 using Internal.Codebase.Runtime;
-using Internal.Codebase.Runtime.Curtain;
-using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
-using Internal.Codebase.Runtime.Hero;
-using Internal.Codebase.Runtime.MainMenu.New.Configs;
+using Internal.Codebase.Runtime.GameplayScene.Hero;
+using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
+using Internal.Codebase.Runtime.General.Curtain;
+using Internal.Codebase.Runtime.MainMenu;
+using Internal.Codebase.Runtime.MainMenu.Configs;
 using Zenject;
 
 namespace Internal.Codebase.Infrastructure.Services.StaticData

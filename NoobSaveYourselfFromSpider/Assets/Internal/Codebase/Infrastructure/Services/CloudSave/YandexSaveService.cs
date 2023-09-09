@@ -12,20 +12,20 @@
 
 using System;
 using System.Collections.Generic;
-using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
-using Internal.Codebase.Runtime.StorageData;
+using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
+using Internal.Codebase.Runtime.General.StorageData;
 using YG;
 
 namespace Internal.Codebase.Infrastructure.Services.CloudSave
 {
     public sealed class YandexSaveService : IYandexSaveService
     {
-        private Runtime.StorageData.Storage storage;
+        private Storage storage;
 
         public void Init() =>
             YandexGame.GetDataEvent += InitializeLoad;
 
-        public void Save(Runtime.StorageData.Storage savedStorage)
+        public void Save(Storage savedStorage)
         {
             if (savedStorage == null)
                 throw new ArgumentNullException(nameof(savedStorage));
@@ -34,7 +34,7 @@ namespace Internal.Codebase.Infrastructure.Services.CloudSave
             YandexGame.SaveProgress();
         }
 
-        public Runtime.StorageData.Storage Load() =>
+        public Storage Load() =>
             YandexGame.savesData.storage == null
                 ? LoadDefaultStorage()
                 : LoadUserStorage();
@@ -45,9 +45,9 @@ namespace Internal.Codebase.Infrastructure.Services.CloudSave
         private void InitializeLoad() =>
             Load();
 
-        private Runtime.StorageData.Storage LoadDefaultStorage()
+        private Storage LoadDefaultStorage()
         {
-            var newStorage = new Runtime.StorageData.Storage
+            var newStorage = new Storage
             {
                 fishCurrancy = new FishCurrancy(),
                 emeraldCurrancy = new EmeraldCurrancy(),
@@ -84,7 +84,7 @@ namespace Internal.Codebase.Infrastructure.Services.CloudSave
             return storage;
         }
 
-        private Runtime.StorageData.Storage LoadUserStorage()
+        private Storage LoadUserStorage()
         {
             storage = YandexGame.savesData.storage;
 

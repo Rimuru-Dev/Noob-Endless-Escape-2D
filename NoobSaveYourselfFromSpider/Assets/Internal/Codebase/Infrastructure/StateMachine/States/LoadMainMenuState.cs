@@ -11,8 +11,8 @@ using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
-using Internal.Codebase.Runtime.BiomeShop;
-using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
+using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
+using Internal.Codebase.Runtime.MainMenu.BiomeShop;
 using Internal.Codebase.Runtime.MainMenu.HeroSwither.Controller;
 using Internal.Codebase.Utilities.Constants;
 using YG;
@@ -73,7 +73,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
 
             var uiRoot = uiFactory.MainMenuUIRoot;
 
-            // Setup Biome Shop View
+            // Setup Biomes Shop View
             {
                 biomeShop = uiRoot.MenuCanvasView.BiomeShopView;
                 biomeShop.Constructor(saveService);

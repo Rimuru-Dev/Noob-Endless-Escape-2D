@@ -7,7 +7,7 @@
 
 using System;
 using Internal.Codebase.Infrastructure.Factory.UI;
-using Internal.Codebase.Runtime.Curtain;
+using Internal.Codebase.Runtime.General.Curtain;
 using Zenject;
 
 namespace Internal.Codebase.Infrastructure.Services.Curtain

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Internal.Codebase.Runtime.General.SpriteTextNumberCounterLogic;
 using Internal.Codebase.Runtime.MainMenu.HeroSwither.Data;
-using Internal.Codebase.Runtime.SpriteTextNumberCounterLogic;
 using UnityEngine;
 using UnityEngine.UI;
 

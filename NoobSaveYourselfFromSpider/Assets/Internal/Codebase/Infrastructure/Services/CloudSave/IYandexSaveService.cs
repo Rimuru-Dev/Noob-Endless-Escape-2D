@@ -11,13 +11,14 @@
 // **************************************************************** //
 
 using System;
+using Internal.Codebase.Runtime.General.StorageData;
 
 namespace Internal.Codebase.Infrastructure.Services.CloudSave
 {
     public interface IYandexSaveService : IDisposable
     {
         public void Init();
-        public void Save(Runtime.StorageData.Storage savedStorage);
-        public Runtime.StorageData.Storage Load();
+        public void Save(Storage savedStorage);
+        public Storage Load();
     }
 }

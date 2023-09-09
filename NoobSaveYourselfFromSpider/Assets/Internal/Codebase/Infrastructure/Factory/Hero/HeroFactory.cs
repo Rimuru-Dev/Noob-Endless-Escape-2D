@@ -8,6 +8,7 @@
 using Cinemachine;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.StaticData;
+using Internal.Codebase.Runtime.GameplayScene.Hero;
 using UnityEngine;
 using Zenject;
 
@@ -27,12 +28,12 @@ namespace Internal.Codebase.Infrastructure.Factory.Hero
             this.staticData = staticData;
         }
 
-        public Runtime.Hero.HeroViewController CreateHero()
+        public HeroViewController CreateHero()
         {
             var heroConfig = staticData.ForHero();
 
             // TODO: Added override T Instantiate<T>()
-            var hero = assetProvider.Instantiate(heroConfig.HeroViewControllerPrefab.gameObject).GetComponent<Runtime.Hero.HeroViewController>();
+            var hero = assetProvider.Instantiate(heroConfig.HeroViewControllerPrefab.gameObject).GetComponent<HeroViewController>();
 
             Hero = hero.gameObject;
 

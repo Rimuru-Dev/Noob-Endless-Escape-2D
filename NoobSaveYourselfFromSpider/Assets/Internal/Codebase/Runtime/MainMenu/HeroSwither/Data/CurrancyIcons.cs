@@ -1,5 +1,5 @@
 ﻿using System;
-using Internal.Codebase.Runtime.MainMenu.New.Currency;
+using Internal.Codebase.Runtime.MainMenu.Currency;
 using UnityEngine;
 
 namespace Internal.Codebase.Runtime.MainMenu.HeroSwither.Data

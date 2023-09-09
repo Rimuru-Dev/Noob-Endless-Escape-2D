@@ -9,8 +9,8 @@ using System.Diagnostics.CodeAnalysis;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.StaticData;
-using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
-using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
+using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
+using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers;
 using YG;
 
 namespace Internal.Codebase.Infrastructure.Factory.Game

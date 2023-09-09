@@ -5,6 +5,7 @@
 //
 // **************************************************************** //
 
+using Internal.Codebase.Runtime.GameplayScene.Hero;
 using UnityEngine;
 
 namespace Internal.Codebase.Infrastructure.Factory.Hero
@@ -12,7 +13,7 @@ namespace Internal.Codebase.Infrastructure.Factory.Hero
     public interface IHeroFactory
     {
         public GameObject Hero { get; }
-        public Runtime.Hero.HeroViewController CreateHero();
+        public HeroViewController CreateHero();
         public void CreateHeroCamera();
     }
 }
