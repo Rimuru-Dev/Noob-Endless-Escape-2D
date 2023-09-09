@@ -14,6 +14,7 @@ using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
 using Internal.Codebase.Infrastructure.StateMachine.Interfaces;
 using Internal.Codebase.Runtime.GameplayScene;
+using Internal.Codebase.Runtime.GameplayScene.LevelController;
 using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 using YG;

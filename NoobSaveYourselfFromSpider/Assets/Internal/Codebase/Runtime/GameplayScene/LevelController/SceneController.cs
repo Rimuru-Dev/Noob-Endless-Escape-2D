@@ -22,7 +22,7 @@ using UnityEngine.UI;
 using YG;
 using Zenject;
 
-namespace Internal.Codebase.Runtime.GameplayScene
+namespace Internal.Codebase.Runtime.GameplayScene.LevelController
 {
     public sealed class SceneController : MonoBehaviour
     {

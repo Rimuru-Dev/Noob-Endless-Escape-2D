@@ -11,6 +11,7 @@ using System.Linq;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.ConnectPoint;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.PrefabHelper;
 using Internal.Codebase.Runtime.GameplayScene.Obstacles;
+using Internal.Codebase.Runtime.GameplayScene.Rewarded;
 using UnityEditor;
 using UnityEngine;
 

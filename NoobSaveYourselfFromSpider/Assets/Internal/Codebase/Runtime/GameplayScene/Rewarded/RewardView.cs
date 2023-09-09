@@ -10,7 +10,7 @@ using Internal.Codebase.Runtime.General.StorageData;
 using Internal.Codebase.Utilities.Constants;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.GameplayScene
+namespace Internal.Codebase.Runtime.GameplayScene.Rewarded
 {
     public sealed class RewardView : MonoBehaviour
     {

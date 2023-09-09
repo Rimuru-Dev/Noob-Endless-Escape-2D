@@ -8,6 +8,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Internal.Codebase.Runtime.GameplayScene.Obstacles;
+using Internal.Codebase.Runtime.GameplayScene.Rewarded;
 using UnityEngine;
 
 namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.PrefabHelper
