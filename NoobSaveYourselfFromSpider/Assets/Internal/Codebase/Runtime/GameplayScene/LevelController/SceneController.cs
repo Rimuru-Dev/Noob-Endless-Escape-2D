@@ -65,7 +65,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
                 if (isShitCode)
                     return;
 
-                isShitCode = true;
+                isShitCode = true;// TODO: Remove !!!
                 advTimer.OnTimerOff += EndTimer;
             };
             // advTimer.OnTimerOn += StartTimer;

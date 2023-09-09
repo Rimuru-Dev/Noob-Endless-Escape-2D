@@ -70,12 +70,12 @@ namespace Internal.Codebase.Runtime.MainMenu.HeroSwither.Controller
                     SkinDatas = new List<SkinData>()
                 };
 
-                foreach (var skin in view.skins)
+                foreach (var skinData in view.skins.Select(skin => new SkinData
+                         {
+                             ID = skin.id,
+                             IsOpen = skin.isOpen
+                         }))
                 {
-                    var skinData = new SkinData();
-                    skinData.ID = skin.id;
-                    skinData.IsOpen = skin.isOpen;
-
                     storage.userSkins.SkinDatas.Add(skinData);
                 }
 
