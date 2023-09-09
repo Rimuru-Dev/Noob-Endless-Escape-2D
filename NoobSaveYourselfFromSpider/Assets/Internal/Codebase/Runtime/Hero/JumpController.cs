@@ -17,14 +17,13 @@ namespace Internal.Codebase.Runtime.Hero
         public float rotationAngle = 90f;
         public float rotationSpeed = 5f;
         public bool useMouseClick = true;
+        public bool IsCanJump { get; set; } = true;
 
         private Rigidbody2D rb;
         private bool isJumping;
         private Quaternion targetRotation;
         private Vector3 initialPosition;
-
-        public bool IsCanReturnToInitialPosition { get; set; } = true;
-        public bool IsCanJump { get; set; } = true;
+        private bool IsCanReturnToInitialPosition { get; set; } = true;
 
         private void Start()
         {
@@ -37,7 +36,7 @@ namespace Internal.Codebase.Runtime.Hero
             if (!IsCanJump)
                 return;
 
-            if ((useMouseClick && Input.GetMouseButtonDown(0)) && !isJumping ||
+            if (useMouseClick && Input.GetMouseButtonDown(0) && !isJumping ||
                 (Input.GetKeyDown(KeyCode.Space) && !isJumping))
                 Jump();
 
@@ -74,8 +73,13 @@ namespace Internal.Codebase.Runtime.Hero
             if (!IsCanReturnToInitialPosition)
                 return;
 
-            var targetPosition = new Vector3(initialPosition.x, transform.position.y, transform.position.z);
-            transform.position = Vector3.Lerp(transform.position, targetPosition, rotationSpeed * Time.deltaTime);
+            var position = transform.position;
+
+            var targetPosition = new Vector3(initialPosition.x, position.y, position.z);
+
+            position = Vector3.Lerp(position, targetPosition, rotationSpeed * Time.deltaTime);
+
+            transform.position = position;
         }
 
         private void OnCollisionEnter2D(Collision2D collision) =>

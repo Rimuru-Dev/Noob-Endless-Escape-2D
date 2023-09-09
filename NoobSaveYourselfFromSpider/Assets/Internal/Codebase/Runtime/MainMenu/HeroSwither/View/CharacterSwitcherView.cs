@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using Internal.Codebase.Runtime.MainMenu.Animation;
-using Internal.Codebase.Runtime.MainMenu.HeroSwither;
+using Internal.Codebase.Runtime.MainMenu.HeroSwither.Data;
 using Internal.Codebase.Runtime.SpriteTextNumberCounterLogic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Internal.Codebase.Runtime.MainMenu.New.View
+namespace Internal.Codebase.Runtime.MainMenu.HeroSwither.View
 {
     [DisallowMultipleComponent]
     public sealed class CharacterSwitcherView : MonoBehaviour

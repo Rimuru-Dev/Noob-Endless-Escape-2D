@@ -10,6 +10,7 @@ using UnityEngine;
 
 namespace Internal.Codebase.Runtime.Hero
 {
+    [DisallowMultipleComponent]
     public sealed class HeroDie : MonoBehaviour
     {
         public Action OnDie;
@@ -17,6 +18,7 @@ namespace Internal.Codebase.Runtime.Hero
         public void ApplyHeroDie()
         {
             Debug.Log("Hero Die");
+            
             OnDie?.Invoke();
         }
     }

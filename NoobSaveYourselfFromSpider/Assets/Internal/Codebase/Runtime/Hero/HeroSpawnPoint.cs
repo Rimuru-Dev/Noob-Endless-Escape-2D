@@ -9,5 +9,8 @@ using UnityEngine;
 
 namespace Internal.Codebase.Runtime.Hero
 {
-    public sealed class HeroSpawnPoint : MonoBehaviour { }
+    [DisallowMultipleComponent]
+    public sealed class HeroSpawnPoint : MonoBehaviour
+    {
+    }
 }

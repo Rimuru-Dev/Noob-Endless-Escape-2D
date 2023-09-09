@@ -6,68 +6,10 @@
 // **************************************************************** //
 
 using System;
-using System.Collections.Generic;
-using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Internal.Codebase.Runtime.StorageData
 {
-    [Serializable]
-    public sealed class EmeraldCurrancy
-    {
-        public int emeralds;
-    }
-
-    [Serializable]
-    public sealed class FishCurrancy
-    {
-        public int fishs;
-    }
-
-    [Serializable]
-    public sealed class UserBestDistance
-    {
-        public int bestDistance;
-    }
-
-    [Serializable]
-    public sealed class UserSkins
-    {
-        public int selectionSkinId;
-        public List<SkinData> SkinDatas;
-    }
-
-    [Serializable]
-    public sealed class SkinData
-    {
-        public int ID;
-        public bool IsOpen;
-    }
-
-    [Serializable]
-    public sealed class UserBioms
-    {
-        public BiomeTypeID selectionBiomId;
-        public List<BiomDatas> biomeData;
-    }
-
-    [Serializable]
-    public sealed class BiomDatas
-    {
-        public BiomeTypeID id;
-        public bool isOpen;
-    }
-
-    [Serializable]
-    public sealed class AudioSettings
-    {
-        public float volume;
-
-        public AudioSettings() => 
-            volume = 0.15f;
-    }
-
     [Serializable]
     public sealed class Storage
     {
@@ -103,6 +45,7 @@ namespace Internal.Codebase.Runtime.StorageData
             {
                 fishCurrancy.fishs += value;
                 fishCurrancy.fishs = Mathf.Clamp(fishCurrancy.fishs, 0, int.MaxValue);
+
                 OnFishCurrancyChanged?.Invoke(fishCurrancy.fishs);
             }
         }
@@ -115,6 +58,7 @@ namespace Internal.Codebase.Runtime.StorageData
             {
                 emeraldCurrancy.emeralds += value;
                 emeraldCurrancy.emeralds = Mathf.Clamp(emeraldCurrancy.emeralds, 0, int.MaxValue);
+
                 OnEmeraldCurrancyChanged?.Invoke(emeraldCurrancy.emeralds);
             }
         }
@@ -127,6 +71,7 @@ namespace Internal.Codebase.Runtime.StorageData
             {
                 userBestDistance.bestDistance = value;
                 userBestDistance.bestDistance = Mathf.Clamp(userBestDistance.bestDistance, 0, int.MaxValue);
+
                 OnBestDistanceChanged?.Invoke(userBestDistance.bestDistance);
             }
         }

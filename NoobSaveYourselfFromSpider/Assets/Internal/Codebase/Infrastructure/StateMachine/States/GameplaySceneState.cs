@@ -9,6 +9,7 @@ using System.Linq;
 using Internal.Codebase.Infrastructure.Factory.Game;
 using Internal.Codebase.Infrastructure.Factory.Hero;
 using Internal.Codebase.Infrastructure.Factory.UI;
+using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
@@ -29,6 +30,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
         private readonly IUIFactory uiFactory;
         private readonly IHeroFactory heroFactory;
         private readonly IGameFactory gameFactory;
+        private readonly IYandexSaveService saveService;
         private GameStateMachine gameStateMachine;
         private SceneController sceneController;
 
@@ -39,7 +41,8 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             IStaticDataService staticData,
             IUIFactory uiFactory,
             IHeroFactory heroFactory,
-            IGameFactory gameFactory
+            IGameFactory gameFactory,
+            IYandexSaveService saveService
         )
         {
             this.curtain = curtain;
@@ -48,6 +51,7 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             this.uiFactory = uiFactory;
             this.heroFactory = heroFactory;
             this.gameFactory = gameFactory;
+            this.saveService = saveService;
         }
 
         public void Init(GameStateMachine stateMachine) =>
@@ -83,9 +87,15 @@ namespace Internal.Codebase.Infrastructure.StateMachine.States
             var levelGenerator = gameFactory.CreateLevelGenerator();
             levelGenerator.Prepare();
 
-            sceneController = GameObject.FindObjectOfType<SceneController>();
-            sceneController.Container(hero, gameStateMachine, sceneLoader, OnSceneLoaded, levelGenerator,
-                YandexGame.savesData.storage);
+            sceneController = Object.FindObjectOfType<SceneController>();
+
+            sceneController.Container(
+                hero,
+                gameStateMachine,
+                sceneLoader,
+                OnSceneLoaded,
+                levelGenerator,
+                saveService);
         }
 
         private void LeaveToMainMenuState() =>

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.MainMenu.HeroSwither
+namespace Internal.Codebase.Runtime.MainMenu.HeroSwither.Data
 {
     [Serializable]
     public sealed class SkinShopData

@@ -10,11 +10,11 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
-using Internal.Codebase.Runtime.MainMenu.New.View;
+using Internal.Codebase.Runtime.MainMenu.HeroSwither.View;
 using Internal.Codebase.Runtime.StorageData;
 using UnityEngine;
 
-namespace Internal.Codebase.Runtime.MainMenu.HeroSwither
+namespace Internal.Codebase.Runtime.MainMenu.HeroSwither.Controller
 {
     public sealed class CharacterSwitcher : IDisposable
     {
@@ -32,14 +32,12 @@ namespace Internal.Codebase.Runtime.MainMenu.HeroSwither
         {
             view = characterSwitcherView;
             saveService = yandexSaveService;
-
-            Prepape();
         }
 
         ~CharacterSwitcher() =>
             Dispose();
 
-        private void Prepape()
+        public void Prepare()
         {
             storage = saveService.Load();
 
@@ -48,10 +46,11 @@ namespace Internal.Codebase.Runtime.MainMenu.HeroSwither
             else
                 LoadUserdata();
 
-            Refrash();
-
             view.leftButton.onClick.AddListener(() => { SwitchCharacter(true); });
             view.rightButton.onClick.AddListener(() => { SwitchCharacter(false); });
+
+            Refrash();
+            Save();
 
             void Refrash()
             {

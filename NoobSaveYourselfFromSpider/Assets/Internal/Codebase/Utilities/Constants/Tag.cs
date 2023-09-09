@@ -16,5 +16,6 @@ namespace Internal.Codebase.Utilities.Constants
         public const string MainCamera = nameof(MainCamera);
         public const string Player = nameof(Player);
         public const string GameController = nameof(GameController);
+        public const string Ground = nameof(Ground);
     }
 }

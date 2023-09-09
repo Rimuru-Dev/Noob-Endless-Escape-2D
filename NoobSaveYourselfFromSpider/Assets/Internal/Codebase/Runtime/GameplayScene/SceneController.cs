@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.Curtain;
 using Internal.Codebase.Infrastructure.Services.SceneLoader;
 using Internal.Codebase.Infrastructure.Services.StaticData;
@@ -15,7 +16,6 @@ using Internal.Codebase.Infrastructure.StateMachine;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
 using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
 using Internal.Codebase.Runtime.Hero;
-using Internal.Codebase.Runtime.MainMenu.Animation;
 using Internal.Codebase.Runtime.Obstacles;
 using Internal.Codebase.Runtime.SpriteTextNumberCounterLogic;
 using Internal.Codebase.Runtime.StorageData;
@@ -50,30 +50,32 @@ namespace Internal.Codebase.Runtime.GameplayScene
         private EndlessLevelGenerationHandler endlessLevelGenerationHandler;
 
         public void Container(
-            HeroViewController heroViewController,
-            GameStateMachine gameStateMachine,
-            ISceneLoaderService sceneLoader,
+            HeroViewController heroView,
+            GameStateMachine stateMachine,
+            ISceneLoaderService sceneLoaderService,
             Action action,
-            EndlessLevelGenerationHandler endlessLevelGenerationHandler,
-            Storage storage)
+            EndlessLevelGenerationHandler levelGeneration,
+            IYandexSaveService yandexSaveService)
         {
-            // this.storage = storage;
-            this.endlessLevelGenerationHandler = endlessLevelGenerationHandler;
-            this.gameStateMachine = gameStateMachine;
-            this.heroViewController = heroViewController;
-            this.heroViewController.heroDie.OnDie += Die;
-            this.sceneLoader = sceneLoader;
+            saveService = yandexSaveService;
 
+            endlessLevelGenerationHandler = levelGeneration;
+            gameStateMachine = stateMachine;
+            heroViewController = heroView;
+            heroViewController.heroDie.OnDie += Die;
+            sceneLoader = sceneLoaderService;
+
+            Load();
 
             advTimer.OnTimerOn += StartTimer;
             advTimer.OnTimerOff += EndTimer;
             goMainMenuButton.onClick.AddListener(() =>
             {
                 Time.timeScale = 1;
-                //sceneLoader.LoadScene(SceneName.Menu, () => { gameStateMachine.EnterState<LoadMainMenuState>(); });
-                endlessLevelGenerationHandler.Pause = true;
-                heroViewController.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-                heroViewController.jumpController.IsCanJump = false;
+                //sceneLoaderService.LoadScene(SceneName.Menu, () => { stateMachine.EnterState<LoadMainMenuState>(); });
+                levelGeneration.Pause = true;
+                heroView.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                heroView.jumpController.IsCanJump = false;
                 action?.Invoke();
             });
 
@@ -86,10 +88,10 @@ namespace Internal.Codebase.Runtime.GameplayScene
             home.onClick.AddListener(() =>
             {
                 Time.timeScale = 1;
-                //sceneLoader.LoadScene(SceneName.Menu, () => { gameStateMachine.EnterState<LoadMainMenuState>(); });
-                endlessLevelGenerationHandler.Pause = true;
-                heroViewController.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-                heroViewController.jumpController.IsCanJump = false;
+                //sceneLoaderService.LoadScene(SceneName.Menu, () => { stateMachine.EnterState<LoadMainMenuState>(); });
+                levelGeneration.Pause = true;
+                heroView.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                heroView.jumpController.IsCanJump = false;
                 action?.Invoke();
             });
 
@@ -123,29 +125,18 @@ namespace Internal.Codebase.Runtime.GameplayScene
 
         public YandexGame yandexGameSDK;
 
-        private void Awake()
-        {
-            if (YandexGame.SDKEnabled)
-                Load();
+        public void Save() =>
+            saveService.Save(storage);
 
-            YandexGame.GetDataEvent += Load;
-        }
-
-        public void Save()
-        {
-            YandexGame.savesData.storage = storage;
-        }
-
-        public void Load()
-        {
-            storage = YandexGame.savesData.storage;
-        }
+        public void Load() =>
+            storage = saveService.Load();
 
         private void OnEnable() =>
             YandexGame.RewardVideoEvent += Rewarded;
 
         public int rebirdthID = 50;
         private Storage storage;
+        private IYandexSaveService saveService;
 
         private void Rewarded(int id)
         {
@@ -168,10 +159,8 @@ namespace Internal.Codebase.Runtime.GameplayScene
         private void OnDisable() =>
             YandexGame.RewardVideoEvent -= Rewarded;
 
-        private void Reb()
-        {
+        private void Reb() =>
             ShowAdvButton(50);
-        }
 
         public void Die()
         {
@@ -194,7 +183,6 @@ namespace Internal.Codebase.Runtime.GameplayScene
                 storage.BestDistance = currentDistance;
 
                 YandexGame.savesData.storage = storage;
-                // persistenProgressService.Save(storage);
             }
 
 
@@ -211,10 +199,7 @@ namespace Internal.Codebase.Runtime.GameplayScene
         public void Rebirth()
         {
             foreach (var obstacle in obstacles.Where(obstacle => obstacle != null))
-            {
-                Debug.Log(obstacle.transform.parent.gameObject.name);
                 obstacle.transform.parent.gameObject.SetActive(false);
-            }
 
             obstacles.Clear();
             heroViewController.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
@@ -224,22 +209,15 @@ namespace Internal.Codebase.Runtime.GameplayScene
 
             heroViewController.transform.position = new Vector3(0, 6f, 0);
 
-            // home.gameObject.SetActive(true);
-            // stopPause.gameObject.SetActive(true);
             startPause.gameObject.SetActive(true);
         }
-#if UNITY_EDITOR
-        private void Update()
-        {
-            if (Input.GetKey(key: KeyCode.P))
-                Rebirth();
-        }
-#endif
+
         private void OnDestroy()
         {
+            Save();
+
             advTimer.OnTimerOn -= StartTimer;
             advTimer.OnTimerOff -= EndTimer;
-            YandexGame.GetDataEvent -= Load;
             goMainMenuButton.onClick.RemoveAllListeners();
             rebirthButton.onClick.RemoveAllListeners();
 
