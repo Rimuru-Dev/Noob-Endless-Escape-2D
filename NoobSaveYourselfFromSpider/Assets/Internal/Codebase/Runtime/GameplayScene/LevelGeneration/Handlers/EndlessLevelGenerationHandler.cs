@@ -88,6 +88,9 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
         {
             print("Unity Update()");
 
+            if (Input.GetKeyDown(KeyCode.K)) updater.Pause(true);
+            if (Input.GetKeyDown(KeyCode.L)) updater.Pause(false);
+
             if (Pause)
                 return;
 

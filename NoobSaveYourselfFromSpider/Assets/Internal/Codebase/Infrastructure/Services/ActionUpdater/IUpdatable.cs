@@ -9,5 +9,6 @@ namespace Internal.Codebase.Infrastructure.Services.ActionUpdater
         public void FixedUpdate();
         public void Update();
         public void LateUpdate();
+        public void Pause(bool pause);
     }
 }

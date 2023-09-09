@@ -9,6 +9,7 @@ namespace Internal.Codebase.Infrastructure.Services.ActionUpdater
         private readonly List<Action> fixedUpdateActionCache = new();
         private readonly List<Action> updateActionCache = new();
         private readonly List<Action> lateUpdateActionCache = new();
+        private bool isPause;
 
         private event Action OnFixedUpdate;
         private event Action OnUpdate;
@@ -56,14 +57,32 @@ namespace Internal.Codebase.Infrastructure.Services.ActionUpdater
             }
         }
 
-        public void FixedUpdate() =>
+        public void FixedUpdate()
+        {
+            if (isPause)
+                return;
+
             OnFixedUpdate?.Invoke();
+        }
 
-        public void Update() =>
+        public void Update()
+        {
+            if (isPause)
+                return;
+
             OnUpdate?.Invoke();
+        }
 
-        public void LateUpdate() =>
+        public void LateUpdate()
+        {
+            if (isPause)
+                return;
+
             OnLateUpdate?.Invoke();
+        }
+
+        public void Pause(bool pause) =>
+            isPause = pause;
 
         public void Dispose()
         {
