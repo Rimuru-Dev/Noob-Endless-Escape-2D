@@ -18,7 +18,6 @@ namespace Internal.Codebase.Runtime.GameplayScene.Hero.View
         [field: SerializeField] public Transform HeroRoot { get; private set; }
         [field: SerializeField] public SpriteRenderer HeroSpriteRenderer { get; private set; }
         [field: SerializeField] public JumpController JumpController { get; private set; }
-        // [field: SerializeField] public HeroDie HeroDie { get; private set; }
         [field: SerializeField] public TriggerObserver2D DeathObserver { get; private set; }
     }
 }

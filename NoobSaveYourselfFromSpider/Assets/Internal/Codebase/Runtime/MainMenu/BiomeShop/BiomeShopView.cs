@@ -68,6 +68,7 @@ namespace Internal.Codebase.Runtime.MainMenu.BiomeShop
                 BuyBiomWinter.onClick.AddListener(Buy);
                 LookIcon.gameObject.SetActive(true);
                 NumberVisualizer.gameObject.SetActive(true);
+                // NumberVisualizer.ShowNumber(BiomePrice);
             }
         }
 

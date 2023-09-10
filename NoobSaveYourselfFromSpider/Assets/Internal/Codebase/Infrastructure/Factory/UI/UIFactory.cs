@@ -8,7 +8,9 @@
 using Zenject;
 using Internal.Codebase.Runtime.General.Curtain;
 using Internal.Codebase.Infrastructure.AssetManagement;
+using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.StaticData;
+using UnityEngine;
 using UIRoot = Internal.Codebase.Runtime.MainMenu.View.UIRoot;
 
 namespace Internal.Codebase.Infrastructure.Factory.UI
@@ -17,23 +19,25 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
     {
         private readonly IAssetProvider assetProvider;
         private readonly IStaticDataService staticData;
+        private readonly IYandexSaveService saveService;
 
         private UIRoot mainMenuUIRoot;
         private Runtime.GameplayScene.UI.View.UIRoot gameplayUIRoot;
 
         [Inject]
-        public UIFactory(IAssetProvider assetProvider, IStaticDataService staticData)
+        public UIFactory(IAssetProvider assetProvider, IStaticDataService staticData, IYandexSaveService saveService)
         {
             this.assetProvider = assetProvider;
             this.staticData = staticData;
+            this.saveService = saveService;
         }
 
         public UIRoot MainMenuUIRoot
         {
             get
             {
-                if (mainMenuUIRoot == null)
-                    CreateMainMenuUIRoot();
+                // if (mainMenuUIRoot == null)
+                //     CreateMainMenuUIRoot();
 
                 return mainMenuUIRoot;
             }
@@ -48,8 +52,8 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
         {
             get
             {
-                if (gameplayUIRoot == null)
-                    CreateGameplayUIRoot();
+                // if (gameplayUIRoot == null)
+                //     CreateGameplayUIRoot();
 
                 return gameplayUIRoot;
             }
@@ -77,6 +81,8 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
 
             var root = assetProvider.Instantiate(config.UIRoot);
 
+            Debug.Log("CreateMainMenuUIRoot");
+
             MainMenuUIRoot = root;
 
             return this;
@@ -98,6 +104,8 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
             var config = staticData.ForMainMenuUI();
 
             var canvasView = assetProvider.Instantiate(config.MenuCanvasView, MainMenuUIRoot.transform);
+
+            canvasView.Constructor(saveService);
 
             MainMenuUIRoot.MenuCanvasView = canvasView;
 

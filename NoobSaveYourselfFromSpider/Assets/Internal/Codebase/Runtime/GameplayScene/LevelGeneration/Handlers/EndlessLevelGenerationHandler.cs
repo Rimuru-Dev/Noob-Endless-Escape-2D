@@ -32,7 +32,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
 
         private List<Prefab> pool;
         private Prefab lastSpawnedPrefab;
-        private bool canSpawnNextPrefab = false;
+        private bool canSpawnNextPrefab;
         private bool pause;
 
         public EndlessLevelGenerationHandler(
@@ -112,6 +112,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
 
         public void Dispose()
         {
+            StopEndlessLevelGeneration();
             pool.Clear();
             updaterService.Unsubscribe(Update, UpdateType.Update);
         }
@@ -123,30 +124,46 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
                 if (pause)
                     yield return new WaitForSeconds(levelGeneration.SpawnCooldown);
 
-                var rightConnectPoint = lastSpawnedPrefab.rightEdge.transform;
-                var nextPrefabIndex = Random.Range(0, levelGeneration.Prefabs.Length);
-
-                if (pool.Count < levelGeneration.MaxBlockCount)
+                try
                 {
-                    var position = rightConnectPoint.position;
-                    var nextPrefab = Object.Instantiate(levelGeneration.Prefabs[nextPrefabIndex], position,
-                        Quaternion.identity,
-                        Root);
+                    var rightConnectPoint = lastSpawnedPrefab.rightEdge.transform;
+                    var nextPrefabIndex = Random.Range(0, levelGeneration.Prefabs.Length);
 
-                    pool.Add(nextPrefab);
-
-                    var leftConnectPoint = nextPrefab.leftEdge.transform;
-                    var offset = leftConnectPoint.position - position;
-
-                    nextPrefab.transform.position -= offset;
-
-                    lastSpawnedPrefab = nextPrefab;
-
-                    foreach (var reward in nextPrefab.rewardViews.Where(reward => reward != null))
+                    if (pool.Count < levelGeneration.MaxBlockCount)
                     {
-                        reward.Constructor(saveService);
-                        reward.Prepare();
+                        var position = rightConnectPoint.position;
+                        var nextPrefab = Object.Instantiate(levelGeneration.Prefabs[nextPrefabIndex], position,
+                            Quaternion.identity,
+                            Root);
+
+                        pool.Add(nextPrefab);
+
+                        var leftConnectPoint = nextPrefab.leftEdge.transform;
+                        var offset = leftConnectPoint.position - position;
+
+                        nextPrefab.transform.position -= offset;
+
+                        lastSpawnedPrefab = nextPrefab;
+
+                        foreach (var reward in nextPrefab.rewardViews.Where(reward => reward != null))
+                        {
+                            reward.Constructor(saveService);
+                            reward.Prepare();
+                        }
                     }
+                }
+                catch (NullReferenceException ex)
+                {
+                    Debug.LogException(ex);
+                    StopEndlessLevelGeneration();
+                }
+                catch (MissingReferenceException missingReference)
+                {
+                    const string message = "Incorrect termination of the world generator...";
+
+                    Debug.Log($"<color=gray>{message} Source: {missingReference.Source}</color>");
+
+                    Dispose();
                 }
 
                 yield return new WaitForSeconds(levelGeneration.SpawnCooldown);
