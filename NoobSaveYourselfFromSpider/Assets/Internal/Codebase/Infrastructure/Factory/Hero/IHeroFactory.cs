@@ -6,6 +6,7 @@
 // **************************************************************** //
 
 using System;
+using Internal.Codebase.Runtime.GameplayScene.Hero;
 using Internal.Codebase.Runtime.GameplayScene.Hero.View;
 
 namespace Internal.Codebase.Infrastructure.Factory.Hero
@@ -13,6 +14,8 @@ namespace Internal.Codebase.Infrastructure.Factory.Hero
     public interface IHeroFactory : IDisposable
     {
         public HeroViewController Hero { get; }
+        public HeroController GetHeroController { get; }
+        public HeroController CreateHeroController();
         public HeroViewController CreateHero();
         public void CreateHeroCamera();
     }
