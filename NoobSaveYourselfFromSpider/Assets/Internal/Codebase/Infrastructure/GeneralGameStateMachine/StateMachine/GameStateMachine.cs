@@ -27,7 +27,8 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.StateMachine
             BootstrapState bootstrapState,
             LoadMainMenuState loadMainMenuState,
             GameplaySceneState gameplaySceneState,
-            GameOverState gameOverState)
+            GameOverState gameOverState,
+            RebirdthState rebirdthState)
         {
             states = new Dictionary<Type, IExitableState>
             {
@@ -35,6 +36,7 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.StateMachine
                 [typeof(LoadMainMenuState)] = loadMainMenuState,
                 [typeof(GameplaySceneState)] = gameplaySceneState,
                 [typeof(GameOverState)] = gameOverState,
+                [typeof(RebirdthState)] = rebirdthState,
             };
         }
 
@@ -44,6 +46,7 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.StateMachine
             states[typeof(LoadMainMenuState)].Init(this);
             states[typeof(GameplaySceneState)].Init(this);
             states[typeof(GameOverState)].Init(this);
+            states[typeof(RebirdthState)].Init(this);
         }
 
         public void EnterState<TState>() where TState : IExitableState

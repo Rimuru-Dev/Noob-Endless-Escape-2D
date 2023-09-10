@@ -24,6 +24,7 @@ namespace Internal.Codebase.Infrastructure.Installers
             Container.Bind<LoadMainMenuState>().AsSingle();
             Container.Bind<GameplaySceneState>().AsSingle();
             Container.Bind<GameOverState>().AsSingle();
+            Container.Bind<RebirdthState>().AsSingle();
 
             Container.Bind<GameStateMachine>().AsSingle();
         }
