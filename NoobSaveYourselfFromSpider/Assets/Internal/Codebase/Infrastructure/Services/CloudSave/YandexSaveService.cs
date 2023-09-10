@@ -86,12 +86,16 @@ namespace Internal.Codebase.Infrastructure.Services.CloudSave
 
             storage = YandexGame.savesData.storage;
 
+            storage.Refresh();
+
             return storage;
         }
 
         private Storage LoadUserStorage()
         {
             storage = YandexGame.savesData.storage;
+
+            storage.Refresh();
 
             return storage;
         }
