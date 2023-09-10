@@ -6,6 +6,7 @@
 //
 // **************************************************************** //
 
+using System;
 using UnityEngine;
 
 namespace Internal.Codebase.Runtime.GameplayScene.Parallax
@@ -36,6 +37,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.Parallax
         private BoxCollider2D boxCollider2D;
         private new Rigidbody2D rigidbody2D;
         private float with;
+        private bool isPause;
 
         private void Start()
         {
@@ -48,6 +50,9 @@ namespace Internal.Codebase.Runtime.GameplayScene.Parallax
 
         private void FixedUpdate()
         {
+            if (CheckPause())
+                return;
+
             if (loopMode != LoopMode.FixedUpdate)
                 return;
 
@@ -57,6 +62,9 @@ namespace Internal.Codebase.Runtime.GameplayScene.Parallax
 
         private void Update()
         {
+            if (CheckPause())
+                return;
+
             if (loopMode != LoopMode.Update)
                 return;
 
@@ -66,12 +74,27 @@ namespace Internal.Codebase.Runtime.GameplayScene.Parallax
 
         private void LateUpdate()
         {
+            if (CheckPause())
+                return;
+
             if (loopMode != LoopMode.LateUpdate)
                 return;
 
             if (CanReposition())
                 Reposition();
         }
+
+        [System.Diagnostics.Conditional("DEBUG")]
+        private void OnValidate()
+        {
+            var rigidbody2DComponent = GetComponent<Rigidbody2D>();
+
+            if (rigidbody2DComponent.bodyType != RigidbodyType2D.Kinematic)
+                rigidbody2DComponent.bodyType = RigidbodyType2D.Kinematic;
+        }
+
+        public void SetPause(bool pause) =>
+            isPause = pause;
 
         private bool CanReposition() =>
             transform.position.x <= -with;
@@ -82,13 +105,14 @@ namespace Internal.Codebase.Runtime.GameplayScene.Parallax
             transform.position += vector2;
         }
 
-        [System.Diagnostics.Conditional("DEBUG")]
-        private void OnValidate()
+        private bool CheckPause()
         {
-            var rigidbody2DComponent = GetComponent<Rigidbody2D>();
+            if (!isPause)
+                return false;
 
-            if (rigidbody2DComponent.bodyType != RigidbodyType2D.Kinematic)
-                rigidbody2DComponent.bodyType = RigidbodyType2D.Kinematic;
+            rigidbody2D.velocity = Vector2.zero;
+
+            return true;
         }
     }
 }
