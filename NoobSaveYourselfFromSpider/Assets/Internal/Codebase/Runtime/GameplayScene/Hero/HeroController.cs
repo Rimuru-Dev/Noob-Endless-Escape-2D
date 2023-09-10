@@ -11,11 +11,8 @@
 // **************************************************************** //
 
 using System;
-using System.Collections.Generic;
+using Internal.Codebase.Runtime.GameplayScene.Hero.Death;
 using Internal.Codebase.Runtime.GameplayScene.Hero.View;
-using Internal.Codebase.Runtime.GameplayScene.Obstacles;
-using Internal.Codebase.Utilities.Exceptions;
-using UnityEngine;
 
 namespace Internal.Codebase.Runtime.GameplayScene.Hero
 {
@@ -35,64 +32,23 @@ namespace Internal.Codebase.Runtime.GameplayScene.Hero
         ~HeroController() =>
             Dispose();
 
+        public IHeroDeath HeroDeath => heroDeath;
+
         // Pass to the stage exit state of gameplay to be cleared.
         public void Dispose()
         {
             heroView.DeathObserver.OnCollisionEnter2D -= heroDeath.PerformDeath;
+            heroDeath.Unsubscribe(OnHeroDeath);
             heroDeath?.Dispose();
         }
 
         private void Prepare()
         {
             heroView.DeathObserver.OnCollisionEnter2D += heroDeath.PerformDeath;
-        }
-    }
-
-    public interface IHeroDeath : IDisposable
-    {
-        public void PerformDeath(Collider2D collision);
-        public void Subscribe(Action action);
-        public void Unsubscribe(Action action);
-    }
-
-    public sealed class HeroDeath : IHeroDeath
-    {
-        private event Action OnDeath;
-        private readonly List<Action> deathListeners;
-
-        public HeroDeath() =>
-            deathListeners = new List<Action>();
-
-        ~HeroDeath() =>
-            Dispose();
-
-        public void PerformDeath(Collider2D collision) =>
-            collision.TryGetComponentInChildrenAndInvoke(out DeadlyObstacle _, InvokePerformDeath);
-
-        public void Subscribe(Action action)
-        {
-            if (deathListeners.Contains(action) || action == null)
-                return;
-
-            deathListeners.Add(action);
-
-            OnDeath += action;
+            heroDeath.Subscribe(OnHeroDeath);
         }
 
-        public void Unsubscribe(Action action)
-        {
-            if (!deathListeners.Contains(action) || action == null)
-                return;
-
-            deathListeners.Remove(action);
-
-            OnDeath -= action;
-        }
-
-        public void Dispose() =>
-            OnDeath.UnsubscribeAndRemoveAndClearAll(deathListeners);
-
-        private void InvokePerformDeath() =>
-            OnDeath?.Invoke();
+        private void OnHeroDeath() => 
+            heroView.JumpController.IsCanJump = false;
     }
 }

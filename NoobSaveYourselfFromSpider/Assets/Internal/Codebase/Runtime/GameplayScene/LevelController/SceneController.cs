@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Infrastructure.Services.StaticData;
-using Internal.Codebase.Runtime.GameplayScene.Hero;
 using Internal.Codebase.Runtime.GameplayScene.Hero.View;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers;
@@ -30,21 +29,19 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
         public Button startPause;
         public Button stopPause;
         public Button home;
-
         public NumberVisualizer numberVisualizer;
         public GameTimer advTimer;
-
-        // Popup
         public GameObject popup;
         public Button goMainMenuButton;
         public Button rebirthButton;
         public SpriteRenderer[] parallax;
-
         [Inject] private IStaticDataService staticDataService;
         private HeroViewController heroViewController;
         public List<DeadlyObstacle> obstacles = new();
         private EndlessLevelGenerationHandler endlessLevelGenerationHandler;
-
+        public int rebirdthID = 50;
+        private Storage storage;
+        private IYandexSaveService saveService;
         private bool isShitCode;
 
         public void Container(
@@ -57,17 +54,17 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
 
             endlessLevelGenerationHandler = levelGeneration;
             heroViewController = heroView;
-            heroViewController.HeroDie.OnDie += Die;
+            // heroViewController.HeroDie.OnDie += Die;
 
             Load();
-            heroView.HeroDie.OnDie += delegate
-            {
-                if (isShitCode)
-                    return;
-
-                isShitCode = true;// TODO: Remove !!!
-                advTimer.OnTimerOff += EndTimer;
-            };
+            // heroView.HeroDie.OnDie += delegate
+            // {
+            //     if (isShitCode)
+            //         return;
+            //
+            //     isShitCode = true; // TODO: Remove !!!
+            //     advTimer.OnTimerOff += EndTimer;
+            // };
             // advTimer.OnTimerOn += StartTimer;
             // advTimer.OnTimerOff += EndTimer;
             goMainMenuButton.onClick.AddListener(() =>
@@ -134,10 +131,6 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
 
         private void OnEnable() =>
             YandexGame.RewardVideoEvent += Rewarded;
-
-        public int rebirdthID = 50;
-        private Storage storage;
-        private IYandexSaveService saveService;
 
         private void Rewarded(int id)
         {
@@ -221,8 +214,8 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelController
             goMainMenuButton.onClick.RemoveAllListeners();
             rebirthButton.onClick.RemoveAllListeners();
 
-            if (heroViewController != null)
-                heroViewController.HeroDie.OnDie -= Die;
+            // if (heroViewController != null)
+            // heroViewController.HeroDie.OnDie -= Die;
 
             startPause.onClick.RemoveAllListeners();
             stopPause.onClick.RemoveAllListeners();

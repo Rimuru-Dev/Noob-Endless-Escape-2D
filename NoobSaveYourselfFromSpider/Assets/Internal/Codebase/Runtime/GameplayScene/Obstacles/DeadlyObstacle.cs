@@ -17,15 +17,15 @@ namespace Internal.Codebase.Runtime.GameplayScene.Obstacles
     {
         [field: SerializeField] public DeadlyObstacleTypeID DeadlyObstacleTypeID { get; private set; }
 
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (!other.transform.CompareTag(Tag.Player))
-                return;
-
-            var die = other.transform.GetComponentInChildren<HeroDie>();
-
-            if (die != null)
-                die.ApplyHeroDie();
-        }
+        // private void OnCollisionEnter2D(Collision2D other)
+        // {
+        //     if (!other.transform.CompareTag(Tag.Player))
+        //         return;
+        //
+        //     var die = other.transform.GetComponentInChildren<HeroDie>();
+        //
+        //     if (die != null)
+        //         die.ApplyHeroDie();
+        // }
     }
 }

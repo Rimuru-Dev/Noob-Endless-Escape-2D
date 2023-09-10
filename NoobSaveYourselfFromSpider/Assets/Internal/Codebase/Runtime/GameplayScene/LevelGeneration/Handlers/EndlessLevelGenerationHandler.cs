@@ -98,12 +98,14 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
 
         public void StartEndlessLevelGeneration()
         {
+            pause = false;
             canSpawnNextPrefab = true;
             coroutineRunner.StartCoroutine(SpawnNextPrefab());
         }
 
         public void StopEndlessLevelGeneration()
         {
+            pause = true;
             canSpawnNextPrefab = false;
             coroutineRunner.StopAllCoroutines();
         }
@@ -127,7 +129,8 @@ namespace Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers
                 if (pool.Count < levelGeneration.MaxBlockCount)
                 {
                     var position = rightConnectPoint.position;
-                    var nextPrefab = Object.Instantiate(levelGeneration.Prefabs[nextPrefabIndex], position, Quaternion.identity,
+                    var nextPrefab = Object.Instantiate(levelGeneration.Prefabs[nextPrefabIndex], position,
+                        Quaternion.identity,
                         Root);
 
                     pool.Add(nextPrefab);

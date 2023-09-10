@@ -5,8 +5,8 @@
 //
 // **************************************************************** //
 
-using Internal.Codebase.Runtime.GameplayScene.Hero.Death;
 using Internal.Codebase.Runtime.GameplayScene.Hero.Input;
+using Internal.Codebase.Runtime.General.TriggerObservers;
 using UnityEngine;
 
 namespace Internal.Codebase.Runtime.GameplayScene.Hero.View
@@ -15,8 +15,10 @@ namespace Internal.Codebase.Runtime.GameplayScene.Hero.View
     [DisallowMultipleComponent]
     public sealed class HeroViewController : MonoBehaviour
     {
+        [field: SerializeField] public Transform HeroRoot { get; private set; }
         [field: SerializeField] public SpriteRenderer HeroSpriteRenderer { get; private set; }
         [field: SerializeField] public JumpController JumpController { get; private set; }
-        [field: SerializeField] public HeroDie HeroDie { get; private set; }
+        // [field: SerializeField] public HeroDie HeroDie { get; private set; }
+        [field: SerializeField] public TriggerObserver2D DeathObserver { get; private set; }
     }
 }

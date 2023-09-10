@@ -11,7 +11,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.Hero.Input
 {
     [SelectionBase]
     [DisallowMultipleComponent]
-    public sealed class JumpController : MonoBehaviour
+    public sealed class JumpController : MonoBehaviour // TODO: Remove MonoBehaviour
     {
         public Transform heroTransform;
         public float jumpForce = 5f;
