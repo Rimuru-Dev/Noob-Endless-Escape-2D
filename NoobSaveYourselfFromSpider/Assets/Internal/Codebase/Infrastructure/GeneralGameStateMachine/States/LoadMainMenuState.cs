@@ -16,6 +16,7 @@ using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
 using Internal.Codebase.Runtime.MainMenu.BiomeShop;
 using Internal.Codebase.Runtime.MainMenu.HeroSwither.Controller;
 using Internal.Codebase.Utilities.Constants;
+using UnityEngine;
 using YG;
 using Zenject;
 
@@ -61,7 +62,7 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
         {
             if (uiFactory.MainMenuUIRoot.MenuCanvasView != null)
                 uiFactory.MainMenuUIRoot.MenuCanvasView.Dispose();
-
+            
             characterSwitcher?.Dispose();
         }
 
@@ -74,6 +75,8 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
 
             var uiRoot = uiFactory.MainMenuUIRoot;
 
+            
+            
             // Setup Biomes Shop View
             {
                 biomeShop = uiRoot.MenuCanvasView.BiomeShopView;
@@ -103,9 +106,17 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
                 var length = currencyShopView.OpenChop.Length;
 
                 for (var i = 0; i < length; i++)
-                    currencyShopView.OpenChop[i].onClick.AddListener(() => currencyShopView.Panel.SetActive(true));
+                    currencyShopView.OpenChop[i].onClick.AddListener(() =>
+                    {
+                        currencyShopView.Panel.SetActive(true);
+                        // saveService.Load().Refresh();
+                    });
 
-                currencyShopView.CloseChop.onClick.AddListener(() => { currencyShopView.Panel.SetActive(false); });
+                currencyShopView.CloseChop.onClick.AddListener(() =>
+                {
+                    currencyShopView.Panel.SetActive(false);
+                    // saveService.Load().Refresh();
+                });
             }
 
             // Currency
