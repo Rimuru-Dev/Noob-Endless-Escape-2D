@@ -14,7 +14,9 @@ using System;
 using System.Collections.Generic;
 using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
 using Internal.Codebase.Runtime.General.StorageData;
+using UnityEngine;
 using YG;
+using AudioSettings = Internal.Codebase.Runtime.General.StorageData.AudioSettings;
 
 namespace Internal.Codebase.Infrastructure.Services.CloudSave
 {
@@ -93,7 +95,13 @@ namespace Internal.Codebase.Infrastructure.Services.CloudSave
 
         private Storage LoadUserStorage()
         {
-            storage = YandexGame.savesData.storage;
+            if (storage == null)
+            {
+                storage = YandexGame.savesData.storage;
+                storage.Refresh();
+
+                return storage;
+            }
 
             storage.Refresh();
 

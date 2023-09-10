@@ -47,11 +47,21 @@ namespace Internal.Codebase.Runtime.MainMenu.HeroSwither.Controller
             else
                 LoadUserdata();
 
-            view.leftButton.onClick.AddListener(() => { SwitchCharacter(true); });
-            view.rightButton.onClick.AddListener(() => { SwitchCharacter(false); });
-
             Refrash();
             Save();
+            view.numberVisualizer.InitVisualizeText();
+            storage.Refresh();
+
+            view.leftButton.onClick.AddListener(() =>
+            {
+                storage.Refresh();
+                SwitchCharacter(false);
+            });
+            view.rightButton.onClick.AddListener(() =>
+            {
+                storage.Refresh();
+                SwitchCharacter(true);
+            });
 
             void Refrash()
             {
@@ -105,6 +115,7 @@ namespace Internal.Codebase.Runtime.MainMenu.HeroSwither.Controller
 
         private void Buy()
         {
+            storage.Refresh();
             var skin = view.skins[selectionSkinID];
 
             if (skin.isOpen)
@@ -153,6 +164,8 @@ namespace Internal.Codebase.Runtime.MainMenu.HeroSwither.Controller
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            storage.Refresh();
         }
 
         private void SwitchCharacter(bool isRight)
@@ -179,9 +192,9 @@ namespace Internal.Codebase.Runtime.MainMenu.HeroSwither.Controller
 
             selectionSkinID = newIndex;
 
-            UpdateUI(newIndex);
+            AnimateCharacter(true, selectionSkinID);
 
-            AnimateCharacter(true, newIndex);
+            UpdateUI(selectionSkinID);
 
             isSwitching = true;
         }
@@ -189,6 +202,9 @@ namespace Internal.Codebase.Runtime.MainMenu.HeroSwither.Controller
         private void AnimateCharacter(bool isExpanding, int newIndex = -1)
         {
             var targetScale = isExpanding ? 1.2f : 0f;
+
+            storage.Refresh();
+            UpdateUI(selectionSkinID);
 
             characterTransform
                 .DOScale(Vector3.one * targetScale, 0.5f)
@@ -207,14 +223,21 @@ namespace Internal.Codebase.Runtime.MainMenu.HeroSwither.Controller
                             characterTransform.localRotation = Quaternion.identity;
                             characterTransform.localScale = Vector3.one;
 
+                            UpdateUI(selectionSkinID);
                             isSwitching = false;
                         });
+
+                    UpdateUI(selectionSkinID);
                 });
+
+            storage.Refresh();
         }
 
         private void UpdateUI(int id)
         {
             var skin = view.skins[id];
+
+            storage.Refresh();
 
             if (!skin.isOpen)
             {
@@ -226,6 +249,8 @@ namespace Internal.Codebase.Runtime.MainMenu.HeroSwither.Controller
                 view.cyrrancy.gameObject.SetActive(true);
                 view.cyrrancy.sprite = view.currancyIcons.FirstOrDefault(icon => icon.currancyTypeID == skin.priceType)!
                     .icon;
+
+                storage.Refresh();
             }
             else
             {
@@ -236,6 +261,8 @@ namespace Internal.Codebase.Runtime.MainMenu.HeroSwither.Controller
                 view.numberVisualizer.gameObject.SetActive(false);
                 view.cyrrancy.gameObject.SetActive(false);
             }
+
+            storage.Refresh();
         }
     }
 }

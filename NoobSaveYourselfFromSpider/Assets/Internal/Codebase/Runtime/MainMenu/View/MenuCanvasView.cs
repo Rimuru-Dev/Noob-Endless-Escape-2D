@@ -1,4 +1,5 @@
 ﻿using System;
+using Internal.Codebase.Infrastructure.Services.CloudSave;
 using Internal.Codebase.Runtime.MainMenu.BestDistance;
 using Internal.Codebase.Runtime.MainMenu.BiomeShop;
 using Internal.Codebase.Runtime.MainMenu.Currency;
@@ -30,6 +31,7 @@ namespace Internal.Codebase.Runtime.MainMenu.View
         {
             foreach (var button in CurrencyShopView.OpenChop)
                 button.onClick.RemoveAllListeners();
+
             CurrencyShopView.CloseChop.onClick.RemoveAllListeners();
 
             SettingsView.OpenPanel.onClick.RemoveAllListeners();
@@ -40,5 +42,18 @@ namespace Internal.Codebase.Runtime.MainMenu.View
             BiomeShopView.PlayBiomWinter.onClick.RemoveAllListeners();
             BiomeShopView.PlayBiomeForest.onClick.RemoveAllListeners();
         }
+
+        private IYandexSaveService saveService;
+
+        public void Constructor(IYandexSaveService yandexSaveService) =>
+            saveService = yandexSaveService;
+
+#if UNITY_EDITOR
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.U))
+                saveService.Load().Refresh();
+        }
+#endif
     }
 }

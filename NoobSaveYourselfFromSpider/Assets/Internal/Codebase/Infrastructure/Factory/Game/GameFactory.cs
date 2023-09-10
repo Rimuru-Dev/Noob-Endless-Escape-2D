@@ -25,6 +25,7 @@ namespace Internal.Codebase.Infrastructure.Factory.Game
         private readonly IYandexSaveService yandexSaveService;
         private readonly IActionUpdaterService actionUpdaterService;
         private readonly ICoroutineRunner coroutineRunner;
+        public EndlessLevelGenerationHandler GetCahaeLevelGeneration { get; private set; }
 
         public GameFactory(
             IAssetProvider assetProvider,
@@ -58,9 +59,14 @@ namespace Internal.Codebase.Infrastructure.Factory.Game
                 actionUpdaterService,
                 biom);
 
+            GetCahaeLevelGeneration = levelGenerationHandler;
+
             levelGenerationHandler.Prepare();
 
             return levelGenerationHandler;
         }
+
+        public void Dispose() => 
+            GetCahaeLevelGeneration?.Dispose();
     }
 }

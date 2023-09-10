@@ -28,8 +28,6 @@ namespace Internal.Codebase.Runtime.GameplayScene.Hero.Death
             deathListeners.Add(action);
 
             OnDeath += action;
-
-            Debug.Log($"Subscribe: {action.Target.GetType().FullName}");
         }
 
         public void Unsubscribe(Action action)
@@ -42,8 +40,11 @@ namespace Internal.Codebase.Runtime.GameplayScene.Hero.Death
             OnDeath -= action;
         }
 
+        public void UnsubscribeAll() => 
+            OnDeath?.UnsubscribeAll(deathListeners);
+
         public void Dispose() =>
-            OnDeath.UnsubscribeAndRemoveAndClearAll(deathListeners);
+            OnDeath?.UnsubscribeAndRemoveAndClearAll(deathListeners);
 
         private void InvokePerformDeath() =>
             OnDeath?.Invoke();

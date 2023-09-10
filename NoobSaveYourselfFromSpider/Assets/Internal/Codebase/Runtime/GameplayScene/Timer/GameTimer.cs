@@ -14,13 +14,13 @@ namespace Internal.Codebase.Runtime.GameplayScene.Timer
     [DisallowMultipleComponent]
     public sealed class GameTimer : MonoBehaviour
     {
+        public event Action OnTimerOn;
+        public event Action OnTimerOff;
+
         [SerializeField] private bool isCountdownStarted;
         [SerializeField] private float initialCooldownTimer = 3f;
         [SerializeField] private float countdownTimer = 3f;
         [SerializeField] private NumberVisualizer numberVisualizer;
-
-        public Action OnTimerOn;
-        public Action OnTimerOff;
 
         private void Update()
         {
@@ -32,6 +32,7 @@ namespace Internal.Codebase.Runtime.GameplayScene.Timer
             if (countdownTimer <= 0f)
             {
                 OnTimerOff?.Invoke();
+                
                 isCountdownStarted = false;
                 gameObject.SetActive(false);
                 numberVisualizer.gameObject.SetActive(false);
@@ -42,21 +43,22 @@ namespace Internal.Codebase.Runtime.GameplayScene.Timer
             numberVisualizer.ShowNumber(displayTimer);
         }
 
-        [ContextMenu("StartCountdown")]
+        [ContextMenu("Start Countdown")]
         public void StartCountdown()
         {
-            if (!isCountdownStarted)
-            {
-                OnTimerOn?.Invoke();
-                countdownTimer = initialCooldownTimer;
+            if (isCountdownStarted)
+                return;
 
-                isCountdownStarted = true;
+            OnTimerOn?.Invoke();
+            
+            countdownTimer = initialCooldownTimer;
 
-                gameObject.SetActive(true);
+            isCountdownStarted = true;
 
-                numberVisualizer.gameObject.SetActive(true);
-                numberVisualizer.ShowNumber((int)countdownTimer);
-            }
+            gameObject.SetActive(true);
+
+            numberVisualizer.gameObject.SetActive(true);
+            numberVisualizer.ShowNumber((int)countdownTimer);
         }
     }
 }

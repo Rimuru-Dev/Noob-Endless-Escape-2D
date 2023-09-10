@@ -62,7 +62,7 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
         {
             if (uiFactory.MainMenuUIRoot.MenuCanvasView != null)
                 uiFactory.MainMenuUIRoot.MenuCanvasView.Dispose();
-            
+
             characterSwitcher?.Dispose();
         }
 
@@ -75,8 +75,7 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
 
             var uiRoot = uiFactory.MainMenuUIRoot;
 
-            
-            
+
             // Setup Biomes Shop View
             {
                 biomeShop = uiRoot.MenuCanvasView.BiomeShopView;
@@ -147,6 +146,7 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
             {
                 characterSwitcher = new CharacterSwitcher(uiRoot.MenuCanvasView.CharacterSwitcherView, saveService);
                 characterSwitcher.Prepare();
+                saveService.Load().Refresh();
             }
         }
 
@@ -165,7 +165,7 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
         private void HideCurtain()
         {
             var config = staticData.ForCurtain();
-            curtain.HideCurtain(config.HideDelay);
+            curtain.HideCurtain(config.HideDelay, () => { saveService.Load().Refresh(); });
         }
 
         private void OnSceneLoaded() =>

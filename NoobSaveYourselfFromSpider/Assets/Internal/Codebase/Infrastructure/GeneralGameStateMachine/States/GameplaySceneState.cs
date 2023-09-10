@@ -35,7 +35,6 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
         private readonly IYandexSaveService saveService;
         private readonly IUIFactory uiFactory;
         private GameStateMachine gameStateMachine;
-        private EndlessLevelGenerationHandler levelGenerator;
 
         [Inject]
         public GameplaySceneState(
@@ -68,80 +67,25 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
             saveService.Load().Refresh();
         }
 
-        public void Exit() =>
-            heroController.HeroDeath.Unsubscribe(HeroDeath);
+        public void Exit()
+        {
+        }
 
         private void HideCurtain() =>
             curtain.HideCurtain();
 
-        private HeroController heroController;
-
         private void PrepareScene()
+        {
+            BuildUI();
+            PrepareLevelGeneration();
+            PrepareHero();
+        }
+
+        private void BuildUI()
         {
             uiFactory
                 .CreateGameplayUIRoot()
                 .CreateGameplayCanvas();
-
-            PrepareLevelGeneration();
-            PrepareHero();
-
-
-            {
-                heroController = new HeroController(
-                    heroFactory.Hero,
-                    new HeroDeath()
-                );
-            }
-
-            {
-                heroController.HeroDeath.Subscribe(HeroDeath);
-            }
-
-            void PrepareLevelGeneration()
-            {
-                levelGenerator = gameFactory.CreateLevelGenerator();
-
-                var startLevelTimer = uiFactory.GameplayUIRoot.GameplayCanvasView.StartLevelTimerView;
-                startLevelTimer.Timer.OnTimerOn += LockHero;
-                startLevelTimer.Timer.OnTimerOff += ActivateEndlessLevelGeneration;
-            }
-
-            void PrepareHero()
-            {
-                var heroViewController = heroFactory.CreateHero();
-                heroFactory.CreateHeroCamera();
-
-                var skinDatas = staticData.ForSkins().gameplaySkinDatas;
-                var userSkin = saveService.Load().userSkins;
-
-                heroViewController.HeroSpriteRenderer.sprite =
-                    skinDatas.FirstOrDefault(x => x.id == userSkin.selectionSkinId)!.icon;
-            }
-        }
-
-        private void LockHero()
-        {
-            heroFactory.Hero.JumpController.IsCanJump = false;
-        }
-
-        // TODO: Create observer
-        private void HeroDeath()
-        {
-            Debug.Log("DEATH!");
-            levelGenerator.StopEndlessLevelGeneration();
-
-            Object
-                .FindObjectOfType<ParallaxBackgroundScrollingList>(true)
-                .SetPauseForAllParallaxBackgroundScrolling(pause: true);
-
-            uiFactory.GameplayUIRoot.GameplayCanvasView.ScoreTimerView.ScoreVisualizer.IsPause = true;
-        }
-
-        private void StartLevelTimer()
-        {
-            var startLevelTimer = uiFactory.GameplayUIRoot.GameplayCanvasView.StartLevelTimerView;
-            startLevelTimer.RootPanel.gameObject.SetActive(true);
-            startLevelTimer.Timer.StartCountdown();
 
             var canvas = uiFactory.GameplayUIRoot.GameplayCanvasView;
 
@@ -164,19 +108,59 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
 
             canvas.MenuPanelView.GoMainMenuButton.onClick.AddListener(() =>
             {
-                HeroDeath();
-                levelGenerator.StartEndlessLevelGeneration();
+                SubscribeHeroDeathState();
+                gameFactory.GetCahaeLevelGeneration.StartEndlessLevelGeneration();
                 OnSceneLoaded();
             });
         }
 
-        private void ActivateEndlessLevelGeneration()
+        private void PrepareLevelGeneration()
         {
-            levelGenerator.StartEndlessLevelGeneration();
+            gameFactory.CreateLevelGenerator();
+
+            var startLevelTimer = uiFactory.GameplayUIRoot.GameplayCanvasView.StartLevelTimerView;
+            startLevelTimer.Timer.OnTimerOn += LockHero;
+            startLevelTimer.Timer.OnTimerOff += StartGame;
+        }
+
+        private void PrepareHero()
+        {
+            var heroViewController = heroFactory.CreateHero();
+            heroFactory.CreateHeroCamera();
+
+            var skinDatas = staticData.ForSkins().gameplaySkinDatas;
+            var userSkin = saveService.Load().userSkins;
+
+            heroViewController.HeroSpriteRenderer.sprite =
+                skinDatas.FirstOrDefault(x => x.id == userSkin.selectionSkinId)!.icon;
+
+            heroFactory.CreateHeroController();
+            heroFactory.GetHeroController.HeroDeath.Subscribe(SubscribeHeroDeathState);
+        }
+
+        private void LockHero() =>
+            heroFactory.Hero.JumpController.IsCanJump = false;
+
+        private void SubscribeHeroDeathState() =>
+            LoadGamyOverState();
+
+        private void StartLevelTimer()
+        {
+            var startLevelTimer = uiFactory.GameplayUIRoot.GameplayCanvasView.StartLevelTimerView;
+            startLevelTimer.RootPanel.gameObject.SetActive(true);
+            startLevelTimer.Timer.StartCountdown();
+        }
+
+        private void StartGame()
+        {
+            gameFactory.GetCahaeLevelGeneration.StartEndlessLevelGeneration();
 
             var startLevelTimer = uiFactory.GameplayUIRoot.GameplayCanvasView.StartLevelTimerView;
             uiFactory.GameplayUIRoot.GameplayCanvasView.ScoreTimerView.ScoreVisualizer.StartAutoVisualizeText();
-            startLevelTimer.Timer.OnTimerOff -= ActivateEndlessLevelGeneration;
+
+            startLevelTimer.Timer.OnTimerOn -= LockHero;
+            startLevelTimer.Timer.OnTimerOff -= StartGame;
+
             heroFactory.Hero.JumpController.IsCanJump = true;
             startLevelTimer.RootPanel.gameObject.SetActive(false);
         }
@@ -189,5 +173,8 @@ namespace Internal.Codebase.Infrastructure.GeneralGameStateMachine.States
 
         private void LoadLoadMainMenuState() =>
             gameStateMachine.EnterState<LoadMainMenuState>();
+
+        private void LoadGamyOverState() =>
+            gameStateMachine.EnterState<GameOverState>();
     }
 }

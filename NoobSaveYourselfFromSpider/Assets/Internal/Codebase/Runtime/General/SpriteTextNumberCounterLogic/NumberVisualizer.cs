@@ -5,8 +5,10 @@
 //
 // **************************************************************** //
 
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace Internal.Codebase.Runtime.General.SpriteTextNumberCounterLogic
 {
@@ -39,29 +41,36 @@ namespace Internal.Codebase.Runtime.General.SpriteTextNumberCounterLogic
             if (CanNotValidNumber(number))
                 return;
 
-            var numberString = $"{number:0000}";
-
-            var length = numberString.Length;
-            for (var i = 0; i < length; i++)
+            try
             {
-                var digitChar = numberString[i];
-                var digit = digitChar - '0';
+                var numberString = $"{number:0000}";
 
-                if (digit < 0 || digit >= numberSprites.Length)
-                    continue;
-
-                // if (i > numberImages.Length)
-                //     continue;
-
-                var image = numberImages[i];
-                // if (image == null)
-                //     continue;
-
-                if (!image.gameObject.activeSelf)
+                var length = numberString.Length;
+                for (var i = 0; i < length; i++)
                 {
-                    image.gameObject.SetActive(true);
-                    image.sprite = numberSprites[digit];
+                    var digitChar = numberString[i];
+                    var digit = digitChar - '0';
+
+                    if (digit < 0 || digit >= numberSprites.Length)
+                        continue;
+
+                    // if (i > numberImages.Length)
+                    //     continue;
+
+                    var image = numberImages[i];
+                    // if (image == null)
+                    //     continue;
+
+                    if (!image.gameObject.activeSelf)
+                    {
+                        image.gameObject.SetActive(true);
+                        image.sprite = numberSprites[digit];
+                    }
                 }
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                print(ex);
             }
         }
 
@@ -91,19 +100,26 @@ namespace Internal.Codebase.Runtime.General.SpriteTextNumberCounterLogic
             InitVisualizeText();
         }
 
-        private void InitVisualizeText()
+        public void InitVisualizeText()
         {
-            var numberString = currentNumber.ToString("0000");
-
-            for (var i = 0; i < numberString.Length; i++)
+            try
             {
-                var digitChar = numberString[i];
-                var digit = digitChar - '0';
+                var numberString = currentNumber.ToString("0000");
 
-                if (digit >= 0 && digit < numberSprites.Length)
+                for (var i = 0; i < numberString.Length; i++)
                 {
-                    numberImages[i].sprite = numberSprites[digit];
+                    var digitChar = numberString[i];
+                    var digit = digitChar - '0';
+
+                    if (digit >= 0 && digit < numberSprites.Length)
+                    {
+                        numberImages[i].sprite = numberSprites[digit];
+                    }
                 }
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                Debug.Log("Please fix this component");
             }
         }
 
