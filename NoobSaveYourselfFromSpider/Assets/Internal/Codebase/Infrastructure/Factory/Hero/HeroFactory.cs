@@ -5,13 +5,11 @@
 //
 // **************************************************************** //
 
-using System;
+using Zenject;
 using Cinemachine;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.StaticData;
-using Internal.Codebase.Infrastructure.Services.Storage;
-using UnityEngine;
-using Zenject;
+using Internal.Codebase.Runtime.GameplayScene.Hero.View;
 
 namespace Internal.Codebase.Infrastructure.Factory.Hero
 {
@@ -19,39 +17,29 @@ namespace Internal.Codebase.Infrastructure.Factory.Hero
     {
         private readonly IAssetProvider assetProvider;
         private readonly IStaticDataService staticData;
-        private readonly IStorageService storageService;
-
-        public GameObject Hero { get; private set; }
+        public HeroViewController Hero { get; private set; }
+        public CinemachineVirtualCamera HeroCamera { get; private set; }
 
         [Inject]
-        public HeroFactory(IAssetProvider assetProvider, IStaticDataService staticData, IStorageService storageService)
+        public HeroFactory(IAssetProvider assetProvider, IStaticDataService staticData)
         {
             this.assetProvider = assetProvider;
             this.staticData = staticData;
-            this.storageService = storageService;
         }
 
-        public Runtime.Hero.HeroViewController CreateHero()
-        {
-            var heroConfig = staticData.ForHero();
-
-            // TODO: Added override T Instantiate<T>()
-            var hero = assetProvider.Instantiate(heroConfig.HeroViewControllerPrefab.gameObject).GetComponent<Runtime.Hero.HeroViewController>();
-
-            Hero = hero.gameObject;
-
-            return hero;
-        }
+        public HeroViewController CreateHero() =>
+            Hero = assetProvider.Instantiate(staticData.ForHero().HeroViewControllerPrefab);
 
         public void CreateHeroCamera()
         {
             var heroConfig = staticData.ForHero();
 
-            var heroCanera = assetProvider
-                .Instantiate(heroConfig.HeroVirtualCamera.gameObject)
-                .GetComponent<CinemachineVirtualCamera>();
+            HeroCamera = assetProvider.Instantiate(heroConfig.HeroVirtualCamera);
 
-            heroCanera.Follow = Hero.transform;
+            HeroCamera.Follow = Hero.transform;
         }
+
+        public void Dispose() =>
+            Hero = null;
     }
 }

@@ -19,20 +19,14 @@ namespace Internal.Codebase.Infrastructure.Services.SceneLoader
         private readonly ICoroutineRunner coroutineRunner;
 
         [Inject]
-        public SceneLoaderService(ICoroutineRunner coroutineRunner)
-        {
+        public SceneLoaderService(ICoroutineRunner coroutineRunner) => 
             this.coroutineRunner = coroutineRunner;
-        }
 
-        public void LoadScene(string sceneName, Action onSceneLoadedCallback = null)
-        {
+        public void LoadScene(string sceneName, Action onSceneLoadedCallback = null) => 
             coroutineRunner.StartCoroutine(LoadSceneCoroutine(sceneName, onSceneLoadedCallback));
-        }
 
-        public string GetCurrentSceneName()
-        {
-            return SceneManager.GetActiveScene().name;
-        }
+        public string GetCurrentSceneName() => 
+            SceneManager.GetActiveScene().name;
 
         private IEnumerator LoadSceneCoroutine(string sceneName, Action onSceneLoadedCallback)
         {

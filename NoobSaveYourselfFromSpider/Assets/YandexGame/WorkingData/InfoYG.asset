@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa747916aa66674d96ea40ca8a480b2, type: 3}
   m_Name: InfoYG
   m_EditorClassIdentifier: 
-  scopes: 1
+  scopes: 0
   playerPhotoSize: 0
   leaderboardEnable: 0
   saveCloud: 1
-  flush: 0
+  flush: 1
   localSaveSync: 1
   saveCloudInterval: 5
   metricaEnable: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
     it: 
     de: 
     hi: 
-  debug: 1
+  debug: 0
   archivingBuild: 1
   bakcgroundImage: 2
   pixelRatioEnable: 0

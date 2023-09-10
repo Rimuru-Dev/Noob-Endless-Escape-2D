@@ -5,8 +5,11 @@
 //
 // **************************************************************** //
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace Internal.Codebase.Utilities.Constants
 {
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public readonly struct Tag
     {
         public const string Untagged = nameof(Untagged);
@@ -16,5 +19,6 @@ namespace Internal.Codebase.Utilities.Constants
         public const string MainCamera = nameof(MainCamera);
         public const string Player = nameof(Player);
         public const string GameController = nameof(GameController);
+        public const string Ground = nameof(Ground);
     }
 }

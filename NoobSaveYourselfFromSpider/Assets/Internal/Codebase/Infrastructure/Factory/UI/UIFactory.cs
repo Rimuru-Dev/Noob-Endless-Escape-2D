@@ -5,14 +5,11 @@
 //
 // **************************************************************** //
 
-using System;
+using Zenject;
+using Internal.Codebase.Runtime.General.Curtain;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.StaticData;
-using Internal.Codebase.Infrastructure.Services.Storage;
-using Internal.Codebase.Runtime.Curtain;
-using Internal.Codebase.Runtime.MainMenu;
-using UnityEngine;
-using Zenject;
+using UIRoot = Internal.Codebase.Runtime.MainMenu.View.UIRoot;
 
 namespace Internal.Codebase.Infrastructure.Factory.UI
 {
@@ -20,26 +17,47 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
     {
         private readonly IAssetProvider assetProvider;
         private readonly IStaticDataService staticData;
-        private readonly IStorageService storageService;
 
-        private Transform mainMenuRoot;
+        private UIRoot mainMenuUIRoot;
+        private Runtime.GameplayScene.UI.View.UIRoot gameplayUIRoot;
 
         [Inject]
-        public UIFactory(IAssetProvider assetProvider, IStaticDataService staticData,
-            IStorageService storageService)
+        public UIFactory(IAssetProvider assetProvider, IStaticDataService staticData)
         {
             this.assetProvider = assetProvider;
             this.staticData = staticData;
-            this.storageService = storageService;
         }
 
-        public Transform CreateMainMenuRoot()
+        public UIRoot MainMenuUIRoot
         {
-            var config = staticData.ForMainMenu();
+            get
+            {
+                if (mainMenuUIRoot == null)
+                    CreateMainMenuUIRoot();
 
-            mainMenuRoot = assetProvider.Instantiate(config.UIRoot.gameObject).transform;
+                return mainMenuUIRoot;
+            }
+            private set
+            {
+                if (mainMenuUIRoot == null && value != null)
+                    mainMenuUIRoot = value;
+            }
+        }
 
-            return mainMenuRoot;
+        public Runtime.GameplayScene.UI.View.UIRoot GameplayUIRoot
+        {
+            get
+            {
+                if (gameplayUIRoot == null)
+                    CreateGameplayUIRoot();
+
+                return gameplayUIRoot;
+            }
+            private set
+            {
+                if (gameplayUIRoot == null && value != null)
+                    gameplayUIRoot = value;
+            }
         }
 
         public CurtainView CreateCurtain()
@@ -53,24 +71,59 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
             return view;
         }
 
-        public GameObject CreateDynamicCanvas()
+        public IUIFactory CreateMainMenuUIRoot()
         {
-            var config = staticData.ForMainMenu();
+            var config = staticData.ForMainMenuUI();
 
-            var instance = assetProvider.Instantiate(config.DynamicCanvas.gameObject, mainMenuRoot);
+            var root = assetProvider.Instantiate(config.UIRoot);
 
-            return instance;
+            MainMenuUIRoot = root;
+
+            return this;
         }
 
-        public MainMenuCanvasView CreateMainMenuCanvas()
+        public IUIFactory CreateMainMenuBackgraund()
         {
-            var config = staticData.ForMainMenu();
+            var config = staticData.ForMainMenuUI();
 
-            var view = assetProvider
-                .Instantiate(config.MainMenuCanvas.gameObject, mainMenuRoot)
-                .GetComponent<MainMenuCanvasView>();
+            var canvasView = assetProvider.Instantiate(config.BackgroundCanvasView, MainMenuUIRoot.transform);
 
-            return view;
+            MainMenuUIRoot.BackgroundCanvasView = canvasView;
+
+            return this;
+        }
+
+        public IUIFactory CreateMainMenu()
+        {
+            var config = staticData.ForMainMenuUI();
+
+            var canvasView = assetProvider.Instantiate(config.MenuCanvasView, MainMenuUIRoot.transform);
+
+            MainMenuUIRoot.MenuCanvasView = canvasView;
+
+            return this;
+        }
+
+        public IUIFactory CreateGameplayUIRoot()
+        {
+            var config = staticData.ForGameplaySceneUI();
+
+            var root = assetProvider.Instantiate(config.UIRoot);
+
+            GameplayUIRoot = root;
+
+            return this;
+        }
+
+        public IUIFactory CreateGameplayCanvas()
+        {
+            var config = staticData.ForGameplaySceneUI();
+
+            var gameplayCanvas = assetProvider.Instantiate(config.GameplayCanvas, GameplayUIRoot.transform);
+
+            GameplayUIRoot.GameplayCanvasView = gameplayCanvas;
+
+            return this;
         }
     }
 }

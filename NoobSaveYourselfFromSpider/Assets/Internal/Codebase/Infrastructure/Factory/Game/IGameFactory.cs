@@ -5,7 +5,7 @@
 //
 // **************************************************************** //
 
-using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
+using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers;
 
 namespace Internal.Codebase.Infrastructure.Factory.Game
 {

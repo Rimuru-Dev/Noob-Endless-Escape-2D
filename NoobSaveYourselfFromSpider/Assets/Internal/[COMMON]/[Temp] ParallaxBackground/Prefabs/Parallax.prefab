@@ -629,6 +629,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8436120045582438693}
   - component: {fileID: 1773915876055685465}
+  - component: {fileID: 5348075025921140803}
   m_Layer: 7
   m_Name: Parallax
   m_TagString: Untagged
@@ -667,6 +668,25 @@ MonoBehaviour:
   flattenMode: 0
   flattenSpace: 0
   destroyAfterFlatten: 1
+--- !u!114 &5348075025921140803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5123973853345814511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1048be60e5784c20a1ee27c014e3faf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BackgroundScrollingList>k__BackingField:
+  - {fileID: 1739196360685177057}
+  - {fileID: 8157560643640201449}
+  - {fileID: 4895743652437275843}
+  - {fileID: 1592551468618814458}
+  - {fileID: 2181534534027941870}
+  - {fileID: 833546362043369097}
 --- !u!1 &5211615063415836399
 GameObject:
   m_ObjectHideFlags: 0

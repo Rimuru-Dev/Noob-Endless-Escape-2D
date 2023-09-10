@@ -7,10 +7,12 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Internal.Codebase.Infrastructure.AssetManagement;
-using Internal.Codebase.Infrastructure.Services.PersistenProgress;
+using Internal.Codebase.Infrastructure.Services.ActionUpdater;
+using Internal.Codebase.Infrastructure.Services.CloudSave;
+using Internal.Codebase.Infrastructure.Services.CoroutineRunner;
 using Internal.Codebase.Infrastructure.Services.StaticData;
-using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Configs;
-using Internal.Codebase.Runtime.EndlessLevelGenerationSolution.Handlers;
+using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Configs;
+using Internal.Codebase.Runtime.GameplayScene.LevelGeneration.Handlers;
 using YG;
 
 namespace Internal.Codebase.Infrastructure.Factory.Game
@@ -20,23 +22,27 @@ namespace Internal.Codebase.Infrastructure.Factory.Game
     {
         private readonly IAssetProvider assetProvider;
         private readonly IStaticDataService staticDataService;
-        private readonly IPersistenProgressService persistenProgressService;
+        private readonly IYandexSaveService yandexSaveService;
+        private readonly IActionUpdaterService actionUpdaterService;
+        private readonly ICoroutineRunner coroutineRunner;
 
-        public GameFactory(IAssetProvider assetProvider, IStaticDataService staticDataService,
-            IPersistenProgressService persistenProgressService)
+        public GameFactory(
+            IAssetProvider assetProvider,
+            IStaticDataService staticDataService,
+            IYandexSaveService yandexSaveService,
+            IActionUpdaterService actionUpdaterService,
+            ICoroutineRunner coroutineRunner)
         {
             this.assetProvider = assetProvider;
             this.staticDataService = staticDataService;
-            this.persistenProgressService = persistenProgressService;
+            this.yandexSaveService = yandexSaveService;
+            this.actionUpdaterService = actionUpdaterService;
+            this.coroutineRunner = coroutineRunner;
         }
 
         public EndlessLevelGenerationHandler CreateLevelGenerator()
         {
-            var levelGenerationHandler =
-                assetProvider.Instantiate<EndlessLevelGenerationHandler>(AssetPath.LevelGeneratorHandler);
-
-            var config = YandexGame.savesData.storage;
-
+            var config = yandexSaveService.Load();
             var selectionBiom = config.userBioms.selectionBiomId;
 
             var biom = selectionBiom switch
@@ -46,7 +52,13 @@ namespace Internal.Codebase.Infrastructure.Factory.Game
                 _ => staticDataService.GreenPlains
             };
 
-            levelGenerationHandler.Constructor(biom, YandexGame.savesData.storage, persistenProgressService);
+            var levelGenerationHandler = new EndlessLevelGenerationHandler(
+                coroutineRunner,
+                yandexSaveService,
+                actionUpdaterService,
+                biom);
+
+            levelGenerationHandler.Prepare();
 
             return levelGenerationHandler;
         }

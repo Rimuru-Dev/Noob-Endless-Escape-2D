@@ -15,9 +15,9 @@ namespace Internal.Codebase.Runtime.MainMenu.Animation
     [DisallowMultipleComponent]
     public sealed class ImageClickAnimation : MonoBehaviour, IPointerClickHandler
     {
-        [SerializeField] private float scaleMultiplier = 1.2f;
-        [SerializeField] private float animationDuration = 0.2f;
-        [SerializeField] private int animationRepeat = 2;
+        [SerializeField] private float scaleMultiplier = 1.32f;
+        [SerializeField] private float animationDuration = 0.3f;
+        [SerializeField] private int animationRepeat = 4;
 
         private bool isAnimating;
         private Vector3 originalScale;

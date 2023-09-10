@@ -35,7 +35,7 @@ namespace Internal.Codebase.Infrastructure.AssetManagement
             return Object.Instantiate(prefab);
         }
 
-        public T Instantiate<T>(string path, Transform parent = null) where T : UnityEngine.Object
+        public T Instantiate<T>(string path, Transform parent = null) where T : Object
         {
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentException(path);
@@ -79,6 +79,14 @@ namespace Internal.Codebase.Infrastructure.AssetManagement
                 throw new NullReferenceException();
 
             return Object.Instantiate(prefab, at, rotation);
+        }
+
+        public TPrefab Instantiate<TPrefab>(TPrefab prefab, Transform parent = null) where TPrefab : Object
+        {
+            if (prefab == null)
+                throw new ArgumentNullException(nameof(prefab));
+
+            return Object.Instantiate(prefab, parent);
         }
     }
 }
