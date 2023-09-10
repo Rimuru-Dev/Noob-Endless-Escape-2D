@@ -5,11 +5,10 @@
 //
 // **************************************************************** //
 
+using Zenject;
+using Internal.Codebase.Runtime.General.Curtain;
 using Internal.Codebase.Infrastructure.AssetManagement;
 using Internal.Codebase.Infrastructure.Services.StaticData;
-using Internal.Codebase.Runtime.GameplayScene.UI.View;
-using Internal.Codebase.Runtime.General.Curtain;
-using Zenject;
 using UIRoot = Internal.Codebase.Runtime.MainMenu.View.UIRoot;
 
 namespace Internal.Codebase.Infrastructure.Factory.UI
@@ -18,8 +17,16 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
     {
         private readonly IAssetProvider assetProvider;
         private readonly IStaticDataService staticData;
+
         private UIRoot mainMenuUIRoot;
         private Runtime.GameplayScene.UI.View.UIRoot gameplayUIRoot;
+
+        [Inject]
+        public UIFactory(IAssetProvider assetProvider, IStaticDataService staticData)
+        {
+            this.assetProvider = assetProvider;
+            this.staticData = staticData;
+        }
 
         public UIRoot MainMenuUIRoot
         {
@@ -51,13 +58,6 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
                 if (gameplayUIRoot == null && value != null)
                     gameplayUIRoot = value;
             }
-        }
-
-        [Inject]
-        public UIFactory(IAssetProvider assetProvider, IStaticDataService staticData)
-        {
-            this.assetProvider = assetProvider;
-            this.staticData = staticData;
         }
 
         public CurtainView CreateCurtain()
@@ -122,7 +122,7 @@ namespace Internal.Codebase.Infrastructure.Factory.UI
             var gameplayCanvas = assetProvider.Instantiate(config.GameplayCanvas, GameplayUIRoot.transform);
 
             GameplayUIRoot.GameplayCanvasView = gameplayCanvas;
-            
+
             return this;
         }
     }
