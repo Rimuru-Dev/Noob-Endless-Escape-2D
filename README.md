@@ -1,4 +1,4 @@
-# Noob-Endless-Escape-2D
+# Made in game jam. Noob Endless Escape 2D.
 
 [Telegram](https://t.me/DevLogUnity)
 
@@ -31,4 +31,7 @@
     <img alt="" src="https://img.shields.io/github/watchers/Rimuru-Dev/Noob-Endless-Escape-2D?style=flat">
   </a>
 </p>
+
+![background](https://github.com/Rimuru-Dev/Noob-Endless-Escape-2D/assets/85500556/2c5355e3-0732-4d60-abde-912b6b4139b8)
+
  
