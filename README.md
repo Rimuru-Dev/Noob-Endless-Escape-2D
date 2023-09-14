@@ -34,4 +34,7 @@
 
 ![background](https://github.com/Rimuru-Dev/Noob-Endless-Escape-2D/assets/85500556/2c5355e3-0732-4d60-abde-912b6b4139b8)
 
- 
+ # TODO:
+ - Refactoring: Runtime -> Gameplay Scene.
+ - Added index.html and deploy in github.
+ - Full refactoring and restructurization hero input logic.
